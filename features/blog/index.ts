@@ -1,1 +1,1 @@
-export { BlogPage } from "@/features/blog/components/blog-page";
+export { BlogPage } from '@/features/blog/components/blog-page';

@@ -1,13 +1,13 @@
-import { Container } from "@/components/shared/container";
-import { FadeIn } from "@/components/shared/motion/fade-in";
-import { ContactForm } from "@/features/contact/components/contact-form";
-import { OfficesMap } from "@/features/contact/components/offices-map";
+import { Container } from '@/components/shared/container';
+import { FadeIn } from '@/components/shared/motion/fade-in';
+import { ContactForm } from '@/features/contact/components/contact-form';
+import { OfficesMap } from '@/features/contact/components/offices-map';
 
 export function ContactFormSection() {
   return (
-    <section id="message" className="scroll-mt-28 bg-surface py-16 md:py-20">
+    <section id='message' className='scroll-mt-28 bg-surface py-16 md:py-20'>
       <Container>
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className='grid gap-8 lg:grid-cols-[1.1fr_0.9fr]'>
           <FadeIn>
             <ContactForm />
           </FadeIn>

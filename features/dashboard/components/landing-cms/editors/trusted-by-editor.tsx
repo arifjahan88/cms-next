@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { LandingContent } from "@/features/dashboard/data/landing-cms";
-import { RepeatableList } from "@/features/dashboard/components/landing-cms/shared/repeatable-list";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
+import { RepeatableList } from '@/features/dashboard/components/landing-cms/shared/repeatable-list';
 
-type TrustedBy = LandingContent["trustedBy"];
+type TrustedBy = LandingContent['trustedBy'];
 
 export function TrustedByEditor({
   value,
@@ -15,8 +15,8 @@ export function TrustedByEditor({
   onChange: (next: TrustedBy) => void;
 }) {
   return (
-    <div className="space-y-4">
-      <div className="space-y-1.5">
+    <div className='space-y-4'>
+      <div className='space-y-1.5'>
         <Label>Section Title</Label>
         <Input
           value={value.title}
@@ -24,25 +24,19 @@ export function TrustedByEditor({
         />
       </div>
       <RepeatableList
-        title="Brands"
+        title='Brands'
         items={value.brands}
         onChange={(brands) => onChange({ ...value, brands })}
-        createItem={() => ({ name: "New Brand", logo: "/logos/trusted/new.svg" })}
+        createItem={() => ({ name: 'New Brand', logo: '/logos/trusted/new.svg' })}
         renderItem={(item, _i, update) => (
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="space-y-1.5">
+          <div className='grid gap-3 sm:grid-cols-2'>
+            <div className='space-y-1.5'>
               <Label>Name</Label>
-              <Input
-                value={item.name}
-                onChange={(e) => update({ name: e.target.value })}
-              />
+              <Input value={item.name} onChange={(e) => update({ name: e.target.value })} />
             </div>
-            <div className="space-y-1.5">
+            <div className='space-y-1.5'>
               <Label>Logo path</Label>
-              <Input
-                value={item.logo}
-                onChange={(e) => update({ logo: e.target.value })}
-              />
+              <Input value={item.logo} onChange={(e) => update({ logo: e.target.value })} />
             </div>
           </div>
         )}

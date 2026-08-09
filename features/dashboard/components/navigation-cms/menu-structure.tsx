@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Reorder } from "motion/react";
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MenuItemRow } from "@/features/dashboard/components/navigation-cms/shared/menu-item-row";
-import type { MenuItem, NavMenu } from "@/features/dashboard/data/navigation-cms";
+import { useState } from 'react';
+import { Reorder } from 'motion/react';
+import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MenuItemRow } from '@/features/dashboard/components/navigation-cms/shared/menu-item-row';
+import type { MenuItem, NavMenu } from '@/features/dashboard/data/navigation-cms';
 
 function TreeBranch({
   items,
@@ -27,11 +27,11 @@ function TreeBranch({
 }) {
   return (
     <Reorder.Group
-      as="ul"
-      axis="y"
+      as='ul'
+      axis='y'
       values={items}
       onReorder={onReorder}
-      className="flex flex-col gap-2"
+      className='flex flex-col gap-2'
     >
       {items.map((item) => {
         const isOpen = expanded[item.id] ?? false;
@@ -49,7 +49,7 @@ function TreeBranch({
             onSelect={() => onSelect(item.id)}
           >
             {hasChildren && isOpen ? (
-              <div className="mt-2 w-full">
+              <div className='mt-2 w-full'>
                 <TreeBranch
                   items={children}
                   depth={depth + 1}
@@ -60,9 +60,7 @@ function TreeBranch({
                   onReorder={(nextChildren) => {
                     onReorder(
                       items.map((row) =>
-                        row.id === item.id
-                          ? { ...row, children: nextChildren }
-                          : row
+                        row.id === item.id ? { ...row, children: nextChildren } : row
                       )
                     );
                   }}
@@ -98,12 +96,10 @@ export function MenuStructure({
   });
 
   return (
-    <Card className="border-border/80 shadow-sm">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base font-bold">{menu.title}</CardTitle>
-        <p className="text-xs text-muted-foreground">
-          Last updated: {menu.updatedAt}
-        </p>
+    <Card className='border-border/80 shadow-sm'>
+      <CardHeader className='pb-3'>
+        <CardTitle className='text-base font-bold'>{menu.title}</CardTitle>
+        <p className='text-xs text-muted-foreground'>Last updated: {menu.updatedAt}</p>
       </CardHeader>
       <CardContent>
         <TreeBranch
@@ -111,18 +107,16 @@ export function MenuStructure({
           depth={0}
           activeItemId={activeItemId}
           expanded={expanded}
-          onToggle={(id) =>
-            setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))
-          }
+          onToggle={(id) => setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))}
           onSelect={onSelectItem}
           onReorder={onReorderItems}
         />
         <Button
-          variant="outline"
-          className="mt-3 h-10 w-full border-dashed border-primary/40 text-primary"
+          variant='outline'
+          className='mt-3 h-10 w-full border-dashed border-primary/40 text-primary'
           onClick={onAddItem}
         >
-          <Plus data-icon="inline-start" />
+          <Plus data-icon='inline-start' />
           Add Menu Item
         </Button>
       </CardContent>

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import type { LandingContent } from "@/features/dashboard/data/landing-cms";
-import { CtaFields } from "@/features/dashboard/components/landing-cms/shared/cta-fields";
-import { RepeatableList } from "@/features/dashboard/components/landing-cms/shared/repeatable-list";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
+import { CtaFields } from '@/features/dashboard/components/landing-cms/shared/cta-fields';
+import { RepeatableList } from '@/features/dashboard/components/landing-cms/shared/repeatable-list';
 
-type Industries = LandingContent["industries"];
+type Industries = LandingContent['industries'];
 
 export function IndustriesEditor({
   value,
@@ -17,8 +17,8 @@ export function IndustriesEditor({
   onChange: (next: Industries) => void;
 }) {
   return (
-    <div className="space-y-4">
-      <div className="space-y-1.5">
+    <div className='space-y-4'>
+      <div className='space-y-1.5'>
         <Label>Section Title</Label>
         <Input
           value={value.title}
@@ -26,40 +26,34 @@ export function IndustriesEditor({
         />
       </div>
       <CtaFields
-        title="Header Action"
+        title='Header Action'
         value={value.action}
         onChange={(action) => onChange({ ...value, action })}
       />
       <RepeatableList
-        title="Industries"
+        title='Industries'
         items={value.items}
         onChange={(items) => onChange({ ...value, items })}
         createItem={() => ({
           id: crypto.randomUUID(),
-          title: "New Industry",
-          description: "",
-          icon: "building",
-          href: "/industries",
+          title: 'New Industry',
+          description: '',
+          icon: 'building',
+          href: '/industries',
         })}
         renderItem={(item, _i, update) => (
-          <div className="space-y-3">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="space-y-1.5">
+          <div className='space-y-3'>
+            <div className='grid gap-3 sm:grid-cols-2'>
+              <div className='space-y-1.5'>
                 <Label>Title</Label>
-                <Input
-                  value={item.title}
-                  onChange={(e) => update({ title: e.target.value })}
-                />
+                <Input value={item.title} onChange={(e) => update({ title: e.target.value })} />
               </div>
-              <div className="space-y-1.5">
+              <div className='space-y-1.5'>
                 <Label>Icon key</Label>
-                <Input
-                  value={item.icon}
-                  onChange={(e) => update({ icon: e.target.value })}
-                />
+                <Input value={item.icon} onChange={(e) => update({ icon: e.target.value })} />
               </div>
             </div>
-            <div className="space-y-1.5">
+            <div className='space-y-1.5'>
               <Label>Description</Label>
               <Textarea
                 rows={2}
@@ -67,12 +61,9 @@ export function IndustriesEditor({
                 onChange={(e) => update({ description: e.target.value })}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className='space-y-1.5'>
               <Label>Link</Label>
-              <Input
-                value={item.href}
-                onChange={(e) => update({ href: e.target.value })}
-              />
+              <Input value={item.href} onChange={(e) => update({ href: e.target.value })} />
             </div>
           </div>
         )}

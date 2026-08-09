@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export function FilterPills({
   items,
@@ -15,19 +15,16 @@ export function FilterPills({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-wrap gap-2", className)}>
+    <div className={cn('flex flex-wrap gap-2', className)}>
       {items.map((item) => {
         const active = item === value;
         return (
           <Button
             key={item}
-            type="button"
-            size="sm"
-            variant={active ? "default" : "outline"}
-            className={cn(
-              "h-9 rounded-full px-4",
-              !active && "bg-background"
-            )}
+            type='button'
+            size='sm'
+            variant={active ? 'default' : 'outline'}
+            className={cn('h-9 rounded-full px-4', !active && 'bg-background')}
             onClick={() => onChange(item)}
           >
             {item}

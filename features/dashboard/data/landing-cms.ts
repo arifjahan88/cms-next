@@ -5,20 +5,20 @@ import {
   industriesStrip,
   testimonials,
   whyChoose,
-} from "@/features/home/data/home";
-import { trustedBy } from "@/features/home/data/trusted-by";
+} from '@/features/home/data/home';
+import { trustedBy } from '@/features/home/data/trusted-by';
 
-export type SectionStatus = "Published" | "Draft";
+export type SectionStatus = 'Published' | 'Draft';
 
 export type SectionId =
-  | "hero"
-  | "trustedBy"
-  | "services"
-  | "industries"
-  | "whyChoose"
-  | "caseStudies"
-  | "testimonials"
-  | "contactCta";
+  | 'hero'
+  | 'trustedBy'
+  | 'services'
+  | 'industries'
+  | 'whyChoose'
+  | 'caseStudies'
+  | 'testimonials'
+  | 'contactCta';
 
 export type LandingCta = {
   label: string;
@@ -129,76 +129,76 @@ export type LandingPageDocument = {
 
 export const landingSectionsSeed: LandingSectionMeta[] = [
   {
-    id: "hero",
-    title: "Hero Section",
-    status: "Published",
-    icon: "layout",
+    id: 'hero',
+    title: 'Hero Section',
+    status: 'Published',
+    icon: 'layout',
     visible: true,
-    seoTitle: "Zaimah Technologies | Software Development Partner",
+    seoTitle: 'Zaimah Technologies | Software Development Partner',
     seoDescription: homeHero.description,
   },
   {
-    id: "trustedBy",
-    title: "Trusted By",
-    status: "Published",
-    icon: "users",
+    id: 'trustedBy',
+    title: 'Trusted By',
+    status: 'Published',
+    icon: 'users',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
   {
-    id: "services",
-    title: "Core Services",
-    status: "Published",
-    icon: "briefcase",
+    id: 'services',
+    title: 'Core Services',
+    status: 'Published',
+    icon: 'briefcase',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
   {
-    id: "industries",
-    title: "Industries",
-    status: "Published",
-    icon: "building",
+    id: 'industries',
+    title: 'Industries',
+    status: 'Published',
+    icon: 'building',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
   {
-    id: "whyChoose",
-    title: "Why Choose Us",
-    status: "Published",
-    icon: "info",
+    id: 'whyChoose',
+    title: 'Why Choose Us',
+    status: 'Published',
+    icon: 'info',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
   {
-    id: "caseStudies",
-    title: "Case Studies",
-    status: "Published",
-    icon: "folder",
+    id: 'caseStudies',
+    title: 'Case Studies',
+    status: 'Published',
+    icon: 'folder',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
   {
-    id: "testimonials",
-    title: "Testimonials",
-    status: "Published",
-    icon: "message",
+    id: 'testimonials',
+    title: 'Testimonials',
+    status: 'Published',
+    icon: 'message',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
   {
-    id: "contactCta",
-    title: "Contact CTA",
-    status: "Published",
-    icon: "mail",
+    id: 'contactCta',
+    title: 'Contact CTA',
+    status: 'Published',
+    icon: 'mail',
     visible: true,
-    seoTitle: "",
-    seoDescription: "",
+    seoTitle: '',
+    seoDescription: '',
   },
 ];
 
@@ -209,69 +209,69 @@ export const landingContentSeed: LandingContent = {
     highlight: homeHero.highlight,
     description: homeHero.description,
     primaryCta: {
-      label: "Book Free Consultation",
-      href: "/book-consultation",
+      label: 'Book Free Consultation',
+      href: '/book-consultation',
       newTab: false,
     },
     secondaryCta: {
-      label: "View Case Studies",
-      href: "/case-studies",
+      label: 'View Case Studies',
+      href: '/case-studies',
       newTab: false,
     },
     media: {
-      name: "hero-visual.webp",
-      size: "1200 × 900",
-      label: "[Hero Visual]",
+      name: 'hero-visual.webp',
+      size: '1200 × 900',
+      label: '[Hero Visual]',
     },
     stats: homeHero.stats.map((s) => ({
       value: s.value,
       label: s.label,
-      icon: s.icon ?? "briefcase",
+      icon: s.icon ?? 'briefcase',
     })),
   },
   trustedBy: {
-    title: "Trusted by Startups & Enterprises Worldwide",
+    title: 'Trusted by Startups & Enterprises Worldwide',
     brands: trustedBy.map((b) => ({ name: b.name, logo: b.logo })),
   },
   services: {
-    title: "Our Core Services",
+    title: 'Our Core Services',
     action: {
-      label: "Explore all services",
-      href: "/services",
+      label: 'Explore all services',
+      href: '/services',
       newTab: false,
     },
-    itemCtaLabel: "Learn More",
+    itemCtaLabel: 'Learn More',
     items: coreServices.map((s) => ({ ...s })),
   },
   industries: {
-    title: "Industries We Serve",
+    title: 'Industries We Serve',
     action: {
-      label: "View all industries",
-      href: "/industries",
+      label: 'View all industries',
+      href: '/industries',
       newTab: false,
     },
     items: industriesStrip.map((i) => ({ ...i })),
   },
   whyChoose: {
-    title: "Why Choose Zaimah Technologies?",
+    title: 'Why Choose Zaimah Technologies?',
     action: {
-      label: "More About Us",
-      href: "/about",
+      label: 'More About Us',
+      href: '/about',
       newTab: false,
     },
-    experienceBadge: "25+ Years of Experience",
+    experienceBadge: '25+ Years of Experience',
     media: {
-      name: "why-choose.webp",
-      size: "960 × 720",
-      label: "[Team / Office Visual]",
+      name: 'why-choose.webp',
+      size: '960 × 720',
+      label: '[Team / Office Visual]',
     },
     items: whyChoose.map((i) => ({ ...i })),
   },
   caseStudies: {
-    title: "Featured Case Studies",
+    title: 'Featured Case Studies',
     action: {
-      label: "View all case studies",
-      href: "/case-studies",
+      label: 'View all case studies',
+      href: '/case-studies',
       newTab: false,
     },
     items: featuredCaseStudies.map((c) => ({
@@ -285,24 +285,24 @@ export const landingContentSeed: LandingContent = {
     })),
   },
   testimonials: {
-    title: "What Our Clients Say",
-    description: "Trusted by product leaders and founders across industries.",
+    title: 'What Our Clients Say',
+    description: 'Trusted by product leaders and founders across industries.',
     items: testimonials.map((t) => ({ ...t })),
   },
   contactCta: {
-    headline: "Ready to Build Your Next Digital Product?",
+    headline: 'Ready to Build Your Next Digital Product?',
     description:
       "Let's discuss your project and turn your ideas into reality with our expert team.",
     benefits: [
-      "Free Consultation",
-      "NDA Protection",
-      "Flexible Engagement Models",
-      "Transparent Pricing",
-      "On-time Delivery",
+      'Free Consultation',
+      'NDA Protection',
+      'Flexible Engagement Models',
+      'Transparent Pricing',
+      'On-time Delivery',
     ],
-    formTitle: "Tell Us About Your Project",
-    submitLabel: "Submit Request",
-    contactPanelTitle: "Get In Touch",
+    formTitle: 'Tell Us About Your Project',
+    submitLabel: 'Submit Request',
+    contactPanelTitle: 'Get In Touch',
   },
 };
 
@@ -323,14 +323,11 @@ export function landingApiCurl(sectionId: SectionId) {
   -H 'Authorization: Bearer YOUR_API_KEY'`;
 }
 
-export function landingApiJson(
-  sectionId: SectionId,
-  content: LandingContent
-): string {
+export function landingApiJson(sectionId: SectionId, content: LandingContent): string {
   return JSON.stringify(
     {
       section: sectionId,
-      status: "published",
+      status: 'published',
       content: content[sectionId],
     },
     null,

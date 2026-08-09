@@ -1,6 +1,6 @@
-import { footerLinks, mainNav } from "@/features/layout/data/nav";
+import { footerLinks, mainNav } from '@/features/layout/data/nav';
 
-export type MenuItemStatus = "Published" | "Draft";
+export type MenuItemStatus = 'Published' | 'Draft';
 
 export type MenuItem = {
   id: string;
@@ -8,7 +8,7 @@ export type MenuItem = {
   href: string;
   icon?: string;
   status: MenuItemStatus;
-  openIn: "same" | "new";
+  openIn: 'same' | 'new';
   visible: boolean;
   cssClass?: string;
   rel?: string;
@@ -32,17 +32,17 @@ function nid(prefix: string) {
 }
 
 const ICON_BY_LABEL: Record<string, string> = {
-  Home: "globe",
-  Services: "briefcase",
-  Industries: "building",
-  Technologies: "layers",
-  Portfolio: "eye",
-  "Case Studies": "eye",
-  Blog: "message",
-  "About Us": "users",
-  Careers: "briefcase",
-  "Contact Us": "mail",
-  Contact: "mail",
+  Home: 'globe',
+  Services: 'briefcase',
+  Industries: 'building',
+  Technologies: 'layers',
+  Portfolio: 'eye',
+  'Case Studies': 'eye',
+  Blog: 'message',
+  'About Us': 'users',
+  Careers: 'briefcase',
+  'Contact Us': 'mail',
+  Contact: 'mail',
 };
 
 function toMenuItem(
@@ -51,19 +51,19 @@ function toMenuItem(
   children?: { title: string; href: string; description?: string }[]
 ): MenuItem {
   return {
-    id: nid("item"),
+    id: nid('item'),
     label,
     href,
-    icon: ICON_BY_LABEL[label] ?? "layers",
-    status: "Published",
-    openIn: "same",
+    icon: ICON_BY_LABEL[label] ?? 'layers',
+    status: 'Published',
+    openIn: 'same',
     visible: true,
     children: children?.map((c) => ({
-      id: nid("child"),
+      id: nid('child'),
       label: c.title,
       href: c.href,
-      status: "Published" as const,
-      openIn: "same" as const,
+      status: 'Published' as const,
+      openIn: 'same' as const,
       visible: true,
       description: c.description,
     })),
@@ -71,32 +71,26 @@ function toMenuItem(
 }
 
 function buildMainItems(): MenuItem[] {
-  const fromSite = mainNav.map((item) =>
-    toMenuItem(item.title, item.href, item.children)
-  );
-  return [
-    toMenuItem("Home", "/"),
-    ...fromSite,
-    toMenuItem("Contact Us", "/contact"),
-  ];
+  const fromSite = mainNav.map((item) => toMenuItem(item.title, item.href, item.children));
+  return [toMenuItem('Home', '/'), ...fromSite, toMenuItem('Contact Us', '/contact')];
 }
 
 function buildFooterItems(): MenuItem[] {
   return (Object.entries(footerLinks) as [string, { title: string; href: string }[]][]).map(
     ([column, links]) => ({
-      id: nid("footer-col"),
+      id: nid('footer-col'),
       label: column.charAt(0).toUpperCase() + column.slice(1),
-      href: "#",
-      icon: "layers",
-      status: "Published" as const,
-      openIn: "same" as const,
+      href: '#',
+      icon: 'layers',
+      status: 'Published' as const,
+      openIn: 'same' as const,
       visible: true,
       children: links.map((l) => ({
-        id: nid("footer-link"),
+        id: nid('footer-link'),
         label: l.title,
         href: l.href,
-        status: "Published" as const,
-        openIn: "same" as const,
+        status: 'Published' as const,
+        openIn: 'same' as const,
         visible: true,
       })),
     })
@@ -108,49 +102,46 @@ export function createNavigationDocument(): NavMenu[] {
   const mainItems = buildMainItems();
   return [
     {
-      id: "main",
-      title: "Main Menu",
-      description: "Primary navigation menu",
-      status: "Published",
-      updatedAt: "2 hours ago",
+      id: 'main',
+      title: 'Main Menu',
+      description: 'Primary navigation menu',
+      status: 'Published',
+      updatedAt: '2 hours ago',
       items: structuredClone(mainItems),
     },
     {
-      id: "footer",
-      title: "Footer Menu",
-      description: "Footer navigation menu",
-      status: "Published",
-      updatedAt: "1 day ago",
+      id: 'footer',
+      title: 'Footer Menu',
+      description: 'Footer navigation menu',
+      status: 'Published',
+      updatedAt: '1 day ago',
       items: buildFooterItems(),
     },
     {
-      id: "mobile",
-      title: "Mobile Menu",
-      description: "Mobile navigation menu",
-      status: "Published",
-      updatedAt: "3 hours ago",
+      id: 'mobile',
+      title: 'Mobile Menu',
+      description: 'Mobile navigation menu',
+      status: 'Published',
+      updatedAt: '3 hours ago',
       items: structuredClone(mainItems),
     },
   ];
 }
 
-export function createEmptyMenuItem(label = "New Item"): MenuItem {
+export function createEmptyMenuItem(label = 'New Item'): MenuItem {
   return {
-    id: nid("item"),
+    id: nid('item'),
     label,
-    href: "/",
-    icon: "layers",
-    status: "Draft",
-    openIn: "same",
+    href: '/',
+    icon: 'layers',
+    status: 'Draft',
+    openIn: 'same',
     visible: true,
     children: [],
   };
 }
 
-export function findMenuItem(
-  items: MenuItem[],
-  id: string
-): MenuItem | undefined {
+export function findMenuItem(items: MenuItem[], id: string): MenuItem | undefined {
   for (const item of items) {
     if (item.id === id) return item;
     if (item.children) {
@@ -180,16 +171,11 @@ export function updateMenuItemInTree(
   });
 }
 
-export function removeMenuItemFromTree(
-  items: MenuItem[],
-  id: string
-): MenuItem[] {
+export function removeMenuItemFromTree(items: MenuItem[], id: string): MenuItem[] {
   return items
     .filter((item) => item.id !== id)
     .map((item) =>
-      item.children
-        ? { ...item, children: removeMenuItemFromTree(item.children, id) }
-        : item
+      item.children ? { ...item, children: removeMenuItemFromTree(item.children, id) } : item
     );
 }
 

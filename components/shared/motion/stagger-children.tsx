@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import { staggerContainer, staggerItem } from "@/lib/animations";
-import { cn } from "@/lib/utils";
+import { motion } from 'motion/react';
+import { staggerContainer, staggerItem } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 export function StaggerChildren({
   children,
@@ -14,9 +14,9 @@ export function StaggerChildren({
   return (
     <motion.div
       className={cn(className)}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ once: true, margin: '-40px' }}
       variants={staggerContainer}
     >
       {children}

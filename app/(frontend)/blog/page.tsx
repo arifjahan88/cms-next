@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import { BlogPage } from "@/features/blog";
+import type { Metadata } from 'next';
+import { BlogPage } from '@/features/blog';
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: 'Blog',
   description:
-    "Insights, ideas, and impact from Zaimah Technologies—software, product, and industry perspectives.",
+    'Insights, ideas, and impact from Zaimah Technologies—software, product, and industry perspectives.',
 };
 
 export default function Page() {

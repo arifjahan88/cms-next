@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from 'lucide-react';
 import {
   ArrowLeftRight,
   Briefcase,
@@ -18,7 +18,7 @@ import {
   UserRound,
   MessageSquareQuote,
   Layers,
-} from "lucide-react";
+} from 'lucide-react';
 
 export type DashboardNavItem = {
   title: string;
@@ -40,110 +40,110 @@ export const dashboardNav: DashboardNavGroup[] = [
   {
     items: [
       {
-        title: "Dashboard",
-        href: "/dashboard",
+        title: 'Dashboard',
+        href: '/dashboard',
         icon: LayoutDashboard,
       },
     ],
   },
   {
-    label: "Manage Content",
+    label: 'Manage Content',
     items: [
       {
-        title: "Landing Page",
-        href: "/dashboard/landing-page",
+        title: 'Landing Page',
+        href: '/dashboard/landing-page',
         icon: LayoutTemplate,
         chevron: true,
       },
       {
-        title: "Navigation",
-        href: "/dashboard/navigation",
+        title: 'Navigation',
+        href: '/dashboard/navigation',
         icon: Menu,
         chevron: true,
       },
       {
-        title: "Sections",
-        href: soon("Sections"),
+        title: 'Sections',
+        href: soon('Sections'),
         icon: Layers,
       },
       {
-        title: "Media Library",
-        href: soon("Media Library"),
+        title: 'Media Library',
+        href: soon('Media Library'),
         icon: Image,
       },
       {
-        title: "Forms",
-        href: soon("Forms"),
+        title: 'Forms',
+        href: soon('Forms'),
         icon: FormInput,
       },
       {
-        title: "SEO Settings",
-        href: soon("SEO Settings"),
+        title: 'SEO Settings',
+        href: soon('SEO Settings'),
         icon: Search,
       },
     ],
   },
   {
-    label: "Collections",
+    label: 'Collections',
     items: [
       {
-        title: "Services",
-        href: soon("Services"),
+        title: 'Services',
+        href: soon('Services'),
         icon: Briefcase,
       },
       {
-        title: "Industries",
-        href: soon("Industries"),
+        title: 'Industries',
+        href: soon('Industries'),
         icon: Building2,
       },
       {
-        title: "Technologies",
-        href: soon("Technologies"),
+        title: 'Technologies',
+        href: soon('Technologies'),
         icon: Cpu,
       },
       {
-        title: "Case Studies",
-        href: soon("Case Studies"),
+        title: 'Case Studies',
+        href: soon('Case Studies'),
         icon: FolderKanban,
       },
       {
-        title: "Blogs",
-        href: soon("Blogs"),
+        title: 'Blogs',
+        href: soon('Blogs'),
         icon: Newspaper,
       },
       {
-        title: "Careers",
-        href: soon("Careers"),
+        title: 'Careers',
+        href: soon('Careers'),
         icon: UserRound,
       },
       {
-        title: "Team Members",
-        href: soon("Team Members"),
+        title: 'Team Members',
+        href: soon('Team Members'),
         icon: Users,
       },
       {
-        title: "Testimonials",
-        href: soon("Testimonials"),
+        title: 'Testimonials',
+        href: soon('Testimonials'),
         icon: MessageSquareQuote,
       },
     ],
   },
   {
-    label: "Settings",
+    label: 'Settings',
     items: [
       {
-        title: "Site Settings",
-        href: soon("Site Settings"),
+        title: 'Site Settings',
+        href: soon('Site Settings'),
         icon: Settings,
       },
       {
-        title: "API & Integrations",
-        href: soon("API"),
+        title: 'API & Integrations',
+        href: soon('API'),
         icon: Plug,
       },
       {
-        title: "Redirects",
-        href: soon("Redirects"),
+        title: 'Redirects',
+        href: soon('Redirects'),
         icon: ArrowLeftRight,
       },
     ],
@@ -151,17 +151,17 @@ export const dashboardNav: DashboardNavGroup[] = [
 ];
 
 export function getDashboardPageTitle(pathname: string): string {
-  if (pathname.startsWith("/dashboard/landing-page")) {
-    return "Landing Page";
+  if (pathname.startsWith('/dashboard/landing-page')) {
+    return 'Landing Page';
   }
-  if (pathname.startsWith("/dashboard/navigation")) {
-    return "Navigation";
+  if (pathname.startsWith('/dashboard/navigation')) {
+    return 'Navigation';
   }
-  if (pathname.startsWith("/dashboard/coming-soon")) {
-    return "Coming Soon";
+  if (pathname.startsWith('/dashboard/coming-soon')) {
+    return 'Coming Soon';
   }
-  if (pathname === "/dashboard" || pathname === "/dashboard/") {
-    return "Dashboard";
+  if (pathname === '/dashboard' || pathname === '/dashboard/') {
+    return 'Dashboard';
   }
-  return "Dashboard";
+  return 'Dashboard';
 }
