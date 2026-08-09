@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -12,50 +11,51 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { FadeIn } from "@/components/shared/motion/fade-in";
 import { comparisonRows } from "@/features/services/data/services";
 
-export function ServicesComparison({ embedded = false }: { embedded?: boolean }) {
+export function ServicesComparison({
+  embedded = false,
+}: {
+  embedded?: boolean;
+}) {
   const content = (
     <>
       <SectionHeader
-        title="Engagement Models Compared"
-        description="Choose the delivery model that matches your scope, budget, and product maturity."
-        className={embedded ? "mb-6" : undefined}
+        title="Services Comparison"
+        description="Find the right service fit by use case, timeline, and engagement style."
+        className={embedded ? "mb-5" : undefined}
       />
       <FadeIn>
         <div className="overflow-hidden rounded-xl border bg-background shadow-sm">
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/40">
-                <TableHead className="w-30 px-3 text-xs sm:w-40 sm:px-4 sm:text-sm">
-                  Feature
+                <TableHead className="w-28 px-2.5 text-xs sm:w-32 sm:px-3 sm:text-sm">
+                  Service
                 </TableHead>
-                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">Fixed Price</TableHead>
-                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">Time & Material</TableHead>
-                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">Dedicated Team</TableHead>
+                <TableHead className="px-2.5 text-xs sm:px-3 sm:text-sm">
+                  Best For
+                </TableHead>
+                <TableHead className="px-2.5 text-xs sm:px-3 sm:text-sm">
+                  Timeline
+                </TableHead>
+                <TableHead className="px-2.5 text-xs sm:px-3 sm:text-sm">
+                  Engagement
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {comparisonRows.map((row) => (
-                <TableRow key={row.feature}>
-                  <TableCell className="px-3 text-xs font-medium whitespace-normal sm:px-4 sm:text-sm">
-                    {row.feature}
+                <TableRow key={row.service}>
+                  <TableCell className="px-2.5 text-xs font-semibold whitespace-normal sm:px-3 sm:text-sm">
+                    {row.service}
                   </TableCell>
-                  <TableCell className="px-3 text-xs whitespace-normal sm:px-4 sm:text-sm">
-                    <span className="inline-flex items-start gap-1.5">
-                      <Check className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                      {row.fixed}
-                    </span>
+                  <TableCell className="px-2.5 text-xs whitespace-normal text-muted-foreground sm:px-3 sm:text-sm">
+                    {row.bestFor}
                   </TableCell>
-                  <TableCell className="px-3 text-xs whitespace-normal sm:px-4 sm:text-sm">
-                    <span className="inline-flex items-start gap-1.5">
-                      <Check className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                      {row.timeMaterial}
-                    </span>
+                  <TableCell className="px-2.5 text-xs whitespace-normal sm:px-3 sm:text-sm">
+                    {row.timeline}
                   </TableCell>
-                  <TableCell className="px-3 text-xs whitespace-normal sm:px-4 sm:text-sm">
-                    <span className="inline-flex items-start gap-1.5">
-                      <Check className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                      {row.dedicated}
-                    </span>
+                  <TableCell className="px-2.5 text-xs whitespace-normal sm:px-3 sm:text-sm">
+                    {row.engagement}
                   </TableCell>
                 </TableRow>
               ))}

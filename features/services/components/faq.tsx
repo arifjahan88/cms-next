@@ -17,11 +17,7 @@ export function ServicesFaq() {
   return (
     <section className="bg-surface py-16 md:py-20">
       <Container>
-        <SectionHeader
-          title="Frequently Asked Questions"
-          description="Quick answers about how we engage, deliver, and support your product."
-          align="center"
-        />
+        <SectionHeader title="Frequently Asked Questions" align="center" />
         <FadeIn>
           <div className="grid gap-4 lg:grid-cols-2">
             <Accordion className="rounded-xl border bg-background px-4 shadow-sm">

@@ -30,7 +30,7 @@ export function ServicesPage() {
 
       <section className="py-16 md:py-20">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,2.2fr)_minmax(0,0.55fr)] lg:gap-5">
             <ServicesIndustriesMini embedded />
             <ServicesFeaturedCases embedded />
             <ServicesWhyChoose embedded />

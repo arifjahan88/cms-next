@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import {
@@ -8,6 +7,7 @@ import {
 } from "@/components/shared/motion/stagger-children";
 import { servicesIndustries } from "@/features/services/data/services";
 import { getIcon } from "@/lib/icons";
+import { cn } from "@/lib/utils";
 
 export function ServicesIndustriesMini({
   embedded = false,
@@ -18,19 +18,15 @@ export function ServicesIndustriesMini({
     <>
       <SectionHeader
         title="Industries We Serve"
-        description="Domain expertise that helps us ship compliant, high-impact products faster."
-        action={
-          embedded
-            ? undefined
-            : { label: "View all industries", href: "/industries" }
-        }
-        className={embedded ? "mb-5" : undefined}
+        action={{ label: "View all industries", href: "/industries" }}
+        size={embedded ? "sm" : "default"}
+        className={embedded ? "mb-3" : undefined}
       />
       <StaggerChildren
         className={
           embedded
-            ? "mb-4 grid gap-3 sm:grid-cols-2"
-            : "mb-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+            ? "grid grid-cols-2 gap-2"
+            : "grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         }
       >
         {servicesIndustries.map((item) => {
@@ -39,29 +35,39 @@ export function ServicesIndustriesMini({
             <StaggerItem key={item.id}>
               <Link
                 href={item.href}
-                className="flex h-full flex-col items-center gap-2 rounded-xl border bg-background px-3 py-4 text-center shadow-sm transition hover:border-primary/40 hover:shadow-md"
+                className={cn(
+                  "flex flex-col items-center text-center shadow-sm transition hover:border-primary/40 hover:shadow-md",
+                  embedded
+                    ? "gap-1.5 rounded-lg border border-border/80 bg-background px-1.5 py-2.5"
+                    : "gap-2 rounded-xl border border-border/80 bg-background px-2 py-3.5"
+                )}
               >
-                <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Icon className="size-4" />
+                <span
+                  className={cn(
+                    "flex items-center justify-center text-primary",
+                    embedded ? "size-7" : "size-9"
+                  )}
+                >
+                  <Icon
+                    className={cn(
+                      "stroke-[1.5]",
+                      embedded ? "size-4" : "size-5"
+                    )}
+                  />
                 </span>
-                <span className="text-sm font-semibold">{item.title}</span>
-                <span className="text-xs text-muted-foreground">
-                  {item.description}
+                <span
+                  className={cn(
+                    "font-semibold leading-tight text-foreground",
+                    embedded ? "text-[10px]" : "text-xs sm:text-sm"
+                  )}
+                >
+                  {item.title}
                 </span>
               </Link>
             </StaggerItem>
           );
         })}
       </StaggerChildren>
-      <div className={embedded ? "" : "text-center"}>
-        <Button
-          variant="outline"
-          size={embedded ? "sm" : "default"}
-          render={<Link href="/industries" />}
-        >
-          Explore Industries
-        </Button>
-      </div>
     </>
   );
 

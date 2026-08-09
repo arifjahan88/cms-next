@@ -4,21 +4,24 @@ import type {
   IndustryItem,
   ServiceItem,
 } from "@/types";
-import { techLogos } from "@/features/home/data/home";
 
 export const servicesHero = {
   breadcrumb: [
     { label: "Home", href: "/" },
     { label: "Services" },
   ],
-  eyebrow: "What we deliver",
-  title: "Software Services Built to",
-  highlight: "Accelerate Growth",
+  eyebrow: "Our Services →",
+  title: "Comprehensive Software Engineering Services to",
+  highlight: "Accelerate Your Growth",
   description:
-    "From product discovery to long-term support, Zaimah Technologies provides end-to-end engineering services for startups and enterprises.",
+    "From custom software and SaaS products to AI, cloud, and managed IT—Zaimah Technologies delivers end-to-end engineering that helps startups and enterprises ship faster and scale with confidence.",
   actions: {
     primary: { label: "Book Free Consultation", href: "/book-consultation" },
-    secondary: { label: "View Case Studies", href: "/case-studies" },
+    secondary: {
+      label: "Download Company Profile",
+      href: "#",
+      download: true,
+    },
   },
 };
 
@@ -32,6 +35,14 @@ export const servicesList: ServiceItem[] = [
     href: "/services#custom-software",
   },
   {
+    id: "saas",
+    title: "SaaS Product Development",
+    description:
+      "Multi-tenant SaaS platforms with billing, onboarding, and scalable architecture.",
+    icon: "layers",
+    href: "/services#saas",
+  },
+  {
     id: "mobile",
     title: "Mobile App Development",
     description:
@@ -40,91 +51,83 @@ export const servicesList: ServiceItem[] = [
     href: "/services#mobile",
   },
   {
-    id: "uiux",
-    title: "UI/UX Design",
+    id: "website",
+    title: "Website Design & Development",
     description:
-      "Research-driven interfaces that convert visitors into loyal customers.",
-    icon: "palette",
-    href: "/services#uiux",
+      "High-converting marketing sites and web apps with modern UX and performance.",
+    icon: "globe",
+    href: "/services#website",
+  },
+  {
+    id: "ai",
+    title: "AI & Automation Solutions",
+    description:
+      "Intelligent products powered by ML, automation, and modern data stacks.",
+    icon: "brain",
+    href: "/services#ai",
   },
   {
     id: "cloud",
-    title: "Cloud & DevOps",
+    title: "Cloud & DevOps Engineering",
     description:
       "Reliable cloud architecture, CI/CD, and infrastructure automation.",
     icon: "cloud",
     href: "/services#cloud",
   },
   {
-    id: "qa",
-    title: "QA & Testing",
+    id: "managed-it",
+    title: "Managed IT Services",
     description:
-      "Manual and automated testing to ship quality releases with confidence.",
-    icon: "shield",
-    href: "/services#qa",
-  },
-  {
-    id: "ai",
-    title: "AI & Data Solutions",
-    description:
-      "Intelligent products powered by ML, analytics, and modern data stacks.",
-    icon: "brain",
-    href: "/services#ai",
-  },
-  {
-    id: "enterprise",
-    title: "Product Engineering",
-    description:
-      "End-to-end product teams that own discovery, delivery, and iteration.",
-    icon: "layers",
-    href: "/services#enterprise",
-  },
-  {
-    id: "support",
-    title: "Support & Maintenance",
-    description:
-      "24/7 monitoring, upgrades, and continuous improvement for live systems.",
+      "Proactive monitoring, support, and maintenance so your systems stay healthy.",
     icon: "headset",
-    href: "/services#support",
+    href: "/services#managed-it",
+  },
+  {
+    id: "consulting",
+    title: "IT Consulting Services",
+    description:
+      "Strategy, architecture, and roadmap guidance from senior technology advisors.",
+    icon: "briefcase",
+    href: "/services#consulting",
   },
 ];
 
 export const comparisonRows = [
   {
-    feature: "Best for",
-    fixed: "Defined scope projects",
-    timeMaterial: "Evolving requirements",
-    dedicated: "Long-term product ownership",
+    service: "Custom Software",
+    bestFor: "Unique business workflows",
+    timeline: "3–6 months",
+    engagement: "Fixed / Dedicated",
   },
   {
-    feature: "Pricing model",
-    fixed: "Fixed budget & timeline",
-    timeMaterial: "Hourly / sprint-based",
-    dedicated: "Monthly team retainer",
+    service: "SaaS Products",
+    bestFor: "Scalable multi-tenant apps",
+    timeline: "4–9 months",
+    engagement: "Dedicated Team",
   },
   {
-    feature: "Team structure",
-    fixed: "Project-based squad",
-    timeMaterial: "Flexible specialists",
-    dedicated: "Embedded product team",
+    service: "Mobile Apps",
+    bestFor: "iOS & Android products",
+    timeline: "2–5 months",
+    engagement: "Fixed / T&M",
   },
   {
-    feature: "Change flexibility",
-    fixed: "Change requests scoped",
-    timeMaterial: "High flexibility",
-    dedicated: "Full backlog ownership",
+    service: "AI & Automation",
+    bestFor: "Intelligence & efficiency",
+    timeline: "2–4 months",
+    engagement: "T&M / Pilot",
   },
   {
-    feature: "Communication",
-    fixed: "Milestone updates",
-    timeMaterial: "Sprint reviews",
-    dedicated: "Daily standups & SLAs",
+    service: "Cloud & DevOps",
+    bestFor: "Reliability & scale",
+    timeline: "1–3 months",
+    engagement: "Retainer / Project",
   },
   {
-    feature: "Ideal duration",
-    fixed: "1–4 months",
-    timeMaterial: "2–12 months",
-    dedicated: "6+ months",
+    service: "Managed IT",
+    bestFor: "Ongoing operations",
+    timeline: "Continuous",
+    engagement: "Monthly retainer",
   },
 ];
 
@@ -132,50 +135,43 @@ export const processSteps = [
   {
     step: "01",
     title: "Discover",
-    description:
-      "Workshops, stakeholder interviews, and technical audits to clarify goals and constraints.",
+    description: "Goals, constraints, and opportunity mapping.",
     icon: "search",
   },
   {
     step: "02",
     title: "Plan",
-    description:
-      "Roadmaps, milestones, team shape, and delivery plans aligned to your budget and risk.",
+    description: "Roadmap, milestones, and team shape.",
     icon: "target",
   },
   {
     step: "03",
     title: "Design",
-    description:
-      "UX flows, system architecture, and clickable prototypes validated with real users.",
+    description: "UX flows, architecture, and prototypes.",
     icon: "palette",
   },
   {
     step: "04",
     title: "Develop",
-    description:
-      "Agile sprints with transparent demos, code reviews, and continuous integration.",
+    description: "Agile sprints with transparent demos.",
     icon: "code",
   },
   {
     step: "05",
     title: "Test",
-    description:
-      "Manual and automated QA, performance checks, and security validation before release.",
+    description: "QA, performance, and security checks.",
     icon: "check",
   },
   {
     step: "06",
     title: "Deploy",
-    description:
-      "Hardened releases, cloud provisioning, monitoring, and launch readiness checks.",
+    description: "Hardened releases and launch readiness.",
     icon: "rocket",
   },
   {
     step: "07",
     title: "Support",
-    description:
-      "Ongoing optimization, SLA-backed support, and roadmap planning for the next phase.",
+    description: "Optimization and continuous improvement.",
     icon: "headset",
   },
 ];
@@ -184,46 +180,93 @@ export const servicesHeroChips = [
   "Innovation",
   "Scalability",
   "Security",
-  "Agility",
-  "Quality",
+  "Performance",
+  "Reliability",
+  "Growth",
 ];
 
-export const servicesTechLogos = techLogos;
+export const servicesTechCategories = [
+  {
+    title: "Frontend",
+    items: ["React", "Next.js", "Vue.js", "Tailwind"],
+  },
+  {
+    title: "Backend",
+    items: ["Node.js", "Laravel", "NestJS", "Python"],
+  },
+  {
+    title: "Mobile",
+    items: ["Flutter", "React", "Firebase", "Swift"],
+  },
+  {
+    title: "Database",
+    items: ["PostgreSQL", "MongoDB", "Firebase", "Redis"],
+  },
+  {
+    title: "Cloud",
+    items: ["AWS", "GCP", "Azure", "Vercel"],
+  },
+  {
+    title: "DevOps",
+    items: ["Docker", "Kubernetes", "GitHub", "CI/CD"],
+  },
+];
 
 export const servicesIndustries: IndustryItem[] = [
   {
     id: "1",
     title: "Healthcare",
-    description: "HIPAA-ready platforms",
+    description: "",
     icon: "heart",
     href: "/industries",
   },
   {
     id: "2",
     title: "FinTech",
-    description: "Secure financial apps",
+    description: "",
     icon: "landmark",
     href: "/industries",
   },
   {
     id: "3",
     title: "Real Estate",
-    description: "Property tech suites",
+    description: "",
     icon: "building",
     href: "/industries",
   },
   {
     id: "4",
-    title: "E-commerce",
-    description: "Scalable storefronts",
+    title: "Retail",
+    description: "",
     icon: "shopping",
     href: "/industries",
   },
   {
     id: "5",
     title: "Education",
-    description: "Learning platforms",
+    description: "",
     icon: "graduation",
+    href: "/industries",
+  },
+  {
+    id: "6",
+    title: "Manufacturing",
+    description: "",
+    icon: "factory",
+    href: "/industries",
+  },
+  {
+    id: "7",
+    title: "Logistics",
+    description: "",
+    icon: "truck",
+    href: "/industries",
+  },
+  {
+    id: "8",
+    title: "Government",
+    description: "",
+    icon: "briefcase",
     href: "/industries",
   },
 ];
@@ -231,33 +274,45 @@ export const servicesIndustries: IndustryItem[] = [
 export const servicesCaseStudies: CaseStudyItem[] = [
   {
     id: "1",
-    title: "MediCare+ Hospital Management System",
+    title: "Healthcare Management Platform",
     description:
-      "Unified clinical workflows, appointments, and billing for a multi-hospital network.",
+      "A comprehensive hospital management system with appointment, EHR, and billing integration.",
     category: "Healthcare",
     image: "/images/case-healthcare.svg",
     href: "/case-studies",
-    techStack: ["React", "Laravel", "AWS", "Docker"],
+    techStack: ["React", "Laravel", "Flutter"],
   },
   {
     id: "2",
-    title: "PayFlow Digital Banking Platform",
+    title: "Multi-vendor Marketplace",
     description:
-      "Secure multi-currency payments and KYC onboarding for a regional fintech.",
-    category: "FinTech",
-    image: "/images/case-fintech.svg",
+      "Scalable multi-vendor platform with subscription plans & commission system.",
+    category: "Marketplace",
+    image: "/images/case-marketplace.svg",
     href: "/case-studies",
-    techStack: ["Next.js", "Node.js", "PostgreSQL"],
+    techStack: ["Next.js", "Node.js", "MongoDB"],
+  },
+  {
+    id: "3",
+    title: "Property Management System",
+    description:
+      "End-to-end property & tenant management platform with payments & maintenance tracking.",
+    category: "Real Estate",
+    image: "/images/case-realestate.svg",
+    href: "/case-studies",
+    techStack: ["React", "Laravel", "MySQL"],
   },
 ];
 
 export const whyChooseServices = [
-  "Senior engineers across every major stack",
-  "Predictable delivery with clear milestones",
-  "Security and compliance baked into delivery",
-  "Flexible engagement models that scale with you",
-  "Transparent reporting and dedicated managers",
-  "Post-launch support that protects your investment",
+  "Dedicated Development Teams",
+  "Agile & Transparent Process",
+  "Daily Progress Reports",
+  "NDA & IP Protection",
+  "On-time Delivery",
+  "Flexible Engagement Models",
+  "Enterprise-grade Security",
+  "Long-term Support",
 ];
 
 export const servicesFaqs: FaqItem[] = [
@@ -279,19 +334,34 @@ export const servicesFaqs: FaqItem[] = [
   {
     question: "What industries do you specialize in?",
     answer:
-      "We have deep experience in healthcare, fintech, real estate, e-commerce, education, logistics, and more—especially regulated and high-growth verticals.",
+      "We have deep experience in healthcare, fintech, real estate, retail, education, logistics, and more—especially regulated and high-growth verticals.",
   },
   {
     question: "How do you ensure quality and security?",
     answer:
       "Every engagement includes code reviews, automated testing, CI/CD, and security practices aligned to your compliance needs (HIPAA, PCI, SOC2-ready patterns).",
   },
+  {
+    question: "What engagement models do you offer?",
+    answer:
+      "We offer fixed-price projects, time & material, and dedicated teams. We'll recommend the best fit based on scope clarity, timeline, and how fast requirements may evolve.",
+  },
+  {
+    question: "How long does a typical project take?",
+    answer:
+      "Most MVPs ship in 2–4 months. Larger platforms often take 4–9 months depending on complexity, integrations, and compliance requirements.",
+  },
+  {
+    question: "Do you provide post-launch support?",
+    answer:
+      "Yes. We offer managed support retainers covering monitoring, bug fixes, upgrades, and continuous improvement after go-live.",
+  },
 ];
 
 export const servicesMiniCta = {
-  title: "Not sure which service fits?",
+  title: "Have a Project in Mind?",
   description:
-    "Share your goals and we’ll recommend the right engagement model, team, and roadmap.",
-  primary: { label: "Talk to an Expert", href: "/contact" },
-  secondary: { label: "Explore Technologies", href: "/technologies" },
+    "Let's discuss your goals and recommend the right services, team, and roadmap—with no pressure.",
+  benefits: ["Free Consultation", "NDA", "No Obligation"],
+  primary: { label: "Book Free Consultation", href: "/book-consultation" },
 };
