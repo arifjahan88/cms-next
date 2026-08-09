@@ -18,24 +18,24 @@ export const portfolioSortOptions = [
 ] as const;
 
 export const portfolioHero = {
-  title: "Our Work. Real Solutions.",
-  highlight: "Real Impact.",
+  title: "Our Work.",
+  highlight: "Real Solutions. Real Impact.",
   description:
-    "Explore products and platforms we've engineered for clients across industries—built for scale, security, and measurable outcomes.",
+    "Explore a selection of our successful projects delivered for startups, enterprises, and industry leaders across the globe.",
   stats: [
     { value: "250+", label: "Projects Delivered", icon: "briefcase" },
-    { value: "40+", label: "Industries Served", icon: "globe" },
-    { value: "98%", label: "Client Retention", icon: "smile" },
-    { value: "25+", label: "Years Experience", icon: "award" },
+    { value: "18+", label: "Industries Served", icon: "users" },
+    { value: "98%", label: "Client Satisfaction", icon: "globe" },
+    { value: "25+", label: "Countries Reached", icon: "award" },
   ] satisfies StatItem[],
 };
 
 export const portfolioProjects: PortfolioItem[] = [
   {
     id: "1",
-    title: "MediCare+ Hospital Platform",
+    title: "MediCare+ Hospital Management System",
     description:
-      "Unified clinical workflows, appointments, and billing for a multi-hospital network.",
+      "A comprehensive hospital management solution with EHR, appointment scheduling, billing & reporting.",
     category: "Healthcare",
     image: "/images/case-healthcare.svg",
     href: "/case-studies",
@@ -43,9 +43,9 @@ export const portfolioProjects: PortfolioItem[] = [
   },
   {
     id: "2",
-    title: "PayFlow Digital Banking",
+    title: "FinSmart Digital Banking Platform",
     description:
-      "Secure multi-currency payments and KYC onboarding for a regional fintech.",
+      "Secure digital banking platform with payments, money transfer, loan management & analytics.",
     category: "FinTech",
     image: "/images/case-fintech.svg",
     href: "/case-studies",
@@ -53,9 +53,9 @@ export const portfolioProjects: PortfolioItem[] = [
   },
   {
     id: "3",
-    title: "EstateHub Marketplace",
+    title: "HabiPro Property Management System",
     description:
-      "Listings, virtual tours, and agent CRM for a national real-estate brand.",
+      "End-to-end property management solution with tenant portal, maintenance tracking & payment.",
     category: "Real Estate",
     image: "/images/case-realestate.svg",
     href: "/case-studies",
@@ -63,110 +63,69 @@ export const portfolioProjects: PortfolioItem[] = [
   },
   {
     id: "4",
-    title: "ShopNova Commerce Suite",
+    title: "ShopHub E-commerce Platform",
     description:
-      "Headless storefront with inventory sync and personalized checkout flows.",
+      "Scalable e-commerce platform with multi-vendor, inventory management & analytics.",
     category: "E-commerce",
-    image: "/images/hero-devices.svg",
+    image: "/images/case-marketplace.svg",
     href: "/case-studies",
     date: "2025-05-18",
   },
   {
     id: "5",
-    title: "LearnSphere LMS",
+    title: "EduLearn Online Learning Platform",
     description:
-      "Interactive learning platform with assessments, certificates, and analytics.",
+      "E-learning platform with interactive courses, live classes, quizzes & certificate management.",
     category: "Education",
-    image: "/images/blog-ai.svg",
+    image: "/images/case-education.svg",
     href: "/case-studies",
     date: "2025-03-09",
   },
   {
     id: "6",
-    title: "FleetLink Logistics Hub",
+    title: "LogiTrack Fleet Management System",
     description:
-      "Real-time fleet tracking, route optimization, and warehouse orchestration.",
+      "Real-time fleet tracking, route optimization, driver management & reports.",
     category: "Logistics",
-    image: "/images/office-team.svg",
+    image: "/images/case-logistics.svg",
     href: "/case-studies",
     date: "2024-12-14",
   },
   {
     id: "7",
-    title: "ForgeOps Manufacturing MES",
+    title: "ManuPro Production Management System",
     description:
-      "Shop-floor visibility, quality control, and predictive maintenance dashboards.",
+      "Production planning, quality control, inventory & supply chain management.",
     category: "Manufacturing",
-    image: "/images/hero-devices.svg",
+    image: "/images/case-manufacturing.svg",
     href: "/case-studies",
     date: "2024-10-02",
   },
   {
     id: "8",
-    title: "CareConnect Telehealth",
+    title: "RetailGO POS & Inventory System",
     description:
-      "Video consultations, e-prescriptions, and patient records in one secure app.",
-    category: "Healthcare",
-    image: "/images/case-healthcare.svg",
+      "POS & inventory management system with sales analytics, multi-store & CRM integration.",
+    category: "E-commerce",
+    image: "/images/case-retail.svg",
     href: "/case-studies",
     date: "2024-08-27",
   },
   {
     id: "9",
-    title: "Ledgerly Wealth App",
+    title: "TripGenie Travel Booking Platform",
     description:
-      "Portfolio insights, automated investing, and advisor collaboration tools.",
-    category: "FinTech",
-    image: "/images/case-fintech.svg",
+      "Travel booking platform with hotel, flight, tour packages & itinerary management.",
+    category: "Logistics",
+    image: "/images/case-travel.svg",
     href: "/case-studies",
     date: "2024-06-11",
-  },
-  {
-    id: "10",
-    title: "CampusGate Portal",
-    description:
-      "Student admissions, fees, and parent communications for private campuses.",
-    category: "Education",
-    image: "/images/blog-ai.svg",
-    href: "/case-studies",
-    date: "2024-04-05",
-  },
-  {
-    id: "11",
-    title: "RetailPulse Omnichannel",
-    description:
-      "Unified POS, loyalty, and fulfillment across stores and digital channels.",
-    category: "E-commerce",
-    image: "/images/case-realestate.svg",
-    href: "/case-studies",
-    date: "2024-02-19",
-  },
-  {
-    id: "12",
-    title: "RouteWise Dispatch",
-    description:
-      "AI-assisted dispatching for last-mile delivery networks across ASEAN.",
-    category: "Logistics",
-    image: "/images/office-team.svg",
-    href: "/case-studies",
-    date: "2023-11-30",
   },
 ];
 
 export const portfolioCtaFeatures = [
-  {
-    title: "Dedicated Squad",
-    description: "Cross-functional team aligned to your goals.",
-    icon: "users",
-  },
-  {
-    title: "Clear Roadmaps",
-    description: "Transparent milestones from discovery to launch.",
-    icon: "layers",
-  },
-  {
-    title: "Secure Delivery",
-    description: "Enterprise-ready architecture and compliance.",
-    icon: "shield",
-  },
+  { title: "Dedicated Team", description: "", icon: "users" },
+  { title: "On-time Delivery", description: "", icon: "clock" },
+  { title: "Secure & Scalable", description: "", icon: "shield" },
+  { title: "Transparent Process", description: "", icon: "eye" },
 ];

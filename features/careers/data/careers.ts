@@ -1,23 +1,36 @@
 import type { JobOpening, StatItem } from "@/types";
 
 export const careersHero = {
-  title: "Build Your Career.",
-  highlight: "Make a Bigger Impact.",
+  breadcrumb: [
+    { label: "Home", href: "/" },
+    { label: "Careers" },
+  ],
+  titleBefore: "Build Your ",
+  highlight1: "Career.",
+  titleMiddle: " Make a Bigger ",
+  highlight2: "Impact.",
   description:
     "Join a global engineering team shipping products for startups and enterprises. Grow your skills, own outcomes, and work with people who care about craft.",
+  actions: {
+    primary: { label: "View Open Positions", href: "#open-positions" },
+    secondary: { label: "Life at Zaimah", href: "#culture" },
+  },
+  overlay: {
+    title: "Great People. Meaningful Work. Limitless Opportunities.",
+  },
 };
 
 export const careersStats: StatItem[] = [
-  { value: "120+", label: "Team Members", icon: "users" },
-  { value: "18", label: "Open Positions", icon: "briefcase" },
-  { value: "4", label: "Countries", icon: "globe" },
-  { value: "96%", label: "Employee Satisfaction", icon: "smile" },
-  { value: "35%", label: "YoY Growth", icon: "trending" },
+  { value: "100+", label: "Team Members", icon: "users" },
+  { value: "25+", label: "Open Positions", icon: "briefcase" },
+  { value: "12+", label: "Countries Served", icon: "globe" },
+  { value: "98%", label: "Employee Satisfaction", icon: "smile" },
+  { value: "Fast", label: "Career Growth", icon: "trending" },
 ];
 
 export const cultureIntro = {
   eyebrow: "Our Culture",
-  title: "A workplace built for builders",
+  title: "We're more than colleagues, we're a family.",
   description:
     "We combine ownership, curiosity, and collaboration so every teammate can do the best work of their career.",
 };
@@ -61,16 +74,27 @@ export const cultureCards = [
   },
 ] as const;
 
+export const benefitsIntro = {
+  eyebrow: "Benefits & Perks",
+  title: "Support that goes beyond the paycheck",
+  description:
+    "We invest in wellbeing, growth, and the flexibility people need to do great work.",
+};
+
 export const benefits = [
   { title: "Competitive Pay", icon: "award" },
   { title: "Health Coverage", icon: "heartOutline" },
   { title: "Remote Flexibility", icon: "laptop" },
   { title: "Learning Budget", icon: "graduation" },
   { title: "Paid Time Off", icon: "plane" },
-  { title: "Team Retreats", icon: "coffee" },
-  { title: "Wellness Perks", icon: "gift" },
   { title: "Career Paths", icon: "rocket" },
 ] as const;
+
+export const openPositionsIntro = {
+  eyebrow: "Open Positions",
+  title: "Find a role that fits",
+  description: "Search by keyword or filter by department and location.",
+};
 
 export const jobDepartments = [
   "All Departments",
@@ -173,3 +197,10 @@ export const jobs: JobOpening[] = [
     href: "/careers#apply",
   },
 ];
+
+export const careersCta = {
+  title: "Don't see the right role?",
+  description:
+    "Send us your CV and tell us what you're great at. We'll reach out when a matching opportunity opens.",
+  primary: { label: "Send Your CV", href: "/contact" },
+};

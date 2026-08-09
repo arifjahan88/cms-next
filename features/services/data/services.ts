@@ -1,15 +1,7 @@
-import type {
-  CaseStudyItem,
-  FaqItem,
-  IndustryItem,
-  ServiceItem,
-} from "@/types";
+import type { CaseStudyItem, FaqItem, IndustryItem, ServiceItem } from "@/types";
 
 export const servicesHero = {
-  breadcrumb: [
-    { label: "Home", href: "/" },
-    { label: "Services" },
-  ],
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Services" }],
   eyebrow: "Our Services →",
   title: "Comprehensive Software Engineering Services to",
   highlight: "Accelerate Your Growth",
@@ -37,56 +29,49 @@ export const servicesList: ServiceItem[] = [
   {
     id: "saas",
     title: "SaaS Product Development",
-    description:
-      "Multi-tenant SaaS platforms with billing, onboarding, and scalable architecture.",
+    description: "Multi-tenant SaaS platforms with billing, onboarding, and scalable architecture.",
     icon: "layers",
     href: "/services#saas",
   },
   {
     id: "mobile",
     title: "Mobile App Development",
-    description:
-      "Native and cross-platform mobile experiences for iOS and Android users.",
+    description: "Native and cross-platform mobile experiences for iOS and Android users.",
     icon: "smartphone",
     href: "/services#mobile",
   },
   {
     id: "website",
     title: "Website Design & Development",
-    description:
-      "High-converting marketing sites and web apps with modern UX and performance.",
+    description: "High-converting marketing sites and web apps with modern UX and performance.",
     icon: "globe",
     href: "/services#website",
   },
   {
     id: "ai",
     title: "AI & Automation Solutions",
-    description:
-      "Intelligent products powered by ML, automation, and modern data stacks.",
+    description: "Intelligent products powered by ML, automation, and modern data stacks.",
     icon: "brain",
     href: "/services#ai",
   },
   {
     id: "cloud",
     title: "Cloud & DevOps Engineering",
-    description:
-      "Reliable cloud architecture, CI/CD, and infrastructure automation.",
+    description: "Reliable cloud architecture, CI/CD, and infrastructure automation.",
     icon: "cloud",
     href: "/services#cloud",
   },
   {
     id: "managed-it",
     title: "Managed IT Services",
-    description:
-      "Proactive monitoring, support, and maintenance so your systems stay healthy.",
+    description: "Proactive monitoring, support, and maintenance so your systems stay healthy.",
     icon: "headset",
     href: "/services#managed-it",
   },
   {
     id: "consulting",
     title: "IT Consulting Services",
-    description:
-      "Strategy, architecture, and roadmap guidance from senior technology advisors.",
+    description: "Strategy, architecture, and roadmap guidance from senior technology advisors.",
     icon: "briefcase",
     href: "/services#consulting",
   },
@@ -285,8 +270,7 @@ export const servicesCaseStudies: CaseStudyItem[] = [
   {
     id: "2",
     title: "Multi-vendor Marketplace",
-    description:
-      "Scalable multi-vendor platform with subscription plans & commission system.",
+    description: "Scalable multi-vendor platform with subscription plans & commission system.",
     category: "Marketplace",
     image: "/images/case-marketplace.svg",
     href: "/case-studies",

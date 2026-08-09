@@ -1,5 +1,6 @@
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
+import { TechIcon } from "@/components/shared/tech-icon";
 import {
   StaggerChildren,
   StaggerItem,
@@ -11,26 +12,30 @@ export function TechnologiesStackGroups() {
     <section className="bg-surface py-16 md:py-20">
       <Container>
         <SectionHeader
-          title="Development Stack"
+          title="Our Development Stack"
           description="Languages, frameworks, tools, and cloud platforms we use every day."
+          accent
         />
-        <StaggerChildren className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <StaggerChildren className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {stackGroups.map((group) => (
-            <StaggerItem key={group.title}>
-              <div className="h-full">
-                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+            <StaggerItem key={group.title} hoverLift={false}>
+              <div>
+                <h3 className="mb-4 text-sm font-semibold text-foreground">
                   {group.title}
                 </h3>
-                <ul className="space-y-1.5">
+                <div className="grid grid-cols-2 gap-2">
                   {group.items.map((item) => (
-                    <li
+                    <div
                       key={item}
-                      className="rounded-lg border bg-background px-3 py-2 text-sm font-medium text-foreground shadow-sm"
+                      className="flex flex-col items-center gap-1.5"
                     >
-                      {item}
-                    </li>
+                      <TechIcon label={item} className="size-14 w-full" />
+                      <span className="text-[10px] font-medium text-muted-foreground">
+                        {item}
+                      </span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </StaggerItem>
           ))}

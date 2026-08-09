@@ -15,13 +15,12 @@ export function ContactPage() {
       <CtaBanner
         variant="navy"
         title="Ready to Start Your Project?"
-        description="Book a free consultation and get a clear roadmap for your next digital product."
+        description="Book a free consultation with our experts and turn your idea into a successful digital solution."
         primary={{ label: "Book Free Consultation", href: "/book-consultation" }}
-        secondary={{ label: "View Our Work", href: "/portfolio" }}
       >
         <ImagePlaceholder
-          label="[CTA Graphic]"
-          className="min-h-[180px] w-full max-w-xs border-white/20 bg-white/5 text-white/70 lg:min-h-[220px]"
+          label="[CTA Envelope Illustration]"
+          className="min-h-45 w-full max-w-xs border-white/20 bg-white/5 text-white/70 lg:min-h-55"
         />
       </CtaBanner>
     </>

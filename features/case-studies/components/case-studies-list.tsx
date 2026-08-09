@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight, TrendingUp } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -14,23 +13,31 @@ import {
 import { Container } from "@/components/shared/container";
 import { FilterPills } from "@/components/shared/filter-pills";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
-import { TechIcon } from "@/components/shared/tech-icon";
+import { TechStackItem } from "@/components/shared/tech-icon";
 import { FadeIn } from "@/components/shared/motion/fade-in";
 import {
   caseStudies,
   caseStudyFilters,
   caseStudySortOptions,
 } from "@/features/case-studies/data/case-studies";
+import { cn } from "@/lib/utils";
 
 type SortValue = (typeof caseStudySortOptions)[number]["value"];
 
+const badgeColors: Record<string, string> = {
+  Healthcare: "bg-orange-500 text-white",
+  FinTech: "bg-emerald-500 text-white",
+  "Real Estate": "bg-blue-600 text-white",
+  "E-commerce": "bg-violet-500 text-white",
+};
+
 export function CaseStudiesList() {
-  const [category, setCategory] = useState<string>("All Industries");
+  const [category, setCategory] = useState<string>("All Case Studies");
   const [sort, setSort] = useState<SortValue>("latest");
 
   const items = useMemo(() => {
     const filtered =
-      category === "All Industries"
+      category === "All Case Studies"
         ? caseStudies
         : caseStudies.filter((item) => item.category === category);
 
@@ -53,7 +60,7 @@ export function CaseStudiesList() {
             onChange={setCategory}
           />
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Sort by</span>
+            <span className="text-sm text-muted-foreground">Sort by:</span>
             <Select
               value={sort}
               onValueChange={(value) => {
@@ -77,65 +84,77 @@ export function CaseStudiesList() {
         <div className="space-y-6">
           {items.map((item, index) => (
             <FadeIn key={item.id} delay={index * 0.05}>
-              <article className="overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md">
-                <div className="grid gap-0 lg:grid-cols-[280px_1fr_220px]">
+              <article className="overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm transition-shadow hover:shadow-md">
+                <div className="grid gap-0 lg:grid-cols-[1.1fr_1.2fr_0.85fr]">
                   <div className="relative min-h-52 bg-muted lg:min-h-full">
                     <ImagePlaceholder
-                      label="[Project Preview Image]"
-                      className="absolute inset-0 rounded-xl"
+                      label="[Desktop + Mobile Preview]"
+                      className="absolute inset-0 rounded-none border-0"
                     />
-                    <Badge className="absolute left-3 top-3">
+                    <span
+                      className={cn(
+                        "absolute left-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-sm",
+                        badgeColors[item.category] ?? "bg-primary text-white"
+                      )}
+                    >
                       {item.category}
-                    </Badge>
+                    </span>
                   </div>
 
                   <div className="flex flex-col gap-3 p-5 md:p-6">
-                    <h2 className="text-xl font-semibold tracking-tight">
+                    <h2 className="text-xl font-bold tracking-tight text-foreground">
                       {item.title}
                     </h2>
                     <p className="text-sm text-muted-foreground">
                       {item.description}
                     </p>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                          Challenge
-                        </p>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {item.challenge}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                          Solution
-                        </p>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {item.solution}
-                        </p>
-                      </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">
+                        The Challenge
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {item.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">
+                        Our Solution
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {item.solution}
+                      </p>
                     </div>
                     <Link
                       href={item.href}
-                      className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                      className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
                     >
-                      Read Full Case Study <ArrowRight className="size-3.5" />
+                      View Full Case Study
+                      <ArrowRight className="size-3.5" />
                     </Link>
                   </div>
 
-                  <div className="flex flex-col gap-4 border-t bg-surface/60 p-5 lg:border-l lg:border-t-0 md:p-6">
+                  <div className="flex flex-col gap-5 border-t bg-surface/60 p-5 lg:border-l lg:border-t-0 md:p-6">
                     <div>
                       <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                        Key Results
+                        Key Metrics
                       </p>
                       <div className="space-y-3">
                         {item.metrics?.map((metric) => (
-                          <div key={metric.label}>
-                            <p className="text-lg font-bold text-foreground">
-                              {metric.value}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {metric.label}
-                            </p>
+                          <div
+                            key={metric.label}
+                            className="flex items-start gap-2.5"
+                          >
+                            <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                              <TrendingUp className="size-3.5" />
+                            </span>
+                            <div>
+                              <p className="text-lg font-bold text-foreground">
+                                {metric.value}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {metric.label}
+                              </p>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -144,13 +163,9 @@ export function CaseStudiesList() {
                       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                         Tech Stack
                       </p>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-x-3 gap-y-2">
                         {item.techStack.map((tech) => (
-                          <TechIcon
-                            key={tech}
-                            label={tech}
-                            className="size-10"
-                          />
+                          <TechStackItem key={tech} name={tech} />
                         ))}
                       </div>
                     </div>

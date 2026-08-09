@@ -23,9 +23,7 @@ export function ServicesFaq() {
             <Accordion className="rounded-xl border bg-background px-4 shadow-sm">
               {leftFaqs.map((faq, index) => (
                 <AccordionItem key={faq.question} value={`left-${index}`}>
-                  <AccordionTrigger className="py-4 text-base">
-                    {faq.question}
-                  </AccordionTrigger>
+                  <AccordionTrigger className="py-4 text-base">{faq.question}</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-muted-foreground">{faq.answer}</p>
                   </AccordionContent>
@@ -35,9 +33,7 @@ export function ServicesFaq() {
             <Accordion className="rounded-xl border bg-background px-4 shadow-sm">
               {rightFaqs.map((faq, index) => (
                 <AccordionItem key={faq.question} value={`right-${index}`}>
-                  <AccordionTrigger className="py-4 text-base">
-                    {faq.question}
-                  </AccordionTrigger>
+                  <AccordionTrigger className="py-4 text-base">{faq.question}</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-muted-foreground">{faq.answer}</p>
                   </AccordionContent>

@@ -1,18 +1,45 @@
 export const consultationHero = {
+  breadcrumb: [
+    { label: "Home", href: "/" },
+    { label: "Book Consultation" },
+  ],
   title: "Book Your Free Consultation",
   description:
-    "Tell us about your product goals. We’ll map next steps, recommend an approach, and answer your questions—no obligation.",
+    "Schedule a free session with our experts. We'll discuss your goals, recommend an approach, and outline clear next steps—no obligation.",
   highlights: [
-    { label: "30–60 min", detail: "Focused working session", icon: "clock" },
-    { label: "Expert Advisors", detail: "Engineers & product leads", icon: "users" },
-    { label: "100% Free", detail: "No sales pressure", icon: "check" },
+    {
+      label: "30-60 Minutes",
+      detail: "Personalized Session",
+      icon: "clock",
+    },
+    {
+      label: "Expert Consultation",
+      detail: "From our industry experts",
+      icon: "users",
+    },
+    {
+      label: "100% Free",
+      detail: "No obligations",
+      icon: "check",
+    },
   ],
+};
+
+export const inquiryFormCopy = {
+  title: "Tell us about your project",
+  description:
+    "Share a few details and we'll get back to you within 24 hours.",
+  privacy:
+    "I agree to the privacy policy and consent to being contacted about this consultation.",
+  submit: "Book My Free Consultation",
+  secureNote: "Your information is secure and will never be shared with third parties.",
 };
 
 export const whyBook = [
   "Clarify scope, timeline, and budget early",
   "Get architecture recommendations from practitioners",
   "Understand team model and engagement options",
+  "Identify risks and technical constraints up front",
   "Leave with a clear action plan for next steps",
 ];
 
@@ -28,25 +55,64 @@ export const timeSlots = [
 ];
 
 export const services = [
-  { value: "custom", label: "Custom Software" },
-  { value: "mobile", label: "Mobile Apps" },
+  { value: "custom", label: "Custom Software Development" },
+  { value: "mobile", label: "Mobile App Development" },
   { value: "cloud", label: "Cloud & DevOps" },
   { value: "ai", label: "AI Solutions" },
   { value: "uiux", label: "UI/UX Design" },
+  { value: "qa", label: "QA & Testing" },
   { value: "other", label: "Other / Not sure" },
+] as const;
+
+export const projectTypes = [
+  { value: "new", label: "New Project" },
+  { value: "existing", label: "Existing Project" },
+  { value: "unsure", label: "Not Sure Yet" },
 ] as const;
 
 export const budgets = [
   { value: "under-25", label: "Under $25k" },
   { value: "25-50", label: "$25k – $50k" },
   { value: "50-100", label: "$50k – $100k" },
-  { value: "100+", label: "$100k+" },
+  { value: "100-250", label: "$100k – $250k" },
+  { value: "250+", label: "$250k+" },
   { value: "unsure", label: "Not sure yet" },
 ] as const;
 
-export const trustItems = [
-  { value: "250+", label: "Projects Delivered", icon: "briefcase" },
-  { value: "25+", label: "Years Experience", icon: "award" },
-  { value: "98%", label: "Client Satisfaction", icon: "smile" },
-  { value: "4", label: "Global Offices", icon: "globe" },
+export const referralSources = [
+  { value: "google", label: "Google Search" },
+  { value: "linkedin", label: "LinkedIn" },
+  { value: "referral", label: "Referral / Word of mouth" },
+  { value: "event", label: "Event / Conference" },
+  { value: "social", label: "Social Media" },
+  { value: "other", label: "Other" },
 ] as const;
+
+export const trustItems = [
+  {
+    title: "Quick Response",
+    description: "We reply within 24 hours",
+    icon: "zap",
+  },
+  {
+    title: "Expert Team",
+    description: "Seasoned engineers & advisors",
+    icon: "users",
+  },
+  {
+    title: "Global Experience",
+    description: "Clients across 20+ countries",
+    icon: "globe",
+  },
+  {
+    title: "Trusted by Businesses",
+    description: "250+ projects delivered",
+    icon: "handshake",
+  },
+] as const;
+
+export const sidebarHelp = {
+  title: "Need help choosing a time?",
+  description:
+    "Our team is happy to find a slot that works for you. Reach out anytime.",
+};

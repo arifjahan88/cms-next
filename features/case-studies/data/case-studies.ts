@@ -1,12 +1,14 @@
 import type { CaseStudyItem, StatItem } from "@/types";
 
 export const caseStudyFilters = [
-  "All Industries",
+  "All Case Studies",
   "Healthcare",
   "FinTech",
   "Real Estate",
   "E-commerce",
   "Education",
+  "Logistics",
+  "Manufacturing",
 ] as const;
 
 export const caseStudySortOptions = [
@@ -19,16 +21,11 @@ export const caseStudiesHero = {
   title: "Real Challenges.",
   highlight: "Proven Results.",
   description:
-    "Deep-dive stories of how Zaimah partners with ambitious teams to ship durable products and measurable business outcomes.",
+    "We partner with ambitious teams to solve complex problems and deliver digital products that drive measurable growth.",
   impact: {
-    title: "Impact Snapshot",
+    title: "Delivering Impact",
     description:
-      "Average outcomes across recent enterprise engagements.",
-    metrics: [
-      { value: "3.2x", label: "Avg. efficiency gain" },
-      { value: "45%", label: "Faster time-to-market" },
-      { value: "99.9%", label: "Platform uptime" },
-    ],
+      "From operational efficiency to market growth—our case studies show how software creates lasting business value.",
   },
 };
 
@@ -46,102 +43,86 @@ export const caseStudies: CaseStudyDetail[] = [
     image: "/images/case-healthcare.svg",
     href: "/case-studies",
     date: "2025-11-12",
-    challenge:
-      "Fragmented legacy systems caused delayed admissions, duplicate records, and billing leakage across five campuses.",
+    challenge: "Manual processes, data silos and inefficient workflows.",
     solution:
-      "We delivered a modular hospital OS with role-based access, HL7/FHIR integrations, and real-time operational dashboards.",
-    techStack: ["React", "Laravel", "AWS", "Docker"],
+      "Built an integrated platform to streamline clinical, admin, and financial operations.",
+    techStack: ["Laravel", "React", "MySQL", "AWS", "Docker", "Redis"],
     metrics: [
-      { value: "65%", label: "Operational efficiency" },
-      { value: "40%", label: "Faster admissions" },
-      { value: "22%", label: "Billing accuracy" },
+      { value: "65%", label: "Increase in Operational Efficiency" },
+      { value: "40%", label: "Admin Workload Reduction" },
+      { value: "98%", label: "Patient Satisfaction" },
     ],
   },
   {
     id: "2",
-    title: "PayFlow Digital Banking Platform",
+    title: "FinSmart Digital Banking Platform",
     description:
-      "Secure multi-currency payments and KYC onboarding for a regional fintech scale-up.",
+      "Secure multi-currency payments and KYC onboarding for a regional fintech.",
     category: "FinTech",
     image: "/images/case-fintech.svg",
     href: "/case-studies",
     date: "2025-09-03",
     challenge:
-      "Manual KYC and brittle payment rails limited growth and raised compliance risk across new markets.",
+      "Providing a secure, scalable platform while ensuring compliance.",
     solution:
-      "Built a cloud-native banking core with automated KYC, ledger reconciliation, and fraud monitoring pipelines.",
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "AWS"],
+      "Developed a robust platform with advanced security and real-time transactions.",
+    techStack: [
+      "Node.js",
+      "React",
+      "PostgreSQL",
+      "AWS",
+      "Kubernetes",
+      "Firebase",
+    ],
     metrics: [
-      { value: "3x", label: "Transaction volume" },
-      { value: "99.9%", label: "Uptime" },
-      { value: "70%", label: "Faster onboarding" },
+      { value: "150K+", label: "Active Users" },
+      { value: "3.5M+", label: "Transactions" },
+      { value: "99.99%", label: "Uptime" },
     ],
   },
   {
     id: "3",
-    title: "EstateHub Property Marketplace",
+    title: "HabiPro Property Management System",
     description:
-      "Listings, virtual tours, and agent CRM for a national real-estate brand.",
+      "End-to-end property and tenant management with payments and maintenance.",
     category: "Real Estate",
     image: "/images/case-realestate.svg",
     href: "/case-studies",
     date: "2025-07-21",
-    challenge:
-      "Agents struggled with outdated listing tools and inconsistent lead follow-up across regions.",
+    challenge: "Time-consuming manual tracking and poor tenant communication.",
     solution:
-      "Launched a marketplace with 3D tours, smart matching, and CRM automation that synced mobile and desktop workflows.",
-    techStack: ["Flutter", "Firebase", "GCP", "Node.js"],
+      "Delivered a centralized platform for properties, tenants, and maintenance.",
+    techStack: ["Next.js", "React", "MongoDB", "AWS", "Flutter", "Firebase"],
     metrics: [
-      { value: "2.1M", label: "Monthly users" },
-      { value: "28%", label: "Lead conversion" },
-      { value: "15%", label: "Faster closings" },
+      { value: "50%", label: "Faster Maintenance" },
+      { value: "35%", label: "Increase in On-time Payments" },
+      { value: "90%", label: "Tenant Retention" },
     ],
   },
   {
     id: "4",
-    title: "ShopNova Omnichannel Commerce",
+    title: "ShopHub E-commerce Platform",
     description:
-      "Headless commerce and fulfillment orchestration for a growing retail brand.",
+      "Scalable multi-vendor commerce with real-time analytics and inventory.",
     category: "E-commerce",
-    image: "/images/hero-devices.svg",
+    image: "/images/case-marketplace.svg",
     href: "/case-studies",
     date: "2025-05-18",
-    challenge:
-      "Disconnected online and store inventory created stockouts, cart abandonment, and support overload.",
+    challenge: "Scaling the platform and managing multiple vendors.",
     solution:
-      "Implemented a headless storefront with unified inventory, personalized checkout, and warehouse sync.",
-    techStack: ["Next.js", "Shopify", "Node.js", "Redis"],
+      "Built a scalable multi-vendor solution with real-time analytics.",
+    techStack: ["React", "Laravel", "MySQL", "AWS", "Redis", "Docker"],
     metrics: [
-      { value: "34%", label: "Higher conversion" },
-      { value: "50%", label: "Fewer stockouts" },
-      { value: "2x", label: "Peak traffic capacity" },
-    ],
-  },
-  {
-    id: "5",
-    title: "LearnSphere Campus Platform",
-    description:
-      "Interactive learning, assessments, and parent portals for a private education group.",
-    category: "Education",
-    image: "/images/blog-ai.svg",
-    href: "/case-studies",
-    date: "2025-03-09",
-    challenge:
-      "Teachers and administrators juggled spreadsheets while students lacked a cohesive digital classroom.",
-    solution:
-      "Built an LMS with live classes, adaptive quizzes, certificates, and school-wide analytics.",
-    techStack: ["React", "Python", "PostgreSQL", "AWS"],
-    metrics: [
-      { value: "120k", label: "Active learners" },
-      { value: "38%", label: "Engagement lift" },
-      { value: "25%", label: "Admin time saved" },
+      { value: "200%", label: "Increase in Sales" },
+      { value: "120+", label: "Active Vendors" },
+      { value: "4.8/5", label: "Customer Rating" },
     ],
   },
 ];
 
 export const caseStudiesStats: StatItem[] = [
   { value: "250+", label: "Projects Delivered", icon: "briefcase" },
-  { value: "25+", label: "Years of Experience", icon: "award" },
-  { value: "120+", label: "Specialists", icon: "users" },
+  { value: "18+", label: "Industries Served", icon: "layers" },
   { value: "98%", label: "Client Satisfaction", icon: "smile" },
+  { value: "25+", label: "Countries Reached", icon: "globe" },
 ];

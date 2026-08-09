@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Send } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -39,9 +40,9 @@ export function ContactForm() {
         setConsent(false);
       }}
     >
-      <h3 className="text-lg font-semibold">Send Us a Message</h3>
+      <h3 className="text-lg font-semibold md:text-xl">Send Us a Message</h3>
       <p className="mt-1 text-sm text-muted-foreground">
-        Share a few details and we&apos;ll follow up within one business day.
+        Fill out the form below and our team will get in touch with you.
       </p>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -50,7 +51,7 @@ export function ContactForm() {
           <Input id="fullName" name="fullName" required className="h-10" />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">Email Address</Label>
           <Input
             id="email"
             name="email"
@@ -60,11 +61,11 @@ export function ContactForm() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="company">Company</Label>
+          <Label htmlFor="company">Company Name</Label>
           <Input id="company" name="company" className="h-10" />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="phone">Phone</Label>
+          <Label htmlFor="phone">Phone Number</Label>
           <Input id="phone" name="phone" className="h-10" />
         </div>
         <div className="space-y-1.5 sm:col-span-2">
@@ -72,7 +73,7 @@ export function ContactForm() {
           <Input id="subject" name="subject" required className="h-10" />
         </div>
         <div className="space-y-1.5 sm:col-span-2">
-          <Label htmlFor="message">Message</Label>
+          <Label htmlFor="message">How can we help you?</Label>
           <Textarea id="message" name="message" rows={5} required />
         </div>
       </div>
@@ -85,13 +86,13 @@ export function ContactForm() {
           name="consent"
         />
         <span>
-          I agree to the processing of my personal data for the purpose of
-          responding to this inquiry.
+          I agree to the Privacy Policy and Terms of Service.
         </span>
       </label>
 
-      <Button type="submit" className="mt-5 h-11 w-full">
+      <Button type="submit" className="mt-5 h-11 w-full sm:w-auto sm:px-8">
         Send Message
+        <Send data-icon="inline-end" className="size-4" />
       </Button>
     </form>
   );

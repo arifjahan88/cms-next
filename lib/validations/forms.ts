@@ -17,7 +17,7 @@ export const contactSchema = z.object({
 export const consultationSchema = z.object({
   fullName: z.string().min(2, "Name is required"),
   email: z.email("Enter a valid email"),
-  company: z.string().optional(),
+  company: z.string().min(2, "Company name is required"),
   phone: z.string().min(6, "Phone is required"),
   service: z.string().min(1, "Select a service"),
   projectType: z.enum(["new", "existing", "unsure"]),

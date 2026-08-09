@@ -5,20 +5,28 @@ export const aboutHero = {
     { label: "Home", href: "/" },
     { label: "About Us" },
   ],
-  eyebrow: "About Zaimah",
-  title: "Building Digital Products for",
-  highlight: "25+ Years",
+  title: "Engineering Digital Success for Businesses",
+  highlight: "Worldwide",
   description:
-    "Zaimah Technologies is a trusted software development partner helping startups and enterprises design, build, and scale secure digital products worldwide.",
+    "Zaimah Technologies is a trusted software development partner helping startups and enterprises design, build, and scale secure digital products across industries and markets.",
   actions: {
     primary: { label: "Work With Us", href: "/contact" },
     secondary: { label: "Join Our Team", href: "/careers" },
   },
-  floatingStats: [
-    { value: "250+", label: "Projects" },
-    { value: "120+", label: "Experts" },
-    { value: "25+", label: "Countries" },
-  ],
+};
+
+export const aboutHeroStats: StatItem[] = [
+  { value: "250+", label: "Projects Delivered", icon: "briefcase" },
+  { value: "18+", label: "Industries Served", icon: "building" },
+  { value: "25+", label: "Years Experience", icon: "award" },
+  { value: "99%", label: "Client Satisfaction", icon: "smile" },
+];
+
+export const companyOverview = {
+  eyebrow: "Who We Are",
+  title: "Company Overview",
+  description:
+    "For over two decades we have partnered with ambitious organizations to turn complex ideas into reliable software—combining senior engineering, product thinking, and transparent delivery.",
 };
 
 export const companyFeatures = [
@@ -61,28 +69,28 @@ export const milestones = [
     description: "Started as a boutique engineering studio in Bangkok.",
   },
   {
-    year: "2008",
-    title: "Regional Expansion",
-    description: "Opened delivery partnerships across Southeast Asia.",
+    year: "2005",
+    title: "First Enterprise Wins",
+    description: "Delivered mission-critical systems for regional clients.",
   },
   {
-    year: "2014",
-    title: "Enterprise Focus",
-    description: "Scaled teams for regulated healthcare and fintech clients.",
+    year: "2010",
+    title: "Product Practice",
+    description: "Expanded into UX, product strategy, and agile delivery.",
   },
   {
-    year: "2019",
-    title: "Cloud & AI Practice",
-    description: "Launched dedicated cloud, DevOps, and data engineering units.",
+    year: "2015",
+    title: "Cloud Native",
+    description: "Scaled cloud, DevOps, and modern stack capabilities.",
   },
   {
-    year: "2023",
-    title: "Global Clients",
-    description: "Surpassed 200 delivered products across 25+ countries.",
+    year: "2020",
+    title: "Global Footprint",
+    description: "Partnered with teams across 25+ countries worldwide.",
   },
   {
     year: "2026",
-    title: "Next Chapter",
+    title: "AI-Accelerated",
     description: "Investing in AI-assisted delivery and product accelerators.",
   },
 ];
@@ -93,30 +101,32 @@ export const missionVision = [
     description:
       "To help ambitious companies ship secure, scalable software that creates lasting customer value—through craftsmanship, clarity, and partnership.",
     icon: "target",
+    illustration: "[Mission Illustration]",
   },
   {
     title: "Our Vision",
     description:
       "To be the most trusted digital product partner for teams who want enterprise-grade quality with startup velocity.",
     icon: "eye",
+    illustration: "[Vision Illustration]",
   },
 ];
 
 export const coreValues = [
+  {
+    title: "Innovation",
+    description: "We explore new ideas and technologies that move clients forward.",
+    icon: "lightbulb",
+  },
   {
     title: "Integrity",
     description: "We say what we mean and deliver what we promise.",
     icon: "shield",
   },
   {
-    title: "Craftsmanship",
+    title: "Excellence",
     description: "Quality code and thoughtful UX are non-negotiable.",
     icon: "award",
-  },
-  {
-    title: "Curiosity",
-    description: "We keep learning so our clients stay ahead.",
-    icon: "lightbulb",
   },
   {
     title: "Collaboration",
@@ -178,13 +188,31 @@ export const leadership: TeamMember[] = [
     image: "/images/office-team.svg",
     linkedin: "https://linkedin.com",
   },
+  {
+    id: "6",
+    name: "Aisha Rahman",
+    role: "Head of People & Culture",
+    bio: "Grows high-performing teams and an inclusive engineering culture.",
+    image: "/images/office-team.svg",
+    linkedin: "https://linkedin.com",
+  },
 ];
 
 export const aboutStats: StatItem[] = [
   { value: "250+", label: "Projects Delivered", icon: "briefcase" },
   { value: "120+", label: "Team Members", icon: "users" },
+  { value: "18+", label: "Industries Served", icon: "building" },
   { value: "25+", label: "Years Experience", icon: "award" },
-  { value: "98%", label: "Client Satisfaction", icon: "smile" },
+  { value: "99%", label: "Client Satisfaction", icon: "smile" },
+];
+
+export const partners = [
+  { name: "AWS", label: "[AWS Logo]" },
+  { name: "Google Cloud", label: "[Google Cloud Logo]" },
+  { name: "Microsoft", label: "[Microsoft Logo]" },
+  { name: "Salesforce", label: "[Salesforce Logo]" },
+  { name: "Stripe", label: "[Stripe Logo]" },
+  { name: "Shopify", label: "[Shopify Logo]" },
 ];
 
 export const certifications = [

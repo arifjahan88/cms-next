@@ -7,18 +7,28 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
-import { aboutCard, exploreTopics, popularPosts } from "@/features/blog/data/blog";
+import {
+  aboutCard,
+  exploreTopics,
+  popularPosts,
+  subscribeCard,
+} from "@/features/blog/data/blog";
 
 export function BlogSidebar() {
   return (
-    <aside className="space-y-6">
+    <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
       <Card className="overflow-hidden border shadow-sm">
         <div className="relative aspect-16/10 bg-muted">
-          <ImagePlaceholder label="[Blog Thumbnail]" className="absolute inset-0 rounded-xl" />
+          <ImagePlaceholder
+            label={aboutCard.imageLabel}
+            className="absolute inset-0 rounded-none border-0"
+          />
         </div>
         <CardContent className="space-y-2 p-5">
           <h3 className="text-base font-semibold">{aboutCard.title}</h3>
-          <p className="text-sm text-muted-foreground">{aboutCard.description}</p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {aboutCard.description}
+          </p>
         </CardContent>
       </Card>
 
@@ -28,20 +38,23 @@ export function BlogSidebar() {
           <ol className="space-y-4">
             {popularPosts.map((post, index) => (
               <li key={post.id} className="flex gap-3">
-                <span className="text-lg font-bold text-primary/40">
-                  {String(index + 1).padStart(2, "0")}
+                <span className="w-6 shrink-0 text-lg font-bold leading-none text-primary/35">
+                  {index + 1}
                 </span>
-                <div>
-                  <Link
-                    href={post.href}
-                    className="text-sm font-medium leading-snug hover:text-primary"
-                  >
-                    {post.title}
-                  </Link>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {post.date} · {post.readTime}
-                  </p>
-                </div>
+                <Link href={post.href} className="group flex min-w-0 flex-1 gap-3">
+                  <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-muted">
+                    <ImagePlaceholder
+                      label="[Thumb]"
+                      className="absolute inset-0 min-h-0 rounded-lg border-0 text-[10px]"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="line-clamp-2 text-sm font-medium leading-snug group-hover:text-primary">
+                      {post.title}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">{post.date}</p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ol>
@@ -50,10 +63,8 @@ export function BlogSidebar() {
 
       <Card className="border shadow-sm">
         <CardContent className="space-y-3 p-5">
-          <h3 className="text-base font-semibold">Subscribe</h3>
-          <p className="text-sm text-muted-foreground">
-            Get product and engineering insights in your inbox.
-          </p>
+          <h3 className="text-base font-semibold">{subscribeCard.title}</h3>
+          <p className="text-sm text-muted-foreground">{subscribeCard.description}</p>
           <form
             className="space-y-2"
             onSubmit={(e) => {
@@ -66,11 +77,11 @@ export function BlogSidebar() {
               type="email"
               name="email"
               required
-              placeholder="you@company.com"
+              placeholder={subscribeCard.placeholder}
               className="h-10"
             />
             <Button type="submit" className="w-full">
-              Subscribe
+              {subscribeCard.buttonLabel}
             </Button>
           </form>
         </CardContent>
@@ -81,7 +92,11 @@ export function BlogSidebar() {
           <h3 className="text-base font-semibold">Explore Topics</h3>
           <div className="flex flex-wrap gap-2">
             {exploreTopics.map((topic) => (
-              <Badge key={topic} variant="secondary">
+              <Badge
+                key={topic}
+                variant="secondary"
+                className="cursor-default rounded-full px-3 py-1 font-medium"
+              >
                 {topic}
               </Badge>
             ))}

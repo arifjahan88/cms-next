@@ -1,20 +1,19 @@
 import Link from "next/link";
-import { Share2 } from "lucide-react";
+import { Link2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import {
   StaggerChildren,
   StaggerItem,
 } from "@/components/shared/motion/stagger-children";
-import { contactChannels } from "@/features/contact/data/contact";
+import { contactChannels, followUs } from "@/features/contact/data/contact";
 import { SITE } from "@/lib/constants";
 import { getIcon } from "@/lib/icons";
 
 const socialLinks = [
   { href: SITE.social.linkedin, label: "LinkedIn", short: "in" },
   { href: SITE.social.facebook, label: "Facebook", short: "f" },
-  { href: SITE.social.twitter, label: "Twitter", short: "𝕏" },
+  { href: SITE.social.twitter, label: "X", short: "𝕏" },
   { href: SITE.social.youtube, label: "YouTube", short: "▶" },
-  { href: SITE.social.instagram, label: "Instagram", short: "ig" },
 ];
 
 export function InfoCards() {
@@ -34,7 +33,7 @@ export function InfoCards() {
                     <Icon className="size-5" />
                   </span>
                   <h3 className="font-semibold">{channel.title}</h3>
-                  <p className="mt-1 text-sm text-foreground/90">
+                  <p className="mt-1 text-sm font-medium text-foreground/90">
                     {channel.description}
                   </p>
                   <p className="mt-2 text-xs text-muted-foreground">
@@ -47,11 +46,11 @@ export function InfoCards() {
           <StaggerItem>
             <div className="flex h-full flex-col rounded-xl border bg-background p-5 shadow-sm">
               <span className="mb-3 flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <Share2 className="size-5" />
+                <Link2 className="size-5" />
               </span>
-              <h3 className="font-semibold">Follow Us</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Stay updated with product and engineering insights.
+              <h3 className="font-semibold">{followUs.title}</h3>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {followUs.detail}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {socialLinks.map(({ href, label, short }) => (

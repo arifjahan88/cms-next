@@ -17,7 +17,7 @@ export function TechnologiesPage() {
         variant="navy"
         title="Need help choosing the right stack?"
         description="Our architects can recommend a pragmatic technology plan for your product and team."
-        primary={{ label: "Talk to an Architect", href: "/contact" }}
+        primary={{ label: "Book Free Consultation", href: "/book-consultation" }}
         secondary={{ label: "Explore Services", href: "/services" }}
       />
     </>

@@ -1,7 +1,12 @@
 import { Container } from "@/components/shared/container";
+import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { SectionHeader } from "@/components/shared/section-header";
 import { FadeIn } from "@/components/shared/motion/fade-in";
-import { certifications } from "@/features/about/data/about";
+import {
+  StaggerChildren,
+  StaggerItem,
+} from "@/components/shared/motion/stagger-children";
+import { partners } from "@/features/about/data/about";
 
 export function AboutPartners() {
   return (
@@ -14,16 +19,16 @@ export function AboutPartners() {
           className="mb-8"
         />
         <FadeIn>
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
-            {certifications.map((name) => (
-              <div
-                key={name}
-                className="flex h-12 min-w-[140px] items-center justify-center rounded-lg border bg-background px-4 text-sm font-semibold text-muted-foreground"
-              >
-                {name}
-              </div>
+          <StaggerChildren className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 md:gap-4">
+            {partners.map((partner) => (
+              <StaggerItem key={partner.name} hoverLift={false}>
+                <ImagePlaceholder
+                  label={partner.label}
+                  className="flex h-16 min-h-16 items-center justify-center rounded-lg bg-background px-3 text-[11px] sm:h-20 sm:min-h-20 sm:text-xs"
+                />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </FadeIn>
       </Container>
     </section>

@@ -21,8 +21,8 @@ export function AboutPage() {
       <AboutPartners />
       <CtaBanner
         variant="navy"
-        title="Let’s build something remarkable together"
-        description="Tell us about your product goals—we’ll help you shape the team and roadmap."
+        title="Ready to build with a team that delivers?"
+        description="Share your product goals—we’ll help you shape the team, roadmap, and next release."
         primary={{ label: "Contact Us", href: "/contact" }}
         secondary={{ label: "View Careers", href: "/careers" }}
       />

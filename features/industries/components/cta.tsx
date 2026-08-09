@@ -14,10 +14,10 @@ export function IndustriesCta() {
     <section className="py-12 md:py-16">
       <Container>
         <div className="overflow-hidden rounded-2xl bg-brand-navy text-brand-navy-foreground">
-          <div className="grid items-center gap-8 p-6 md:p-10 lg:grid-cols-[0.9fr_1.1fr_1fr] lg:gap-10">
+          <div className="grid items-center gap-8 p-6 md:p-10 lg:grid-cols-[0.85fr_1.2fr_0.9fr] lg:gap-10">
             <ImagePlaceholder
               label="[CTA Illustration]"
-              className="min-h-[200px] border-white/20 bg-white/5 text-white/70"
+              className="min-h-50 border-white/20 bg-white/5 text-white/70"
             />
 
             <div>
@@ -43,6 +43,7 @@ export function IndustriesCta() {
                   render={<Link href={industriesCta.secondary.href} />}
                 >
                   {industriesCta.secondary.label}
+                  <ArrowRight data-icon="inline-end" />
                 </Button>
               </div>
             </div>
@@ -51,14 +52,11 @@ export function IndustriesCta() {
               {industriesCtaValues.map((item) => {
                 const Icon = getIcon(item.icon);
                 return (
-                  <li key={item.title} className="flex items-start gap-3">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-white">
-                      <Icon className="size-4" />
+                  <li key={item.title} className="flex items-center gap-3">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-white/25 bg-white/10 text-white">
+                      <Icon className="size-4 stroke-[1.5]" />
                     </span>
-                    <div>
-                      <p className="text-sm font-semibold">{item.title}</p>
-                      <p className="text-xs text-white/70">{item.description}</p>
-                    </div>
+                    <p className="text-sm font-semibold">{item.title}</p>
                   </li>
                 );
               })}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Lock } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,21 +18,42 @@ import {
 } from "@/components/ui/select";
 import {
   budgets,
+  inquiryFormCopy,
+  projectTypes,
+  referralSources,
   services,
+  timeSlots,
 } from "@/features/consultation/data/consultation";
 import { consultationSchema } from "@/lib/validations/forms";
 
 type InquiryFormProps = {
   selectedDate?: Date;
   selectedSlot?: string;
+  onDateChange?: (date?: Date) => void;
+  onSlotChange?: (slot: string) => void;
 };
 
-export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
+function toDateInputValue(date?: Date) {
+  if (!date) return "";
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+export function InquiryForm({
+  selectedDate,
+  selectedSlot,
+  onDateChange,
+  onSlotChange,
+}: InquiryFormProps) {
   const [consent, setConsent] = useState(false);
-  const [service, setService] = useState("custom");
-  const [budget, setBudget] = useState("25-50");
+  const [service, setService] = useState("");
+  const [budget, setBudget] = useState("");
+  const [referral, setReferral] = useState("");
   const [projectType, setProjectType] = useState<"new" | "existing" | "unsure">(
-    "new"
+    "new",
   );
 
   return (
@@ -45,13 +67,13 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
         const parsed = consultationSchema.safeParse({
           fullName: String(fd.get("fullName") ?? ""),
           email: String(fd.get("email") ?? ""),
-          company: String(fd.get("company") ?? "") || undefined,
+          company: String(fd.get("company") ?? ""),
           phone: String(fd.get("phone") ?? ""),
           service,
           projectType,
           description: String(fd.get("description") ?? ""),
           budget: budget || undefined,
-          referral: String(fd.get("referral") ?? "") || undefined,
+          referral: referral || undefined,
           consent,
         });
 
@@ -68,7 +90,7 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
                 day: "numeric",
               })
             : String(fd.get("preferredDate") ?? ""),
-          selectedSlot || String(fd.get("preferredTime") ?? ""),
+          selectedSlot || "",
         ]
           .filter(Boolean)
           .join(" · ");
@@ -76,27 +98,32 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
         toast.success(
           when
             ? `Consultation requested for ${when}. We'll confirm shortly.`
-            : "Consultation request received! We'll confirm shortly."
+            : "Consultation request received! We'll confirm shortly.",
         );
         form.reset();
         setConsent(false);
-        setService("custom");
-        setBudget("25-50");
+        setService("");
+        setBudget("");
+        setReferral("");
         setProjectType("new");
       }}
     >
-      <h3 className="text-lg font-semibold">Project Inquiry</h3>
+      <h3 className="text-lg font-semibold">{inquiryFormCopy.title}</h3>
       <p className="mt-1 text-sm text-muted-foreground">
-        Share a bit about your project so we can prepare for the call.
+        {inquiryFormCopy.description}
       </p>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <Label htmlFor="fullName">Full Name</Label>
+          <Label htmlFor="fullName">
+            Full Name <span className="text-primary">*</span>
+          </Label>
           <Input id="fullName" name="fullName" required className="h-10" />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">
+            Email <span className="text-primary">*</span>
+          </Label>
           <Input
             id="email"
             name="email"
@@ -105,23 +132,31 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
             className="h-10"
           />
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="company">Company</Label>
-          <Input id="company" name="company" className="h-10" />
+
+        <div className="space-y-1.5 sm:col-span-2">
+          <Label htmlFor="company">
+            Company Name <span className="text-primary">*</span>
+          </Label>
+          <Input id="company" name="company" required className="h-10" />
         </div>
+
         <div className="space-y-1.5">
-          <Label htmlFor="phone">Phone</Label>
+          <Label htmlFor="phone">
+            Phone <span className="text-primary">*</span>
+          </Label>
           <Input id="phone" name="phone" required className="h-10" />
         </div>
         <div className="space-y-1.5">
-          <Label>Service Needed</Label>
+          <Label>
+            Service <span className="text-primary">*</span>
+          </Label>
           <Select
             name="service"
-            value={service}
-            onValueChange={(v) => setService(v ?? "custom")}
+            value={service || null}
+            onValueChange={(v) => setService(v ?? "")}
           >
             <SelectTrigger className="h-10 w-full">
-              <SelectValue placeholder="Select service" />
+              <SelectValue placeholder="Select a service" />
             </SelectTrigger>
             <SelectContent>
               {services.map((item) => (
@@ -132,28 +167,11 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-1.5">
-          <Label>Budget Range</Label>
-          <Select
-            name="budget"
-            value={budget}
-            onValueChange={(v) => setBudget(v ?? "25-50")}
-          >
-            <SelectTrigger className="h-10 w-full">
-              <SelectValue placeholder="Select budget" />
-            </SelectTrigger>
-            <SelectContent>
-              {budgets.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
         <div className="space-y-2 sm:col-span-2">
-          <Label>Project Type</Label>
+          <Label>
+            Project Type <span className="text-primary">*</span>
+          </Label>
           <RadioGroup
             value={projectType}
             onValueChange={(v) =>
@@ -161,11 +179,7 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
             }
             className="grid gap-2 sm:grid-cols-3"
           >
-            {[
-              { value: "new", label: "New product" },
-              { value: "existing", label: "Existing product" },
-              { value: "unsure", label: "Not sure yet" },
-            ].map((option) => (
+            {projectTypes.map((option) => (
               <label
                 key={option.value}
                 className="flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2.5 text-sm has-data-checked:border-primary has-data-checked:bg-primary/5"
@@ -178,8 +192,36 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
         </div>
 
         <div className="space-y-1.5 sm:col-span-2">
-          <Label htmlFor="description">Project Description</Label>
-          <Textarea id="description" name="description" rows={4} required />
+          <Label htmlFor="description">
+            Tell us about your project <span className="text-primary">*</span>
+          </Label>
+          <Textarea
+            id="description"
+            name="description"
+            rows={4}
+            required
+            placeholder="Goals, timeline, current challenges, and anything else we should know…"
+          />
+        </div>
+
+        <div className="space-y-1.5 sm:col-span-2">
+          <Label>Preferred Budget</Label>
+          <Select
+            name="budget"
+            value={budget || null}
+            onValueChange={(v) => setBudget(v ?? "")}
+          >
+            <SelectTrigger className="h-10 w-full">
+              <SelectValue placeholder="Select a budget range" />
+            </SelectTrigger>
+            <SelectContent>
+              {budgets.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-1.5">
@@ -189,38 +231,56 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
             name="preferredDate"
             type="date"
             className="h-10"
-            defaultValue={
-              selectedDate
-                ? [
-                    selectedDate.getFullYear(),
-                    String(selectedDate.getMonth() + 1).padStart(2, "0"),
-                    String(selectedDate.getDate()).padStart(2, "0"),
-                  ].join("-")
-                : undefined
-            }
-            key={
-              selectedDate
-                ? `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`
-                : "date-empty"
-            }
+            value={toDateInputValue(selectedDate)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (!value) {
+                onDateChange?.(undefined);
+                return;
+              }
+              const [y, m, d] = value.split("-").map(Number);
+              onDateChange?.(new Date(y, m - 1, d));
+            }}
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="preferredTime">Preferred Time</Label>
-          <Input
-            id="preferredTime"
+          <Label>Preferred Time</Label>
+          <Select
             name="preferredTime"
-            type="text"
-            placeholder="e.g. 10:00 AM ICT"
-            className="h-10"
-            defaultValue={selectedSlot}
-            key={selectedSlot ?? "time-empty"}
-          />
+            value={selectedSlot || null}
+            onValueChange={(v) => onSlotChange?.(v ?? "")}
+          >
+            <SelectTrigger className="h-10 w-full">
+              <SelectValue placeholder="Select a time" />
+            </SelectTrigger>
+            <SelectContent>
+              {timeSlots.map((time) => (
+                <SelectItem key={time} value={time}>
+                  {time}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-1.5 sm:col-span-2">
-          <Label htmlFor="referral">How did you hear about us?</Label>
-          <Input id="referral" name="referral" className="h-10" />
+          <Label>How did you hear about us?</Label>
+          <Select
+            name="referral"
+            value={referral || null}
+            onValueChange={(v) => setReferral(v ?? "")}
+          >
+            <SelectTrigger className="h-10 w-full">
+              <SelectValue placeholder="Select an option" />
+            </SelectTrigger>
+            <SelectContent>
+              {referralSources.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -231,15 +291,17 @@ export function InquiryForm({ selectedDate, selectedSlot }: InquiryFormProps) {
           className="mt-0.5"
           name="consent"
         />
-        <span>
-          I agree to be contacted about this consultation and related project
-          discussions.
-        </span>
+        <span>{inquiryFormCopy.privacy}</span>
       </label>
 
       <Button type="submit" className="mt-5 h-11 w-full">
-        Request Free Consultation
+        {inquiryFormCopy.submit}
       </Button>
+
+      <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+        <Lock className="size-3.5 shrink-0" />
+        {inquiryFormCopy.secureNote}
+      </p>
     </form>
   );
 }
