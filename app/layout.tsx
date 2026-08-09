@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-import { SiteHeader } from "@/features/layout/components/site-header";
-import { SiteFooter } from "@/features/layout/components/site-footer";
-import { SITE, HEADER_HEIGHT_CLASS } from "@/lib/constants";
+import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -36,15 +34,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         geistSans.variable,
         geistMono.variable,
         "font-sans",
-        inter.variable,
+        inter.variable
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <SiteHeader />
-        <main id="main-content" className={cn("flex-1", HEADER_HEIGHT_CLASS)}>
-          {children}
-        </main>
-        <SiteFooter />
+      <body className="flex min-h-full flex-col">
+        {children}
         <Toaster position="top-right" />
       </body>
     </html>
