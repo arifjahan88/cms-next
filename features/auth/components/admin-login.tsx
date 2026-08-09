@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Briefcase,
@@ -56,6 +57,7 @@ function GoogleIcon({ className }: { className?: string }) {
 }
 
 export function AdminLogin() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
 
@@ -154,6 +156,7 @@ export function AdminLogin() {
               onSubmit={(e) => {
                 e.preventDefault();
                 toast.success("Signed in (demo). Redirecting to dashboard…");
+                router.push("/dashboard");
               }}
             >
               <div className="space-y-1.5">

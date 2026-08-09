@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -34,11 +35,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         geistSans.variable,
         geistMono.variable,
         "font-sans",
-        inter.variable
+        inter.variable,
       )}
     >
       <body className="flex min-h-full flex-col">
-        {children}
+        <TooltipProvider>{children}</TooltipProvider>
         <Toaster position="top-right" />
       </body>
     </html>
