@@ -1,16 +1,23 @@
 import type { LucideIcon } from "lucide-react";
 import {
+  ArrowLeftRight,
   Briefcase,
   Building2,
-  FileText,
+  Cpu,
   FolderKanban,
+  FormInput,
   Image,
   LayoutDashboard,
   LayoutTemplate,
+  Menu,
+  Newspaper,
+  Plug,
+  Search,
   Settings,
   Users,
   UserRound,
-  Plug,
+  MessageSquareQuote,
+  Layers,
 } from "lucide-react";
 
 export type DashboardNavItem = {
@@ -25,6 +32,10 @@ export type DashboardNavGroup = {
   items: DashboardNavItem[];
 };
 
+function soon(section: string) {
+  return `/dashboard/coming-soon?section=${encodeURIComponent(section)}`;
+}
+
 export const dashboardNav: DashboardNavGroup[] = [
   {
     items: [
@@ -36,42 +47,7 @@ export const dashboardNav: DashboardNavGroup[] = [
     ],
   },
   {
-    label: "Management",
-    items: [
-      {
-        title: "Users",
-        href: "/dashboard/coming-soon?section=Users",
-        icon: Users,
-        chevron: true,
-      },
-      {
-        title: "Projects",
-        href: "/dashboard/coming-soon?section=Projects",
-        icon: FolderKanban,
-        chevron: true,
-      },
-      {
-        title: "Services",
-        href: "/dashboard/coming-soon?section=Services",
-        icon: Briefcase,
-        chevron: true,
-      },
-      {
-        title: "Leads",
-        href: "/dashboard/coming-soon?section=Leads",
-        icon: UserRound,
-        chevron: true,
-      },
-      {
-        title: "Clients",
-        href: "/dashboard/coming-soon?section=Clients",
-        icon: Building2,
-        chevron: true,
-      },
-    ],
-  },
-  {
-    label: "Content",
+    label: "Manage Content",
     items: [
       {
         title: "Landing Page",
@@ -80,30 +56,95 @@ export const dashboardNav: DashboardNavGroup[] = [
         chevron: true,
       },
       {
-        title: "Blog",
-        href: "/dashboard/coming-soon?section=Blog",
-        icon: FileText,
+        title: "Navigation",
+        href: "/dashboard/navigation",
+        icon: Menu,
         chevron: true,
       },
       {
+        title: "Sections",
+        href: soon("Sections"),
+        icon: Layers,
+      },
+      {
         title: "Media Library",
-        href: "/dashboard/coming-soon?section=Media%20Library",
+        href: soon("Media Library"),
         icon: Image,
+      },
+      {
+        title: "Forms",
+        href: soon("Forms"),
+        icon: FormInput,
+      },
+      {
+        title: "SEO Settings",
+        href: soon("SEO Settings"),
+        icon: Search,
       },
     ],
   },
   {
-    label: "System",
+    label: "Collections",
+    items: [
+      {
+        title: "Services",
+        href: soon("Services"),
+        icon: Briefcase,
+      },
+      {
+        title: "Industries",
+        href: soon("Industries"),
+        icon: Building2,
+      },
+      {
+        title: "Technologies",
+        href: soon("Technologies"),
+        icon: Cpu,
+      },
+      {
+        title: "Case Studies",
+        href: soon("Case Studies"),
+        icon: FolderKanban,
+      },
+      {
+        title: "Blogs",
+        href: soon("Blogs"),
+        icon: Newspaper,
+      },
+      {
+        title: "Careers",
+        href: soon("Careers"),
+        icon: UserRound,
+      },
+      {
+        title: "Team Members",
+        href: soon("Team Members"),
+        icon: Users,
+      },
+      {
+        title: "Testimonials",
+        href: soon("Testimonials"),
+        icon: MessageSquareQuote,
+      },
+    ],
+  },
+  {
+    label: "Settings",
     items: [
       {
         title: "Site Settings",
-        href: "/dashboard/coming-soon?section=Site%20Settings",
+        href: soon("Site Settings"),
         icon: Settings,
       },
       {
         title: "API & Integrations",
-        href: "/dashboard/coming-soon?section=API",
+        href: soon("API"),
         icon: Plug,
+      },
+      {
+        title: "Redirects",
+        href: soon("Redirects"),
+        icon: ArrowLeftRight,
       },
     ],
   },
@@ -112,6 +153,9 @@ export const dashboardNav: DashboardNavGroup[] = [
 export function getDashboardPageTitle(pathname: string): string {
   if (pathname.startsWith("/dashboard/landing-page")) {
     return "Landing Page";
+  }
+  if (pathname.startsWith("/dashboard/navigation")) {
+    return "Navigation";
   }
   if (pathname.startsWith("/dashboard/coming-soon")) {
     return "Coming Soon";
