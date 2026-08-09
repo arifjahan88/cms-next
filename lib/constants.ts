@@ -20,4 +20,4 @@ export const SITE = {
   },
 } as const;
 
-export const HEADER_HEIGHT_CLASS = "pt-[6.75rem]";
+export const HEADER_HEIGHT_CLASS = "pt-[6.2rem]";

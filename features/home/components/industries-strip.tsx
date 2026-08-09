@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
@@ -12,8 +11,8 @@ export function IndustriesStrip() {
       <Container>
         <SectionHeader
           title="Industries We Serve"
-          description="Domain expertise across regulated and high-growth verticals."
           action={{ label: "View all industries", href: "/industries" }}
+          accent
         />
         <StaggerChildren className="mb-8 flex flex-wrap justify-center gap-3 md:gap-4">
           {industriesStrip.map((item) => {
@@ -33,11 +32,6 @@ export function IndustriesStrip() {
             );
           })}
         </StaggerChildren>
-        <div className="text-center">
-          <Button variant="outline" render={<Link href="/industries" />}>
-            View All Industries
-          </Button>
-        </div>
       </Container>
     </section>
   );

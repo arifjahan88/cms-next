@@ -19,28 +19,23 @@ export function StatItem({
       {Icon ? (
         <span
           className={cn(
-            "flex size-10 shrink-0 items-center justify-center rounded-lg",
-            light ? "bg-white/10 text-white" : "bg-primary/10 text-primary"
+            "flex size-7 shrink-0 items-center justify-center rounded-lg",
+            light ? "bg-white/10 text-white" : "bg-primary/10 text-primary",
           )}
         >
-          <Icon className="size-5" />
+          <Icon className="size-4" />
         </span>
       ) : null}
       <div>
         <p
           className={cn(
-            "text-xl font-bold tracking-tight md:text-2xl",
-            light ? "text-white" : "text-foreground"
+            "text-xl font-bold tracking-tight md:text-xl",
+            light ? "text-white" : "text-foreground",
           )}
         >
           {value}
         </p>
-        <p
-          className={cn(
-            "text-xs md:text-sm",
-            light ? "text-white/70" : "text-muted-foreground"
-          )}
-        >
+        <p className={cn("text-xs md:text-xs", light ? "text-white/70" : "text-muted-foreground")}>
           {label}
         </p>
       </div>

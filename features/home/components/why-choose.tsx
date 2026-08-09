@@ -1,7 +1,5 @@
-import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { SectionHeader } from "@/components/shared/section-header";
@@ -16,7 +14,8 @@ export function WhyChoose() {
       <Container>
         <SectionHeader
           title="Why Choose Zaimah Technologies?"
-          description="A reliable engineering partner focused on outcomes, quality, and long-term collaboration."
+          accent
+          action={{ label: "More About Us", href: "/about" }}
         />
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal direction="left">
@@ -58,14 +57,6 @@ export function WhyChoose() {
                 );
               })}
             </StaggerChildren>
-            <Button
-              variant="outline"
-              className="mt-6 border-primary text-primary hover:bg-primary/5"
-              render={<Link href="/about" />}
-            >
-              More About Us
-              <ArrowRight data-icon="inline-end" />
-            </Button>
           </div>
         </div>
       </Container>

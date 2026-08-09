@@ -8,6 +8,7 @@ export function SectionHeader({
   action,
   className,
   align = "left",
+  accent = false,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
@@ -15,6 +16,8 @@ export function SectionHeader({
   action?: { label: string; href: string };
   className?: string;
   align?: "left" | "center";
+  /** Short thick blue underline under the title (matches section label design) */
+  accent?: boolean;
 }) {
   return (
     <div
@@ -34,6 +37,15 @@ export function SectionHeader({
         <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
           {title}
         </h2>
+        {accent ? (
+          <span
+            className={cn(
+              "mt-2.5 block h-1 w-12 rounded-full bg-primary",
+              align === "center" && "mx-auto"
+            )}
+            aria-hidden
+          />
+        ) : null}
         {description ? (
           <p className="mt-3 max-w-2xl text-muted-foreground">{description}</p>
         ) : null}

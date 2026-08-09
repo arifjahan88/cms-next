@@ -152,3 +152,20 @@
     animation: none;
   }
 }
+
+/* Testimonials Swiper */
+.testimonials-swiper .swiper-pagination-bullet {
+  background: var(--muted-foreground);
+  opacity: 0.35;
+  width: 8px;
+  height: 8px;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: var(--primary);
+  opacity: 1;
+}
+
+.testimonials-swiper .swiper-slide {
+  height: auto;
+}

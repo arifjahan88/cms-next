@@ -7,9 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
-import { Marquee } from "@/components/shared/marquee";
 import { StatItem } from "@/components/shared/stat-item";
-import { homeHero, techLogos } from "@/features/home/data/home";
+import { homeHero } from "@/features/home/data/home";
 import { getIcon } from "@/lib/icons";
 import { fadeInLeft, fadeInRight } from "@/lib/animations";
 
@@ -60,14 +59,14 @@ export function HomeHero() {
               label="[Main Hero Dashboard/Mobile Illustration]"
               className="aspect-4/3 min-h-60 rounded-2xl shadow-xl shadow-primary/10"
             />
-            <div className="absolute -bottom-4 -left-4 hidden rounded-xl border bg-white px-4 py-3 shadow-lg sm:block">
+            {/* <div className="absolute -bottom-4 -left-4 hidden rounded-xl border bg-white px-4 py-3 shadow-lg sm:block">
               <p className="text-xs text-muted-foreground">Active projects</p>
               <p className="text-lg font-bold text-primary">48 worldwide</p>
-            </div>
+            </div> */}
           </motion.div>
         </div>
 
-        <div className="mt-14 border-t pt-8">
+        {/* <div className="mt-14 border-t pt-8">
           <p className="mb-4 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">
             We Work With Modern Technologies
           </p>
@@ -81,7 +80,7 @@ export function HomeHero() {
               </span>
             ))}
           </Marquee>
-        </div>
+        </div> */}
       </Container>
     </section>
   );

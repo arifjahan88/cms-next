@@ -23,18 +23,18 @@ export const mainNav: NavItem[] = [
       },
     ],
   },
-  {
-    title: "Solutions",
-    href: "/services",
-    children: [
-      {
-        title: "Enterprise Solutions",
-        href: "/services#enterprise",
-      },
-      { title: "SaaS Products", href: "/services#saas" },
-      { title: "Digital Transformation", href: "/services#digital" },
-    ],
-  },
+  // {
+  //   title: "Solutions",
+  //   href: "/services",
+  //   children: [
+  //     {
+  //       title: "Enterprise Solutions",
+  //       href: "/services#enterprise",
+  //     },
+  //     { title: "SaaS Products", href: "/services#saas" },
+  //     { title: "Digital Transformation", href: "/services#digital" },
+  //   ],
+  // },
   { title: "Industries", href: "/industries" },
   { title: "Technologies", href: "/technologies" },
   { title: "Portfolio", href: "/portfolio" },

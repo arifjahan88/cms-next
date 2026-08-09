@@ -33,79 +33,60 @@ export const techLogos = [
   "MongoDB",
 ];
 
-export const trustedBy = [
-  "Google Cloud",
-  "Microsoft",
-  "AWS",
-  "Oracle",
-  "Meta",
-  "Adobe",
-  "Salesforce",
-  "Shopify",
-];
-
 export const coreServices: ServiceItem[] = [
   {
     id: "1",
     title: "Custom Software Development",
-    description:
-      "Bespoke web and enterprise applications tailored to your workflows and growth goals.",
+    description: "Tailored web & enterprise apps built for your workflows.",
     icon: "code",
     href: "/services",
   },
   {
     id: "2",
     title: "Mobile App Development",
-    description:
-      "Native and cross-platform mobile experiences for iOS and Android users.",
+    description: "Native & cross-platform apps for iOS & Android.",
     icon: "smartphone",
     href: "/services",
   },
   {
     id: "3",
     title: "UI/UX Design",
-    description:
-      "Research-driven interfaces that convert visitors into loyal customers.",
+    description: "Research-driven interfaces that convert and delight users.",
     icon: "palette",
     href: "/services",
   },
   {
     id: "4",
     title: "Cloud & DevOps",
-    description:
-      "Reliable cloud architecture, CI/CD, and infrastructure automation.",
+    description: "Scalable cloud architecture, CI/CD, and automation.",
     icon: "cloud",
     href: "/services",
   },
   {
     id: "5",
     title: "QA & Testing",
-    description:
-      "Manual and automated testing to ship quality releases with confidence.",
+    description: "Manual & automated testing for confident releases.",
     icon: "shield",
     href: "/services",
   },
   {
     id: "6",
     title: "AI & Data Solutions",
-    description:
-      "Intelligent products powered by ML, analytics, and modern data stacks.",
+    description: "Intelligent products powered by ML and analytics.",
     icon: "brain",
     href: "/services",
   },
   {
     id: "7",
     title: "Product Engineering",
-    description:
-      "End-to-end product teams that own discovery, delivery, and iteration.",
+    description: "End-to-end teams for discovery, delivery, and growth.",
     icon: "layers",
     href: "/services",
   },
   {
     id: "8",
     title: "Support & Maintenance",
-    description:
-      "24/7 monitoring, upgrades, and continuous improvement for live systems.",
+    description: "24/7 monitoring, upgrades, and continuous improvement.",
     icon: "headset",
     href: "/services",
   },
@@ -206,13 +187,13 @@ export const whyChoose = [
 export const featuredCaseStudies: CaseStudyItem[] = [
   {
     id: "1",
-    title: "MediCare+ Hospital Management System",
+    title: "Healthcare Management Platform",
     description:
-      "Unified clinical workflows, appointments, and billing for a multi-hospital network.",
+      "A complete hospital management system with appointment, EHR, billing & reporting.",
     category: "Healthcare",
     image: "/images/case-healthcare.svg",
     href: "/case-studies",
-    techStack: ["React", "Laravel", "AWS", "Docker"],
+    techStack: ["Flutter", "Laravel", "PostgreSQL"],
     metrics: [
       { value: "65%", label: "Operational efficiency" },
       { value: "40%", label: "Faster admissions" },
@@ -282,6 +263,42 @@ export const testimonials: Testimonial[] = [
       "Reliable partners who understand both product and compliance. Our retail platform launched on time and keeps improving.",
     name: "Daniel Park",
     role: "VP Engineering, ShopNova",
+    avatar: "",
+    rating: 5,
+  },
+  {
+    id: "5",
+    quote:
+      "Outstanding delivery quality. Their team owned the roadmap, shipped weekly demos, and never missed a milestone.",
+    name: "Elena Rossi",
+    role: "COO, LogiTrack",
+    avatar: "",
+    rating: 5,
+  },
+  {
+    id: "6",
+    quote:
+      "We needed a secure education platform fast. Zaimah built it beautifully and trained our staff with care.",
+    name: "Michael Torres",
+    role: "Director of IT, EduLearn",
+    avatar: "",
+    rating: 5,
+  },
+  {
+    id: "7",
+    quote:
+      "Clear communication, senior engineers, and a product mindset. Our SaaS metrics improved within the first quarter.",
+    name: "Priya Nair",
+    role: "Founder, CloudLedger",
+    avatar: "",
+    rating: 5,
+  },
+  {
+    id: "8",
+    quote:
+      "They modernized our legacy systems without downtime. The migration was smooth and support has been excellent.",
+    name: "Thomas Weber",
+    role: "CIO, ManuPro Industries",
     avatar: "",
     rating: 5,
   },

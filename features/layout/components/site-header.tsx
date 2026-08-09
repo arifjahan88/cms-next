@@ -22,7 +22,7 @@ export function SiteHeader() {
       <div
         className={cn(
           "border-b bg-background/95 backdrop-blur transition-shadow supports-backdrop-filter:bg-background/90",
-          scrolled && "shadow-md"
+          scrolled && "shadow-md",
         )}
       >
         <Container className="flex h-16 items-center gap-3">
@@ -38,12 +38,7 @@ export function SiteHeader() {
             >
               <Phone className="size-4" />
             </Button>
-            <a
-              href={SITE.phoneHref}
-              className="hidden items-center gap-1.5 text-sm font-medium text-primary xl:inline-flex"
-            >
-              {SITE.phone}
-            </a>
+
             <Button
               variant="outline"
               className="hidden border-primary text-primary hover:bg-primary/5 md:inline-flex"
@@ -51,10 +46,7 @@ export function SiteHeader() {
             >
               Contact Us
             </Button>
-            <Button
-              className="hidden sm:inline-flex"
-              render={<Link href="/book-consultation" />}
-            >
+            <Button className="hidden sm:inline-flex" render={<Link href="/book-consultation" />}>
               Book Free Consultation
             </Button>
             <MobileNav />

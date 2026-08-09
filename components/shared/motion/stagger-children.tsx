@@ -27,15 +27,17 @@ export function StaggerChildren({
 export function StaggerItem({
   children,
   className,
+  hoverLift = true,
 }: {
   children: React.ReactNode;
   className?: string;
+  hoverLift?: boolean;
 }) {
   return (
     <motion.div
       className={cn(className)}
       variants={staggerItem}
-      whileHover={{ y: -4 }}
+      whileHover={hoverLift ? { y: -4 } : undefined}
       transition={{ duration: 0.2 }}
     >
       {children}
