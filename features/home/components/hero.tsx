@@ -15,34 +15,20 @@ import { fadeInLeft, fadeInRight } from "@/lib/animations";
 
 export function HomeHero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-surface via-background to-primary/5 pb-8 pt-10 md:pt-14">
+    <section className="relative overflow-hidden bg-linear-to-br from-surface via-background to-primary/5 pb-8 pt-10 md:pt-14">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInLeft}
-          >
-            <Badge
-              variant="secondary"
-              className="mb-4 gap-1.5 bg-primary/10 text-primary"
-            >
+          <motion.div initial="hidden" animate="visible" variants={fadeInLeft}>
+            <Badge variant="secondary" className="mb-4 gap-1.5 bg-primary/10 text-primary">
               <BadgeCheck className="size-3.5" />
               {homeHero.badge}
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-[3.25rem] lg:leading-[1.15]">
-              {homeHero.title}{" "}
-              <span className="text-primary">{homeHero.highlight}</span>
+              {homeHero.title} <span className="text-primary">{homeHero.highlight}</span>
             </h1>
-            <p className="mt-4 max-w-xl text-muted-foreground md:text-lg">
-              {homeHero.description}
-            </p>
+            <p className="mt-4 max-w-xl text-muted-foreground md:text-lg">{homeHero.description}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button
-                size="lg"
-                className="h-11 px-5"
-                render={<Link href="/book-consultation" />}
-              >
+              <Button size="lg" className="h-11 px-5" render={<Link href="/book-consultation" />}>
                 Book Free Consultation
                 <ArrowRight data-icon="inline-end" />
               </Button>
@@ -57,15 +43,8 @@ export function HomeHero() {
             </div>
             <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {homeHero.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-xl border bg-background p-3 shadow-sm"
-                >
-                  <StatItem
-                    value={stat.value}
-                    label={stat.label}
-                    icon={getIcon(stat.icon)}
-                  />
+                <div key={stat.label} className="rounded-xl border bg-background p-3 shadow-sm">
+                  <StatItem value={stat.value} label={stat.label} icon={getIcon(stat.icon)} />
                 </div>
               ))}
             </div>
@@ -79,7 +58,7 @@ export function HomeHero() {
           >
             <ImagePlaceholder
               label="[Main Hero Dashboard/Mobile Illustration]"
-              className="aspect-[4/3] min-h-[240px] rounded-2xl shadow-xl shadow-primary/10"
+              className="aspect-4/3 min-h-60 rounded-2xl shadow-xl shadow-primary/10"
             />
             <div className="absolute -bottom-4 -left-4 hidden rounded-xl border bg-white px-4 py-3 shadow-lg sm:block">
               <p className="text-xs text-muted-foreground">Active projects</p>

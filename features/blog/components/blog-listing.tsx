@@ -20,17 +20,10 @@ import { FilterPills } from "@/components/shared/filter-pills";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import { FadeIn } from "@/components/shared/motion/fade-in";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
 import { BlogSidebar } from "@/features/blog/components/blog-sidebar";
 import { NewsletterBanner } from "@/features/blog/components/newsletter-banner";
-import {
-  blogCategories,
-  blogHero,
-  blogPosts,
-} from "@/features/blog/data/blog";
+import { blogCategories, blogHero, blogPosts } from "@/features/blog/data/blog";
 
 function authorInitials(name?: string) {
   if (!name) return "ZT";
@@ -49,15 +42,10 @@ export function BlogListing() {
 
   const filtered = useMemo(() => {
     const activeCategory =
-      selectCategory !== "all"
-        ? selectCategory
-        : category === "All Topics"
-          ? "all"
-          : category;
+      selectCategory !== "all" ? selectCategory : category === "All Topics" ? "all" : category;
 
     return blogPosts.filter((post) => {
-      const matchesCategory =
-        activeCategory === "all" || post.category === activeCategory;
+      const matchesCategory = activeCategory === "all" || post.category === activeCategory;
       const q = query.trim().toLowerCase();
       const matchesQuery =
         !q ||
@@ -69,28 +57,20 @@ export function BlogListing() {
   }, [category, query, selectCategory]);
 
   const featured = filtered.find((post) => post.featured) ?? filtered[0];
-  const secondary = filtered
-    .filter((post) => post.id !== featured?.id)
-    .slice(0, 3);
+  const secondary = filtered.filter((post) => post.id !== featured?.id).slice(0, 3);
   const latest = filtered
-    .filter(
-      (post) =>
-        post.id !== featured?.id && !secondary.some((s) => s.id === post.id)
-    )
+    .filter((post) => post.id !== featured?.id && !secondary.some((s) => s.id === post.id))
     .slice(0, 3);
 
   return (
     <>
       <section className="relative overflow-hidden bg-gradient-to-br from-surface via-background to-primary/5 py-12 md:py-16">
         <Container>
-          <PageBreadcrumb
-            items={[{ label: "Home", href: "/" }, { label: "Blog" }]}
-          />
+          <PageBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <FadeIn>
               <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-                {blogHero.title}{" "}
-                <span className="text-primary">{blogHero.highlight}</span>
+                {blogHero.title} <span className="text-primary">{blogHero.highlight}</span>
               </h1>
               <p className="mt-4 max-w-xl text-muted-foreground md:text-lg">
                 {blogHero.description}
@@ -110,9 +90,7 @@ export function BlogListing() {
                   onValueChange={(value) => {
                     if (!value) return;
                     setSelectCategory(value);
-                    setCategory(
-                      value === "all" ? "All Topics" : value
-                    );
+                    setCategory(value === "all" ? "All Topics" : value);
                   }}
                 >
                   <SelectTrigger className="h-11 min-w-48">
@@ -132,11 +110,8 @@ export function BlogListing() {
               </div>
             </FadeIn>
             <FadeIn delay={0.1}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
-                <ImagePlaceholder
-                  label="[Blog Cover]"
-                  className="absolute inset-0 rounded-xl"
-                />
+              <div className="relative aspect-4/3 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
+                <ImagePlaceholder label="[Blog Cover]" className="absolute inset-0 rounded-xl" />
               </div>
             </FadeIn>
           </div>
@@ -150,9 +125,7 @@ export function BlogListing() {
             value={category}
             onChange={(value) => {
               setCategory(value);
-              setSelectCategory(
-                value === "All Topics" ? "all" : value
-              );
+              setSelectCategory(value === "All Topics" ? "all" : value);
             }}
           />
         </Container>
@@ -170,9 +143,7 @@ export function BlogListing() {
                         label="[Blog Cover]"
                         className="absolute inset-0 rounded-xl"
                       />
-                      <Badge className="absolute left-4 top-4">
-                        Featured
-                      </Badge>
+                      <Badge className="absolute left-4 top-4">Featured</Badge>
                     </div>
                     <CardContent className="space-y-3 p-6">
                       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
@@ -184,19 +155,13 @@ export function BlogListing() {
                       <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
                         {featured.title}
                       </h2>
-                      <p className="max-w-3xl text-muted-foreground">
-                        {featured.excerpt}
-                      </p>
+                      <p className="max-w-3xl text-muted-foreground">{featured.excerpt}</p>
                       <div className="flex items-center justify-between gap-3 pt-2">
                         <div className="flex items-center gap-2">
                           <Avatar size="sm">
-                            <AvatarFallback>
-                              {authorInitials(featured.author)}
-                            </AvatarFallback>
+                            <AvatarFallback>{authorInitials(featured.author)}</AvatarFallback>
                           </Avatar>
-                          <span className="text-sm font-medium">
-                            {featured.author}
-                          </span>
+                          <span className="text-sm font-medium">{featured.author}</span>
                         </div>
                         <Link
                           href={featured.href}
@@ -209,9 +174,7 @@ export function BlogListing() {
                   </Card>
                 </FadeIn>
               ) : (
-                <p className="text-muted-foreground">
-                  No articles match your filters.
-                </p>
+                <p className="text-muted-foreground">No articles match your filters.</p>
               )}
 
               {secondary.length > 0 ? (
@@ -233,12 +196,8 @@ export function BlogListing() {
                               <span>·</span>
                               <span>{post.readTime}</span>
                             </div>
-                            <h3 className="text-lg font-semibold leading-snug">
-                              {post.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              {post.excerpt}
-                            </p>
+                            <h3 className="text-lg font-semibold leading-snug">{post.title}</h3>
+                            <p className="text-sm text-muted-foreground">{post.excerpt}</p>
                             <Link
                               href={post.href}
                               className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
@@ -265,9 +224,7 @@ export function BlogListing() {
         <Container>
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">
-                Latest Articles
-              </h2>
+              <h2 className="text-2xl font-bold tracking-tight">Latest Articles</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Fresh perspectives from our product and engineering teams.
               </p>
@@ -286,7 +243,7 @@ export function BlogListing() {
             {latest.map((post) => (
               <StaggerItem key={post.id}>
                 <Card className="h-full overflow-hidden border shadow-sm">
-                  <div className="relative aspect-[16/10] bg-muted">
+                  <div className="relative aspect-16/10 bg-muted">
                     <ImagePlaceholder
                       label="[Blog Cover]"
                       className="absolute inset-0 rounded-xl"
@@ -297,12 +254,8 @@ export function BlogListing() {
                       <Badge variant="secondary">{post.category}</Badge>
                       <span>{post.readTime}</span>
                     </div>
-                    <h3 className="text-lg font-semibold leading-snug">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {post.excerpt}
-                    </p>
+                    <h3 className="text-lg font-semibold leading-snug">{post.title}</h3>
+                    <p className="text-sm text-muted-foreground">{post.excerpt}</p>
                     <Link
                       href={post.href}
                       className="mt-auto inline-flex items-center gap-1 pt-2 text-sm font-medium text-primary hover:underline"

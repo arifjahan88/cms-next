@@ -6,10 +6,7 @@ import { careersHero } from "@/features/careers/data/careers";
 export function CareersHero() {
   return (
     <PageHero
-      breadcrumb={[
-        { label: "Home", href: "/" },
-        { label: "Careers" },
-      ]}
+      breadcrumb={[{ label: "Home", href: "/" }, { label: "Careers" }]}
       eyebrow="Careers at Zaimah"
       title={careersHero.title}
       highlight={careersHero.highlight}
@@ -20,7 +17,7 @@ export function CareersHero() {
       }}
     >
       <div className="relative">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
+        <div className="relative aspect-4/3 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
           <ImagePlaceholder
             label="[Team Collaboration Photo]"
             className="absolute inset-0 rounded-xl"

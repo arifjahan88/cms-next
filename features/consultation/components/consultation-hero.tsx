@@ -6,10 +6,7 @@ import { getIcon } from "@/lib/icons";
 export function ConsultationHero() {
   return (
     <PageHero
-      breadcrumb={[
-        { label: "Home", href: "/" },
-        { label: "Book Consultation" },
-      ]}
+      breadcrumb={[{ label: "Home", href: "/" }, { label: "Book Consultation" }]}
       eyebrow="Free Consultation"
       title={consultationHero.title}
       description={consultationHero.description}
@@ -19,7 +16,7 @@ export function ConsultationHero() {
       }}
     >
       <div className="relative">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
+        <div className="relative aspect-4/3 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
           <ImagePlaceholder
             label="[Consultation Calendar Illustration]"
             className="absolute inset-0 rounded-xl"
@@ -29,10 +26,7 @@ export function ConsultationHero() {
           {consultationHero.highlights.map((item) => {
             const Icon = getIcon(item.icon);
             return (
-              <li
-                key={item.label}
-                className="rounded-xl border bg-background p-3 shadow-sm"
-              >
+              <li key={item.label} className="rounded-xl border bg-background p-3 shadow-sm">
                 <span className="mb-2 flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <Icon className="size-4" />
                 </span>

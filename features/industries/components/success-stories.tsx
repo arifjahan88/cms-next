@@ -5,10 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { SectionHeader } from "@/components/shared/section-header";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
 import { successStories } from "@/features/industries/data/industries";
 
 export function IndustriesSuccessStories() {
@@ -24,7 +21,7 @@ export function IndustriesSuccessStories() {
           {successStories.map((item) => (
             <StaggerItem key={item.id}>
               <Card className="h-full overflow-hidden border shadow-sm transition-shadow hover:shadow-md">
-                <div className="relative aspect-[16/10] bg-muted">
+                <div className="relative aspect-16/10 bg-muted">
                   <ImagePlaceholder
                     label="[Case Study Image]"
                     className="absolute inset-0 rounded-xl"
@@ -32,22 +29,14 @@ export function IndustriesSuccessStories() {
                   <Badge className="absolute left-3 top-3">{item.category}</Badge>
                 </div>
                 <CardContent className="flex flex-col gap-3 p-5">
-                  <h3 className="text-lg font-semibold leading-snug">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
+                  <h3 className="text-lg font-semibold leading-snug">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
                   {item.metrics ? (
                     <div className="grid grid-cols-2 gap-3 border-t pt-3">
                       {item.metrics.map((metric) => (
                         <div key={metric.label}>
-                          <p className="text-lg font-bold text-primary">
-                            {metric.value}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {metric.label}
-                          </p>
+                          <p className="text-lg font-bold text-primary">{metric.value}</p>
+                          <p className="text-xs text-muted-foreground">{metric.label}</p>
                         </div>
                       ))}
                     </div>

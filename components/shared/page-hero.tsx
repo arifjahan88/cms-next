@@ -30,8 +30,8 @@ export function PageHero({
   return (
     <section
       className={cn(
-        "relative overflow-hidden bg-gradient-to-br from-surface via-background to-primary/5 py-12 md:py-16",
-        className
+        "relative overflow-hidden bg-linear-to-br from-surface via-background to-primary/5 py-12 md:py-16",
+        className,
       )}
     >
       <Container>
@@ -44,13 +44,10 @@ export function PageHero({
               </p>
             ) : null}
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              {title}{" "}
-              {highlight ? <span className="text-primary">{highlight}</span> : null}
+              {title} {highlight ? <span className="text-primary">{highlight}</span> : null}
             </h1>
             {description ? (
-              <p className="mt-4 max-w-xl text-muted-foreground md:text-lg">
-                {description}
-              </p>
+              <p className="mt-4 max-w-xl text-muted-foreground md:text-lg">{description}</p>
             ) : null}
             {actions ? (
               <div className="mt-6 flex flex-wrap gap-3">
@@ -71,9 +68,7 @@ export function PageHero({
                     className="h-11 px-5 border-primary text-primary hover:bg-primary/5"
                     render={<Link href={actions.secondary.href} />}
                   >
-                    {actions.secondary.download ? (
-                      <Download data-icon="inline-start" />
-                    ) : null}
+                    {actions.secondary.download ? <Download data-icon="inline-start" /> : null}
                     {actions.secondary.label}
                   </Button>
                 ) : null}

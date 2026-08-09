@@ -7,27 +7,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
-import {
-  aboutCard,
-  exploreTopics,
-  popularPosts,
-} from "@/features/blog/data/blog";
+import { aboutCard, exploreTopics, popularPosts } from "@/features/blog/data/blog";
 
 export function BlogSidebar() {
   return (
     <aside className="space-y-6">
       <Card className="overflow-hidden border shadow-sm">
-        <div className="relative aspect-[16/10] bg-muted">
-          <ImagePlaceholder
-            label="[Blog Thumbnail]"
-            className="absolute inset-0 rounded-xl"
-          />
+        <div className="relative aspect-16/10 bg-muted">
+          <ImagePlaceholder label="[Blog Thumbnail]" className="absolute inset-0 rounded-xl" />
         </div>
         <CardContent className="space-y-2 p-5">
           <h3 className="text-base font-semibold">{aboutCard.title}</h3>
-          <p className="text-sm text-muted-foreground">
-            {aboutCard.description}
-          </p>
+          <p className="text-sm text-muted-foreground">{aboutCard.description}</p>
         </CardContent>
       </Card>
 

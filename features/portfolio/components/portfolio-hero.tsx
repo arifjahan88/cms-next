@@ -10,14 +10,11 @@ export function PortfolioHero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-surface via-background to-primary/5 py-12 md:py-16">
       <Container>
-        <PageBreadcrumb
-          items={[{ label: "Home", href: "/" }, { label: "Portfolio" }]}
-        />
+        <PageBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Portfolio" }]} />
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <FadeIn>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              {portfolioHero.title}{" "}
-              <span className="text-primary">{portfolioHero.highlight}</span>
+              {portfolioHero.title} <span className="text-primary">{portfolioHero.highlight}</span>
             </h1>
             <p className="mt-4 max-w-xl text-muted-foreground md:text-lg">
               {portfolioHero.description}
@@ -34,7 +31,7 @@ export function PortfolioHero() {
             </div>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
+            <div className="relative aspect-4/3 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
               <ImagePlaceholder
                 label="[Portfolio Device Mockup]"
                 className="absolute inset-0 rounded-xl"

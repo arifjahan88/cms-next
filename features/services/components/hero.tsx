@@ -1,9 +1,6 @@
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { PageHero } from "@/components/shared/page-hero";
-import {
-  servicesHero,
-  servicesHeroChips,
-} from "@/features/services/data/services";
+import { servicesHero, servicesHeroChips } from "@/features/services/data/services";
 
 export function ServicesHero() {
   return (
@@ -18,7 +15,7 @@ export function ServicesHero() {
       <div className="relative">
         <ImagePlaceholder
           label="[Services Hero Illustration]"
-          className="aspect-[4/3] min-h-[240px] rounded-2xl shadow-xl shadow-primary/10"
+          className="aspect-4/3 min-h-60 rounded-2xl shadow-xl shadow-primary/10"
         />
         {servicesHeroChips.map((chip, index) => {
           const positions = [

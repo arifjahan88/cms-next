@@ -12,11 +12,7 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { FadeIn } from "@/components/shared/motion/fade-in";
 import { comparisonRows } from "@/features/services/data/services";
 
-export function ServicesComparison({
-  embedded = false,
-}: {
-  embedded?: boolean;
-}) {
+export function ServicesComparison({ embedded = false }: { embedded?: boolean }) {
   const content = (
     <>
       <SectionHeader
@@ -29,18 +25,12 @@ export function ServicesComparison({
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/40">
-                <TableHead className="w-[120px] px-3 text-xs sm:w-[160px] sm:px-4 sm:text-sm">
+                <TableHead className="w-30 px-3 text-xs sm:w-40 sm:px-4 sm:text-sm">
                   Feature
                 </TableHead>
-                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">
-                  Fixed Price
-                </TableHead>
-                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">
-                  Time & Material
-                </TableHead>
-                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">
-                  Dedicated Team
-                </TableHead>
+                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">Fixed Price</TableHead>
+                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">Time & Material</TableHead>
+                <TableHead className="px-3 text-xs sm:px-4 sm:text-sm">Dedicated Team</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

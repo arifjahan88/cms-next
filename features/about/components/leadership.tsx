@@ -4,10 +4,7 @@ import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Reveal } from "@/components/shared/motion/reveal";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
 import { leadership } from "@/features/about/data/about";
 
 export function AboutLeadership() {
@@ -25,7 +22,7 @@ export function AboutLeadership() {
           <Reveal className="mb-8">
             <Card className="overflow-hidden border shadow-sm">
               <CardContent className="grid gap-0 p-0 md:grid-cols-[0.9fr_1.1fr]">
-                <div className="relative min-h-[240px] bg-muted md:min-h-full">
+                <div className="relative min-h-60 bg-muted md:min-h-full">
                   <ImagePlaceholder
                     label="[Leadership Photo]"
                     className="absolute inset-0 rounded-xl"
@@ -36,12 +33,8 @@ export function AboutLeadership() {
                     Featured Leader
                   </p>
                   <h3 className="text-2xl font-bold">{featured.name}</h3>
-                  <p className="font-medium text-muted-foreground">
-                    {featured.role}
-                  </p>
-                  <p className="text-sm text-muted-foreground md:text-base">
-                    {featured.bio}
-                  </p>
+                  <p className="font-medium text-muted-foreground">{featured.role}</p>
+                  <p className="text-sm text-muted-foreground md:text-base">{featured.bio}</p>
                   <div className="mt-2 flex gap-3">
                     {featured.linkedin ? (
                       <a
@@ -71,7 +64,7 @@ export function AboutLeadership() {
           {others.map((member) => (
             <StaggerItem key={member.id}>
               <Card className="h-full overflow-hidden border shadow-sm">
-                <div className="relative aspect-[4/3] bg-muted">
+                <div className="relative aspect-4/3 bg-muted">
                   <ImagePlaceholder
                     label="[Leadership Photo]"
                     className="absolute inset-0 rounded-xl"
@@ -81,9 +74,7 @@ export function AboutLeadership() {
                   <h3 className="font-semibold">{member.name}</h3>
                   <p className="text-sm text-primary">{member.role}</p>
                   {member.bio ? (
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {member.bio}
-                    </p>
+                    <p className="mt-2 text-xs text-muted-foreground">{member.bio}</p>
                   ) : null}
                 </CardContent>
               </Card>

@@ -6,10 +6,7 @@ import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { SectionHeader } from "@/components/shared/section-header";
 import { TechIcon } from "@/components/shared/tech-icon";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
 import { featuredCaseStudies } from "@/features/home/data/home";
 
 export function FeaturedCaseStudies() {
@@ -25,7 +22,7 @@ export function FeaturedCaseStudies() {
           {featuredCaseStudies.map((item) => (
             <StaggerItem key={item.id}>
               <Card className="h-full overflow-hidden border shadow-sm transition-shadow hover:shadow-md">
-                <div className="relative aspect-[16/10] bg-muted">
+                <div className="relative aspect-16/10 bg-muted">
                   <ImagePlaceholder
                     label="[Case Study Image]"
                     className="absolute inset-0 rounded-xl"
@@ -33,12 +30,8 @@ export function FeaturedCaseStudies() {
                   <Badge className="absolute left-3 top-3">{item.category}</Badge>
                 </div>
                 <CardContent className="flex flex-col gap-3 p-5">
-                  <h3 className="text-lg font-semibold leading-snug">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
+                  <h3 className="text-lg font-semibold leading-snug">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
                   <div>
                     <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                       Tech Stack

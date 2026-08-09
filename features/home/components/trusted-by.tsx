@@ -17,7 +17,7 @@ export function TrustedBy() {
             {trustedBy.map((name) => (
               <div
                 key={name}
-                className="flex h-12 min-w-[120px] items-center justify-center rounded-lg border bg-background px-4 text-sm font-semibold text-muted-foreground grayscale transition hover:grayscale-0 hover:text-foreground"
+                className="flex h-12 min-w-30 items-center justify-center rounded-lg border bg-background px-4 text-sm font-semibold text-muted-foreground grayscale transition hover:grayscale-0 hover:text-foreground"
               >
                 {name}
               </div>

@@ -1,13 +1,7 @@
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { PageHero } from "@/components/shared/page-hero";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
-import {
-  techHeroPillars,
-  technologiesHero,
-} from "@/features/technologies/data/technologies";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
+import { techHeroPillars, technologiesHero } from "@/features/technologies/data/technologies";
 import { getIcon } from "@/lib/icons";
 
 export function TechnologiesHero() {
@@ -21,7 +15,7 @@ export function TechnologiesHero() {
       actions={technologiesHero.actions}
     >
       <div className="space-y-4">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
+        <div className="relative aspect-4/3 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
           <ImagePlaceholder
             label="[Technologies Hero Illustration]"
             className="absolute inset-0 rounded-xl"
@@ -37,9 +31,7 @@ export function TechnologiesHero() {
                     <Icon className="size-4" />
                   </span>
                   <h3 className="text-sm font-semibold">{pillar.title}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {pillar.description}
-                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">{pillar.description}</p>
                 </div>
               </StaggerItem>
             );

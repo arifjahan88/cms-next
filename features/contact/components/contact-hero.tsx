@@ -6,10 +6,7 @@ import { contactHero } from "@/features/contact/data/contact";
 export function ContactHero() {
   return (
     <PageHero
-      breadcrumb={[
-        { label: "Home", href: "/" },
-        { label: "Contact" },
-      ]}
+      breadcrumb={[{ label: "Home", href: "/" }, { label: "Contact" }]}
       eyebrow="Contact Us"
       title={contactHero.title}
       highlight={contactHero.highlight}
@@ -20,7 +17,7 @@ export function ContactHero() {
       }}
     >
       <div className="relative">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
+        <div className="relative aspect-4/3 overflow-hidden rounded-2xl border bg-white shadow-xl shadow-primary/10">
           <ImagePlaceholder
             label="[Hero 3D Visual/Map Image]"
             className="absolute inset-0 rounded-xl"

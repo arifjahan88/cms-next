@@ -4,10 +4,7 @@ import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Reveal } from "@/components/shared/motion/reveal";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
 import { companyFeatures } from "@/features/about/data/about";
 import { getIcon } from "@/lib/icons";
 
@@ -22,7 +19,7 @@ export function AboutCompanyOverview() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal direction="left">
             <div className="relative overflow-hidden rounded-2xl border shadow-lg">
-              <div className="relative aspect-[4/3]">
+              <div className="relative aspect-4/3">
                 <ImagePlaceholder
                   label="[Company Story Video Placeholder]"
                   className="absolute inset-0 rounded-xl"
@@ -52,9 +49,7 @@ export function AboutCompanyOverview() {
                       <Icon className="size-5" />
                     </span>
                     <h3 className="font-semibold">{item.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {item.description}
-                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
                   </div>
                 </StaggerItem>
               );

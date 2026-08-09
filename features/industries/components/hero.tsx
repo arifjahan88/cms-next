@@ -4,14 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
-import {
-  industriesHero,
-  industriesHeroFeatures,
-} from "@/features/industries/data/industries";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
+import { industriesHero, industriesHeroFeatures } from "@/features/industries/data/industries";
 import { getIcon } from "@/lib/icons";
 
 export function IndustriesHero() {
@@ -59,9 +53,7 @@ export function IndustriesHero() {
                         <Icon className="size-4" />
                       </span>
                       <h3 className="text-sm font-semibold">{feature.title}</h3>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {feature.description}
-                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">{feature.description}</p>
                     </div>
                   </StaggerItem>
                 );
@@ -70,7 +62,7 @@ export function IndustriesHero() {
           </div>
           <ImagePlaceholder
             label="[Industries City Illustration]"
-            className="aspect-[16/10] min-h-[280px] rounded-2xl shadow-lg"
+            className="aspect-16/10 min-h-[280px] rounded-2xl shadow-lg"
           />
         </div>
       </Container>

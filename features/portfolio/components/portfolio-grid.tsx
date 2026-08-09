@@ -15,10 +15,7 @@ import {
 import { Container } from "@/components/shared/container";
 import { FilterPills } from "@/components/shared/filter-pills";
 import { ImagePlaceholder } from "@/components/shared/image-placeholder";
-import {
-  StaggerChildren,
-  StaggerItem,
-} from "@/components/shared/motion/stagger-children";
+import { StaggerChildren, StaggerItem } from "@/components/shared/motion/stagger-children";
 import {
   portfolioFilters,
   portfolioProjects,
@@ -50,11 +47,7 @@ export function PortfolioGrid() {
     <section className="py-12 md:py-16">
       <Container>
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <FilterPills
-            items={[...portfolioFilters]}
-            value={category}
-            onChange={setCategory}
-          />
+          <FilterPills items={[...portfolioFilters]} value={category} onChange={setCategory} />
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">Sort by</span>
             <Select
@@ -85,7 +78,7 @@ export function PortfolioGrid() {
           {projects.map((item) => (
             <StaggerItem key={item.id}>
               <Card className="h-full overflow-hidden border shadow-sm transition-shadow hover:shadow-md">
-                <div className="relative aspect-[16/10] bg-muted">
+                <div className="relative aspect-16/10 bg-muted">
                   <ImagePlaceholder
                     label="[Project Preview Image]"
                     className="absolute inset-0 rounded-xl"
@@ -93,12 +86,8 @@ export function PortfolioGrid() {
                   <Badge className="absolute left-3 top-3">{item.category}</Badge>
                 </div>
                 <CardContent className="flex flex-col gap-3 p-5">
-                  <h3 className="text-lg font-semibold leading-snug">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
+                  <h3 className="text-lg font-semibold leading-snug">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
                   <Link
                     href={item.href}
                     className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
