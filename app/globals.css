@@ -118,6 +118,10 @@
   --surface: oklch(0.2 0.02 260);
 }
 
+body {
+  position: relative;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
