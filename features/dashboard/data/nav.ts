@@ -1,6 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
 import {
-  ArrowLeftRight,
   Briefcase,
   Building2,
   Cpu,
@@ -11,9 +10,7 @@ import {
   LayoutTemplate,
   Menu,
   Newspaper,
-  Plug,
   Search,
-  Settings,
   Users,
   UserRound,
   MessageSquareQuote,
@@ -128,26 +125,26 @@ export const dashboardNav: DashboardNavGroup[] = [
       },
     ],
   },
-  {
-    label: 'Settings',
-    items: [
-      {
-        title: 'Site Settings',
-        href: soon('Site Settings'),
-        icon: Settings,
-      },
-      {
-        title: 'API & Integrations',
-        href: soon('API'),
-        icon: Plug,
-      },
-      {
-        title: 'Redirects',
-        href: soon('Redirects'),
-        icon: ArrowLeftRight,
-      },
-    ],
-  },
+  // {
+  //   label: 'Settings',
+  //   items: [
+  //     {
+  //       title: 'Site Settings',
+  //       href: soon('Site Settings'),
+  //       icon: Settings,
+  //     },
+  //     {
+  //       title: 'API & Integrations',
+  //       href: soon('API'),
+  //       icon: Plug,
+  //     },
+  //     {
+  //       title: 'Redirects',
+  //       href: soon('Redirects'),
+  //       icon: ArrowLeftRight,
+  //     },
+  //   ],
+  // },
 ];
 
 export function getDashboardPageTitle(pathname: string): string {
