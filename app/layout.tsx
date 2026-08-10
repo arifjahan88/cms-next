@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
-import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { QueryProvider } from '@/app/providers/query-provider';
+import { QueryProvider } from '@/providers/query-provider';
 import { SITE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import './globals.css';
+import { AppToaster } from '@/components/shared/app-toaster';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body className='flex min-h-full flex-col'>
         <QueryProvider>
           <TooltipProvider>{children}</TooltipProvider>
-          <Toaster position='top-right' richColors />
+          <AppToaster />
         </QueryProvider>
       </body>
     </html>

@@ -26,6 +26,7 @@ Custom email/password auth for the admin dashboard:
 - **Routes:** `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
 - **Guards:** [`proxy.ts`](proxy.ts) + [`app/dashboard/layout.tsx`](app/dashboard/layout.tsx)
 - **Client API:** use [`lib/api`](lib/api) (`login`, `logout`, `getMe`) and feature hooks in [`features/auth/hooks`](features/auth/hooks). Do not call `fetch('/api/...')` directly from components.
+- **Toasts:** use [`lib/toast`](lib/toast) (`toast.success({ title, description? })`, etc.). Global [`Toaster`](components/ui/toast.tsx) is in root layout.
 - **Response envelope:** all `/api/*` handlers return [`IApiResponse<T>`](types/api.ts) via `apiSuccess` / `apiError` in [`lib/api/response.ts`](lib/api/response.ts). `apiFetch` unwraps `data` and throws `ApiError` when `status` is false.
 
 ### Environment

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Lock } from 'lucide-react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -76,7 +76,9 @@ export function InquiryForm({
         });
 
         if (!parsed.success) {
-          toast.error(parsed.error.issues[0]?.message ?? 'Please check the form');
+          toast.error({
+            title: parsed.error.issues[0]?.message ?? 'Please check the form',
+          });
           return;
         }
 
@@ -93,11 +95,11 @@ export function InquiryForm({
           .filter(Boolean)
           .join(' · ');
 
-        toast.success(
-          when
+        toast.success({
+          title: when
             ? `Consultation requested for ${when}. We'll confirm shortly.`
-            : "Consultation request received! We'll confirm shortly."
-        );
+            : "Consultation request received! We'll confirm shortly.",
+        });
         form.reset();
         setConsent(false);
         setService('');

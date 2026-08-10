@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Reorder, useDragControls } from 'motion/react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import {
   Briefcase,
   Building2,
@@ -170,7 +170,7 @@ export function SectionsList({
         <Button
           variant='outline'
           className='mt-3 h-10 w-full border-dashed border-primary/40 text-primary'
-          onClick={() => toast.message('Add section coming soon')}
+          onClick={() => toast.info({ title: 'Add section coming soon' })}
         >
           <Plus data-icon='inline-start' />
           Add New Section

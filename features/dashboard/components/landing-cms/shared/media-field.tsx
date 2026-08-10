@@ -1,6 +1,6 @@
 'use client';
 
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { ImagePlaceholder } from '@/components/shared/image-placeholder';
@@ -28,7 +28,7 @@ export function MediaField({
           variant='outline'
           size='sm'
           onClick={() => {
-            toast.message('Change media (demo)');
+            toast.info({ title: 'Change media (demo)' });
             onChange({
               ...value,
               name: `updated-${value.name}`,
@@ -42,7 +42,7 @@ export function MediaField({
           size='sm'
           className='text-destructive'
           onClick={() => {
-            toast.message('Media cleared (demo)');
+            toast.info({ title: 'Media cleared (demo)' });
             onChange({
               name: '',
               size: '',

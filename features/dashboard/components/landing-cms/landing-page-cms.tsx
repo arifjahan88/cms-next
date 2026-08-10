@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Eye, Save } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -63,7 +63,7 @@ export function LandingPageCms() {
             variant='outline'
             size='sm'
             className='h-9'
-            onClick={() => toast.message('Preview opening…')}
+            onClick={() => toast.info({ title: 'Preview opening…' })}
           >
             <Eye data-icon='inline-start' />
             Preview
@@ -72,12 +72,12 @@ export function LandingPageCms() {
             variant='outline'
             size='sm'
             className='h-9'
-            onClick={() => toast.success('Draft saved')}
+            onClick={() => toast.success({ title: 'Draft saved' })}
           >
             <Save data-icon='inline-start' />
             Save Draft
           </Button>
-          <Button size='sm' className='h-9' onClick={() => toast.success('Published successfully')}>
+          <Button size='sm' className='h-9' onClick={() => toast.success({ title: 'Published successfully' })}>
             Publish
           </Button>
         </div>

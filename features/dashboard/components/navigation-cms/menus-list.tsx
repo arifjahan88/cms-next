@@ -2,7 +2,7 @@
 
 import { createElement, useState } from 'react';
 import { Reorder, useDragControls } from 'motion/react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import {
   GripVertical,
   Menu,
@@ -105,7 +105,7 @@ function MenuCard({
         <button
           type='button'
           className='rounded-md p-1 text-muted-foreground hover:bg-muted'
-          onClick={() => toast.message('Menu actions coming soon')}
+          onClick={() => toast.info({ title: 'Menu actions coming soon' })}
           aria-label='Menu options'
         >
           <MoreHorizontal className='size-4' />

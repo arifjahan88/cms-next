@@ -13,9 +13,20 @@ import {
   Maximize,
   Menu,
   Search,
+  Settings,
+  UserRound,
 } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -106,6 +117,7 @@ function SidebarBody({
         <Button
           variant='outline'
           size='sm'
+          nativeButton={false}
           className='h-9 w-full justify-start gap-2 border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white'
           render={<Link href='/' target='_blank' />}
         >
@@ -242,8 +254,16 @@ export function AdminShell({
                 <TooltipContent>Fullscreen</TooltipContent>
               </Tooltip>
 
-              <div className='ml-1 flex items-center gap-1'>
-                <div className='flex items-center gap-2 rounded-lg px-1.5 py-1'>
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  render={
+                    <Button
+                      variant='ghost'
+                      className='ml-1 h-auto gap-2 rounded-lg px-1.5 py-1'
+                      aria-label='Account menu'
+                    />
+                  }
+                >
                   <Avatar size='sm'>
                     <AvatarFallback className='bg-primary text-xs text-primary-foreground'>
                       {initialsFromName(user.name)}
@@ -254,24 +274,54 @@ export function AdminShell({
                     <span className='block text-[10px] text-muted-foreground'>{label}</span>
                   </span>
                   <ChevronDown className='hidden size-3.5 text-muted-foreground sm:block' />
-                </div>
-                <Tooltip>
-                  <TooltipTrigger
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align='end' className='w-56'>
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel className='font-normal'>
+                      <div className='flex flex-col gap-0.5'>
+                        <span className='text-sm font-semibold leading-none'>{user.name}</span>
+                        <span className='text-xs text-muted-foreground'>{user.email}</span>
+                      </div>
+                    </DropdownMenuLabel>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className='cursor-pointer'
                     render={
-                      <Button
-                        variant='ghost'
-                        size='icon'
-                        aria-label='Sign out'
-                        disabled={logoutMutation.isPending}
-                        onClick={() => logoutMutation.mutate()}
-                      />
+                      <Link href='/dashboard/coming-soon?section=Profile' />
                     }
                   >
-                    <LogOut className='size-4' />
-                  </TooltipTrigger>
-                  <TooltipContent>Sign out</TooltipContent>
-                </Tooltip>
-              </div>
+                    <UserRound />
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className='cursor-pointer'
+                    render={
+                      <Link href='/dashboard/coming-soon?section=Account%20Settings' />
+                    }
+                  >
+                    <Settings />
+                    Account settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className='cursor-pointer'
+                    render={<Link href='/' target='_blank' />}
+                  >
+                    <ExternalLink />
+                    View website
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    variant='destructive'
+                    className='cursor-pointer'
+                    disabled={logoutMutation.isPending}
+                    onClick={() => logoutMutation.mutate()}
+                  >
+                    <LogOut />
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </header>
 

@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { ApiError, authKeys, logout } from '@/lib/api';
 
 export function useLogoutMutation() {
@@ -19,7 +19,7 @@ export function useLogoutMutation() {
     onError: (error) => {
       const message =
         error instanceof ApiError ? error.message : 'Unable to sign out';
-      toast.error(message);
+      toast.error({ title: message });
     },
   });
 }

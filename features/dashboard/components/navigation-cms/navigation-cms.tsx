@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { ChevronDown, Eye, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -53,7 +53,7 @@ export function NavigationCms() {
     setMenus((prev) => [...prev, menu]);
     setActiveMenuId(id);
     setActiveItemId(null);
-    toast.success('Menu created as draft');
+    toast.success({ title: 'Menu created as draft' });
   }
 
   function handleAddItem() {
@@ -65,7 +65,7 @@ export function NavigationCms() {
       status: 'Draft',
     }));
     setActiveItemId(item.id);
-    toast.message('Menu item added');
+    toast.info({ title: 'Menu item added' });
   }
 
   function handleItemChange(patch: Partial<MenuItem>) {
@@ -111,7 +111,7 @@ export function NavigationCms() {
         status: 'Draft',
       };
     });
-    toast.message('Sub item added');
+    toast.info({ title: 'Sub item added' });
   }
 
   function handleSelectMenu(id: string) {
@@ -133,7 +133,7 @@ export function NavigationCms() {
             variant='outline'
             size='sm'
             className='h-9'
-            onClick={() => toast.message('Preview opening…')}
+            onClick={() => toast.info({ title: 'Preview opening…' })}
           >
             <Eye data-icon='inline-start' />
             Preview
@@ -142,7 +142,7 @@ export function NavigationCms() {
             variant='outline'
             size='sm'
             className='h-9'
-            onClick={() => toast.success('Draft saved')}
+            onClick={() => toast.success({ title: 'Draft saved' })}
           >
             <Save data-icon='inline-start' />
             Save Draft
@@ -151,7 +151,7 @@ export function NavigationCms() {
             <Button
               size='sm'
               className='h-9 rounded-r-none'
-              onClick={() => toast.success('Published successfully')}
+              onClick={() => toast.success({ title: 'Published successfully' })}
             >
               Publish
             </Button>
@@ -168,10 +168,10 @@ export function NavigationCms() {
                 <ChevronDown className='size-3.5' />
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
-                <DropdownMenuItem onClick={() => toast.success('Published all menus')}>
+                <DropdownMenuItem onClick={() => toast.success({ title: 'Published all menus' })}>
                   Publish all menus
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => toast.success('Published selected menu')}>
+                <DropdownMenuItem onClick={() => toast.success({ title: 'Published selected menu' })}>
                   Publish selected menu
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -213,11 +213,11 @@ export function NavigationCms() {
           onAddChild={handleAddChild}
           onSaveDraft={() => {
             handleItemChange({ status: 'Draft' });
-            toast.success('Saved as draft');
+            toast.success({ title: 'Saved as draft' });
           }}
           onUpdate={() => {
             handleItemChange({ status: 'Published' });
-            toast.success('Menu item updated');
+            toast.success({ title: 'Menu item updated' });
           }}
         />
       </div>

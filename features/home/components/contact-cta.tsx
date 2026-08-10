@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { ArrowRight, Clock, Mail, MapPin, MessageCircle, Phone, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -125,7 +125,7 @@ export function ContactCta() {
                 className='space-y-3.5'
                 onSubmit={(e) => {
                   e.preventDefault();
-                  toast.success("Request received! We'll be in touch shortly.");
+                  toast.success({ title: "Request received! We'll be in touch shortly." });
                   setFileName(null);
                   (e.target as HTMLFormElement).reset();
                 }}

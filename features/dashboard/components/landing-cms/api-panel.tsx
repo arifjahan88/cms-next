@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Copy } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -55,7 +55,7 @@ export function ApiPanel({
             variant='link'
             size='sm'
             className='h-8 px-0'
-            onClick={() => toast.message('API docs coming soon')}
+            onClick={() => toast.info({ title: 'API docs coming soon' })}
           >
             View API Docs
           </Button>
@@ -69,7 +69,7 @@ export function ApiPanel({
             className='h-7'
             onClick={() => {
               void navigator.clipboard.writeText(endpoint);
-              toast.success('Copied endpoint');
+              toast.success({ title: 'Copied endpoint' });
             }}
           >
             <Copy data-icon='inline-start' />

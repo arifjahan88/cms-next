@@ -1,6 +1,6 @@
 'use client';
 
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Link2, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -76,7 +76,7 @@ export function EditMenuItem({
           className='text-destructive hover:text-destructive'
           onClick={() => {
             onDelete();
-            toast.success('Menu item deleted');
+            toast.success({ title: 'Menu item deleted' });
           }}
         >
           <Trash2 data-icon='inline-start' />

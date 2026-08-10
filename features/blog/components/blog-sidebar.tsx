@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -62,7 +62,7 @@ export function BlogSidebar() {
             className='space-y-2'
             onSubmit={(e) => {
               e.preventDefault();
-              toast.success('Thanks for subscribing!');
+              toast.success({ title: 'Thanks for subscribing!' });
               (e.target as HTMLFormElement).reset();
             }}
           >

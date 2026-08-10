@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
@@ -87,7 +87,7 @@ export function SiteFooter() {
               className='flex flex-col gap-2 sm:flex-row'
               onSubmit={(e) => {
                 e.preventDefault();
-                toast.success('Thanks for subscribing!');
+                toast.success({ title: 'Thanks for subscribing!' });
                 (e.target as HTMLFormElement).reset();
               }}
             >
