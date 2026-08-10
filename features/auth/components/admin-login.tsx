@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import {
   Briefcase,
@@ -20,11 +22,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { loginFeatures } from '@/features/auth/data/login';
 import { SITE } from '@/lib/constants';
+import { adminLoginSchema, type AdminLoginValues } from '@/lib/validations/forms';
 
 const featureIcons: Record<string, LucideIcon> = {
   layers: LayoutGrid,
@@ -59,7 +62,45 @@ function GoogleIcon({ className }: { className?: string }) {
 export function AdminLogin() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [remember, setRemember] = useState(true);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<AdminLoginValues>({
+    resolver: zodResolver(adminLoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      remember: false,
+    },
+  });
+
+  const onSubmit = handleSubmit(async (values) => {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      const data = (await res.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+
+      if (!res.ok) {
+        toast.error(data?.error ?? 'Unable to sign in');
+        return;
+      }
+
+      toast.success('Signed in. Redirecting to dashboard…');
+      router.push('/dashboard');
+      router.refresh();
+    } catch {
+      toast.error('Unable to sign in. Please try again.');
+    }
+  });
 
   return (
     <div className='flex min-h-svh flex-col lg:flex-row'>
@@ -112,20 +153,19 @@ export function AdminLogin() {
           </p>
 
           <ul className='mt-12 space-y-5'>
-            {loginFeatures.map((item) => {
-              const Icon = featureIcons[item.icon] ?? LayoutGrid;
-              return (
-                <li key={item.title} className='flex items-start gap-4'>
-                  <span className='flex size-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white ring-1 ring-white/10'>
-                    <Icon className='size-5 stroke-[1.5]' />
-                  </span>
-                  <div>
-                    <p className='text-base font-semibold text-white md:text-lg'>{item.title}</p>
-                    <p className='mt-1 text-sm text-white/65 md:text-[15px]'>{item.description}</p>
-                  </div>
-                </li>
-              );
-            })}
+            {loginFeatures.map((item) => (
+              <li key={item.title} className='flex items-start gap-4'>
+                <span className='flex size-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white ring-1 ring-white/10'>
+                  {createElement(featureIcons[item.icon] ?? LayoutGrid, {
+                    className: 'size-5 stroke-[1.5]',
+                  })}
+                </span>
+                <div>
+                  <p className='text-base font-semibold text-white md:text-lg'>{item.title}</p>
+                  <p className='mt-1 text-sm text-white/65 md:text-[15px]'>{item.description}</p>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </aside>
@@ -144,46 +184,40 @@ export function AdminLogin() {
               </p>
             </div>
 
-            <form
-              className='space-y-4'
-              onSubmit={(e) => {
-                e.preventDefault();
-                toast.success('Signed in (demo). Redirecting to dashboard…');
-                router.push('/dashboard');
-              }}
-            >
-              <div className='space-y-1.5'>
-                <Label htmlFor='email' className='font-semibold'>
+            <form className='space-y-4' onSubmit={onSubmit} noValidate>
+              <Field data-invalid={errors.email ? true : undefined}>
+                <FieldLabel htmlFor='email' className='font-semibold'>
                   Email Address
-                </Label>
+                </FieldLabel>
                 <div className='relative'>
                   <User className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
                   <Input
                     id='email'
-                    name='email'
                     type='email'
-                    required
                     placeholder='admin@zamiltech.com'
                     className='h-11 pl-9'
                     autoComplete='email'
+                    aria-invalid={errors.email ? true : undefined}
+                    {...register('email')}
                   />
                 </div>
-              </div>
+                <FieldError errors={[errors.email]} />
+              </Field>
 
-              <div className='space-y-1.5'>
-                <Label htmlFor='password' className='font-semibold'>
+              <Field data-invalid={errors.password ? true : undefined}>
+                <FieldLabel htmlFor='password' className='font-semibold'>
                   Password
-                </Label>
+                </FieldLabel>
                 <div className='relative'>
                   <Lock className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
                   <Input
                     id='password'
-                    name='password'
                     type={showPassword ? 'text' : 'password'}
-                    required
                     placeholder='Enter your password'
                     className='h-11 pr-10 pl-9'
                     autoComplete='current-password'
+                    aria-invalid={errors.password ? true : undefined}
+                    {...register('password')}
                   />
                   <button
                     type='button'
@@ -194,24 +228,31 @@ export function AdminLogin() {
                     {showPassword ? <EyeOff className='size-4' /> : <Eye className='size-4' />}
                   </button>
                 </div>
-              </div>
+                <FieldError errors={[errors.password]} />
+              </Field>
 
               <div className='flex items-center justify-between gap-3'>
-                <label className='flex cursor-pointer items-center gap-2 text-sm text-foreground'>
-                  <Checkbox
-                    checked={remember}
-                    onCheckedChange={(checked) => setRemember(checked === true)}
-                  />
-                  Remember me
-                </label>
+                <Controller
+                  control={control}
+                  name='remember'
+                  render={({ field }) => (
+                    <label className='flex cursor-pointer items-center gap-2 text-sm text-foreground'>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(checked) => field.onChange(checked === true)}
+                      />
+                      Remember me
+                    </label>
+                  )}
+                />
                 <Link href='#' className='text-sm font-medium text-primary hover:underline'>
                   Forgot Password?
                 </Link>
               </div>
 
-              <Button type='submit' size='lg' className='h-11 w-full'>
+              <Button type='submit' size='lg' className='h-11 w-full' disabled={isSubmitting}>
                 <LogIn data-icon='inline-start' />
-                Login to Dashboard
+                {isSubmitting ? 'Signing in…' : 'Login to Dashboard'}
               </Button>
             </form>
 
@@ -229,10 +270,11 @@ export function AdminLogin() {
               variant='outline'
               size='lg'
               className='h-11 w-full'
-              onClick={() => toast.message('Google sign-in coming soon.')}
+              disabled
+              title='Coming soon'
             >
               <GoogleIcon className='size-4' />
-              Sign in with Google
+              Sign in with Google (Coming soon)
             </Button>
           </div>
 

@@ -2,17 +2,19 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   Bell,
   ChevronDown,
   ChevronRight,
   CircleHelp,
   ExternalLink,
+  LogOut,
   Maximize,
   Menu,
   Search,
 } from 'lucide-react';
+import { toast } from 'sonner';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,8 +22,15 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { dashboardNav, getDashboardPageTitle } from '@/features/dashboard/data/nav';
+import { roleLabel } from '@/lib/auth/roles';
 import { SITE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+
+export type AdminShellUser = {
+  name: string;
+  email: string;
+  role: number;
+};
 
 function NavList({
   onNavigate,
@@ -111,22 +120,53 @@ function SidebarBody({
   );
 }
 
-export function AdminShell({ children }: { children: React.ReactNode }) {
+function initialsFromName(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'AD';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0] ?? ''}${parts[1][0] ?? ''}`.toUpperCase();
+}
+
+export function AdminShell({
+  children,
+  user,
+}: {
+  children: React.ReactNode;
+  user: AdminShellUser;
+}) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.toString();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
   const title = getDashboardPageTitle(pathname);
+  const label = roleLabel(user.role);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    try {
+      const res = await fetch('/api/auth/logout', { method: 'POST' });
+      if (!res.ok) {
+        toast.error('Unable to sign out');
+        return;
+      }
+      router.push('/login');
+      router.refresh();
+    } catch {
+      toast.error('Unable to sign out');
+    } finally {
+      setLoggingOut(false);
+    }
+  }
 
   return (
     <TooltipProvider>
       <div className='flex min-h-svh bg-surface'>
-        {/* Desktop sidebar */}
         <aside className='sticky top-0 hidden h-svh w-64 shrink-0 bg-brand-navy text-brand-navy-foreground lg:flex lg:flex-col'>
           <SidebarBody pathname={pathname} search={search} />
         </aside>
 
-        {/* Mobile sheet */}
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetContent
             side='left'
@@ -220,21 +260,36 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 <TooltipContent>Fullscreen</TooltipContent>
               </Tooltip>
 
-              <button
-                type='button'
-                className='ml-1 flex items-center gap-2 rounded-lg px-1.5 py-1 transition hover:bg-muted'
-              >
-                <Avatar size='sm'>
-                  <AvatarFallback className='bg-primary text-xs text-primary-foreground'>
-                    AU
-                  </AvatarFallback>
-                </Avatar>
-                <span className='hidden text-left sm:block'>
-                  <span className='block text-xs font-semibold leading-tight'>Admin User</span>
-                  <span className='block text-[10px] text-muted-foreground'>Super Admin</span>
-                </span>
-                <ChevronDown className='hidden size-3.5 text-muted-foreground sm:block' />
-              </button>
+              <div className='ml-1 flex items-center gap-1'>
+                <div className='flex items-center gap-2 rounded-lg px-1.5 py-1'>
+                  <Avatar size='sm'>
+                    <AvatarFallback className='bg-primary text-xs text-primary-foreground'>
+                      {initialsFromName(user.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className='hidden text-left sm:block'>
+                    <span className='block text-xs font-semibold leading-tight'>{user.name}</span>
+                    <span className='block text-[10px] text-muted-foreground'>{label}</span>
+                  </span>
+                  <ChevronDown className='hidden size-3.5 text-muted-foreground sm:block' />
+                </div>
+                <Tooltip>
+                  <TooltipTrigger
+                    render={
+                      <Button
+                        variant='ghost'
+                        size='icon'
+                        aria-label='Sign out'
+                        disabled={loggingOut}
+                        onClick={() => void handleLogout()}
+                      />
+                    }
+                  >
+                    <LogOut className='size-4' />
+                  </TooltipTrigger>
+                  <TooltipContent>Sign out</TooltipContent>
+                </Tooltip>
+              </div>
             </div>
           </header>
 

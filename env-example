@@ -1,0 +1,5 @@
+DATABASE_URL=postgresql://user:pass@host:5432/dbname
+AUTH_SECRET=generate-a-long-random-string
+SEED_ADMIN_EMAIL=admin@zamil.local
+SEED_ADMIN_PASSWORD=ChangeMe123!
+SEED_ADMIN_NAME=Admin User

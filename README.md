@@ -16,9 +16,46 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Custom email/password auth for the admin dashboard:
+
+- **Packages:** `bcryptjs`, `jose`, `drizzle-orm`, `pg`
+- **Session:** JWT signed with `AUTH_SECRET`, stored in an httpOnly `session` cookie
+- **Roles:** `1` = Admin, `2` = User (dashboard requires Admin)
+- **Routes:** `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
+- **Guards:** [`proxy.ts`](proxy.ts) + [`app/dashboard/layout.tsx`](app/dashboard/layout.tsx)
+
+### Environment
+
+Copy [`env-example`](env-example) to `.env` and set:
+
+```
+DATABASE_URL=postgresql://user:pass@host:5432/dbname
+AUTH_SECRET=generate-a-long-random-string
+SEED_ADMIN_EMAIL=admin@zamil.local
+SEED_ADMIN_PASSWORD=ChangeMe123!
+SEED_ADMIN_NAME=Admin User
+```
+
+### Database scripts
+
+```bash
+npm run db:generate   # create SQL from db/schema.ts
+npm run db:migrate    # apply migrations
+npm run db:seed       # create local admin (if missing)
+npm run db:studio     # Drizzle Studio
+```
+
+Default seeded admin (local only): `admin@zamil.local` / `ChangeMe123!`
+
+### Smoke test
+
+1. `npm run db:migrate && npm run db:seed`
+2. `npm run dev`
+3. Open `/login`, sign in with the seeded admin
+4. Confirm redirect to `/dashboard` and that visiting `/dashboard` logged-out redirects to `/login`
+5. Use the header logout control and confirm return to `/login`
 
 ## Learn More
 
