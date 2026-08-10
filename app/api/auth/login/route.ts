@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
-import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { UserRole, users } from '@/db/schema';
+import { apiError, apiSuccess } from '@/lib/api/response';
 import { verifyPassword } from '@/lib/auth/password';
 import { isAdminRole } from '@/lib/auth/roles';
 import { createSessionToken, setSessionCookie } from '@/lib/auth/session';
@@ -13,10 +13,11 @@ export async function POST(request: Request) {
     const parsed = adminLoginSchema.safeParse(body);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 400 }
-      );
+      return apiError(request, {
+        message: 'Invalid email or password',
+        statusCode: 400,
+        error: parsed.error.flatten(),
+      });
     }
 
     const { email, password, remember } = parsed.data;
@@ -28,29 +29,28 @@ export async function POST(request: Request) {
       .limit(1);
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
+      return apiError(request, {
+        message: 'Invalid email or password',
+        statusCode: 401,
+      });
     }
 
     const valid = await verifyPassword(password, user.passwordHash);
     if (!valid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
+      return apiError(request, {
+        message: 'Invalid email or password',
+        statusCode: 401,
+      });
     }
 
     if (!isAdminRole(user.role)) {
-      return NextResponse.json(
-        { error: 'Admin access required' },
-        { status: 403 }
-      );
+      return apiError(request, {
+        message: 'Admin access required',
+        statusCode: 403,
+      });
     }
 
-    const role =
-      user.role === UserRole.Admin ? UserRole.Admin : UserRole.User;
+    const role = user.role === UserRole.Admin ? UserRole.Admin : UserRole.User;
 
     const token = await createSessionToken(
       {
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
     await setSessionCookie(token, remember === true);
 
-    return NextResponse.json({
+    return apiSuccess(request, {
       user: {
         id: user.id,
         email: user.email,
@@ -73,10 +73,11 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Login error:', error);
-    return NextResponse.json(
-      { error: 'Unable to sign in. Please try again.' },
-      { status: 500 }
-    );
+    console.log('Login error:', error);
+    return apiError(request, {
+      message: 'Unable to sign in. Please try again.',
+      statusCode: 500,
+      error,
+    });
   }
 }

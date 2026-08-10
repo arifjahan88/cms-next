@@ -1,14 +1,17 @@
-import { NextResponse } from 'next/server';
+import { apiError, apiSuccess } from '@/lib/api/response';
 import { getSession } from '@/lib/auth/session';
 
-export async function GET() {
+export async function GET(request: Request) {
   const session = await getSession();
 
   if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return apiError(request, {
+      message: 'Unauthorized',
+      statusCode: 401,
+    });
   }
 
-  return NextResponse.json({
+  return apiSuccess(request, {
     user: {
       id: session.sub,
       email: session.email,

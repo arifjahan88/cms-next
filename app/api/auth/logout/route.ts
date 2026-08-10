@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { apiSuccess } from '@/lib/api/response';
 import { clearSessionCookie } from '@/lib/auth/session';
 
-export async function POST() {
+export async function POST(request: Request) {
   await clearSessionCookie();
-  return NextResponse.json({ ok: true });
+  return apiSuccess(request, { ok: true as const });
 }

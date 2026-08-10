@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import {
   Bell,
   ChevronDown,
@@ -14,13 +14,13 @@ import {
   Menu,
   Search,
 } from 'lucide-react';
-import { toast } from 'sonner';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SiteLogo } from '@/components/shared/site-logo';
+import { useLogoutMutation } from '@/features/auth/hooks';
 import { dashboardNav, getDashboardPageTitle } from '@/features/dashboard/data/nav';
 import { roleLabel } from '@/lib/auth/roles';
 import { SITE } from '@/lib/constants';
@@ -135,30 +135,12 @@ export function AdminShell({
   user: AdminShellUser;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.toString();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [loggingOut, setLoggingOut] = useState(false);
+  const logoutMutation = useLogoutMutation();
   const title = getDashboardPageTitle(pathname);
   const label = roleLabel(user.role);
-
-  async function handleLogout() {
-    setLoggingOut(true);
-    try {
-      const res = await fetch('/api/auth/logout', { method: 'POST' });
-      if (!res.ok) {
-        toast.error('Unable to sign out');
-        return;
-      }
-      router.push('/login');
-      router.refresh();
-    } catch {
-      toast.error('Unable to sign out');
-    } finally {
-      setLoggingOut(false);
-    }
-  }
 
   return (
     <TooltipProvider>
@@ -280,8 +262,8 @@ export function AdminShell({
                         variant='ghost'
                         size='icon'
                         aria-label='Sign out'
-                        disabled={loggingOut}
-                        onClick={() => void handleLogout()}
+                        disabled={logoutMutation.isPending}
+                        onClick={() => logoutMutation.mutate()}
                       />
                     }
                   >

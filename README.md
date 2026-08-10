@@ -20,11 +20,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Custom email/password auth for the admin dashboard:
 
-- **Packages:** `bcryptjs`, `jose`, `drizzle-orm`, `pg`
+- **Packages:** `bcryptjs`, `jose`, `drizzle-orm`, `pg`, `@tanstack/react-query`
 - **Session:** JWT signed with `AUTH_SECRET`, stored in an httpOnly `session` cookie
 - **Roles:** `1` = Admin, `2` = User (dashboard requires Admin)
 - **Routes:** `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
 - **Guards:** [`proxy.ts`](proxy.ts) + [`app/dashboard/layout.tsx`](app/dashboard/layout.tsx)
+- **Client API:** use [`lib/api`](lib/api) (`login`, `logout`, `getMe`) and feature hooks in [`features/auth/hooks`](features/auth/hooks). Do not call `fetch('/api/...')` directly from components.
+- **Response envelope:** all `/api/*` handlers return [`IApiResponse<T>`](types/api.ts) via `apiSuccess` / `apiError` in [`lib/api/response.ts`](lib/api/response.ts). `apiFetch` unwraps `data` and throws `ApiError` when `status` is false.
 
 ### Environment
 

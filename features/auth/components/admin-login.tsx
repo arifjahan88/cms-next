@@ -2,10 +2,8 @@
 
 import { createElement, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
 import {
   Briefcase,
   Eye,
@@ -26,6 +24,7 @@ import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { loginFeatures } from '@/features/auth/data/login';
+import { useLoginMutation } from '@/features/auth/hooks';
 import { SITE } from '@/lib/constants';
 import { adminLoginSchema, type AdminLoginValues } from '@/lib/validations/forms';
 
@@ -60,8 +59,8 @@ function GoogleIcon({ className }: { className?: string }) {
 }
 
 export function AdminLogin() {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const loginMutation = useLoginMutation();
 
   const {
     register,
@@ -77,28 +76,13 @@ export function AdminLogin() {
     },
   });
 
+  const isPending = isSubmitting || loginMutation.isPending;
+
   const onSubmit = handleSubmit(async (values) => {
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
-
-      const data = (await res.json().catch(() => null)) as {
-        error?: string;
-      } | null;
-
-      if (!res.ok) {
-        toast.error(data?.error ?? 'Unable to sign in');
-        return;
-      }
-
-      toast.success('Signed in. Redirecting to dashboard…');
-      router.push('/dashboard');
-      router.refresh();
+      await loginMutation.mutateAsync(values);
     } catch {
-      toast.error('Unable to sign in. Please try again.');
+      // Toast handled in mutation onError
     }
   });
 
@@ -250,9 +234,9 @@ export function AdminLogin() {
                 </Link>
               </div>
 
-              <Button type='submit' size='lg' className='h-11 w-full' disabled={isSubmitting}>
+              <Button type='submit' size='lg' className='h-11 w-full' disabled={isPending}>
                 <LogIn data-icon='inline-start' />
-                {isSubmitting ? 'Signing in…' : 'Login to Dashboard'}
+                {isPending ? 'Signing in…' : 'Login to Dashboard'}
               </Button>
             </form>
 

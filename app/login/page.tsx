@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { AdminLogin } from '@/features/auth/components/admin-login';
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
-  return <AdminLogin />;
+  return (
+    <Suspense fallback={<div className='min-h-svh bg-background' />}>
+      <AdminLogin />
+    </Suspense>
+  );
 }
