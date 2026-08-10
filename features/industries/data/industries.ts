@@ -117,7 +117,7 @@ export const industriesWeServe: IndustryItem[] = [
 ];
 
 export const industriesWhyChoose = {
-  eyebrow: 'Why Choose Zaimah',
+  eyebrow: 'Why Choose Zamil',
   title: 'We Understand Your Industry, We Deliver',
   highlight: 'Real Impact',
   description:

@@ -5,7 +5,7 @@ export const aboutHero = {
   title: 'Engineering Digital Success for Businesses',
   highlight: 'Worldwide',
   description:
-    'Zaimah Technologies is a trusted software development partner helping startups and enterprises design, build, and scale secure digital products across industries and markets.',
+    'Zamil Technologies is a trusted software development partner helping startups and enterprises design, build, and scale secure digital products across industries and markets.',
   actions: {
     primary: { label: 'Work With Us', href: '/contact' },
     secondary: { label: 'Join Our Team', href: '/careers' },
@@ -147,11 +147,11 @@ export const leadership: TeamMember[] = [
     id: '1',
     name: 'Rashid Rahman',
     role: 'Chief Executive Officer',
-    bio: 'Rashid has led Zaimah’s growth for over a decade, partnering with founders and enterprise leaders to turn product vision into scalable platforms.',
+    bio: 'Rashid has led Zamil’s growth for over a decade, partnering with founders and enterprise leaders to turn product vision into scalable platforms.',
     image: '/images/office-team.svg',
     featured: true,
     linkedin: 'https://linkedin.com',
-    email: 'rashid@zaimah.tech',
+    email: 'rashid@zamil.tech',
   },
   {
     id: '2',

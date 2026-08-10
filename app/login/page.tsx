@@ -3,7 +3,7 @@ import { AdminLogin } from '@/features/auth/components/admin-login';
 
 export const metadata: Metadata = {
   title: 'Admin Login',
-  description: 'Sign in to the Zaimah Technologies admin panel.',
+  description: 'Sign in to the Zamil Technologies admin panel.',
 };
 
 export default function LoginPage() {

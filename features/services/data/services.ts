@@ -6,7 +6,7 @@ export const servicesHero = {
   title: 'Comprehensive Software Engineering Services to',
   highlight: 'Accelerate Your Growth',
   description:
-    'From custom software and SaaS products to AI, cloud, and managed IT—Zaimah Technologies delivers end-to-end engineering that helps startups and enterprises ship faster and scale with confidence.',
+    'From custom software and SaaS products to AI, cloud, and managed IT—Zamil Technologies delivers end-to-end engineering that helps startups and enterprises ship faster and scale with confidence.',
   actions: {
     primary: { label: 'Book Free Consultation', href: '/book-consultation' },
     secondary: {
@@ -301,7 +301,7 @@ export const whyChooseServices = [
 
 export const servicesFaqs: FaqItem[] = [
   {
-    question: 'How do we start a project with Zaimah?',
+    question: 'How do we start a project with Zamil?',
     answer:
       'We begin with a free discovery call to understand goals, timeline, and constraints. From there we propose an engagement model, team shape, and kickoff plan—usually within a few business days.',
   },

@@ -163,7 +163,7 @@ export function AdminLogin() {
                     name='email'
                     type='email'
                     required
-                    placeholder='admin@zaimahtech.com'
+                    placeholder='admin@zamiltech.com'
                     className='h-11 pl-9'
                     autoComplete='email'
                   />

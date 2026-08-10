@@ -134,7 +134,7 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'layout',
     visible: true,
-    seoTitle: 'Zaimah Technologies | Software Development Partner',
+    seoTitle: 'Zamil Technologies | Software Development Partner',
     seoDescription: homeHero.description,
   },
   {
@@ -253,7 +253,7 @@ export const landingContentSeed: LandingContent = {
     items: industriesStrip.map((i) => ({ ...i })),
   },
   whyChoose: {
-    title: 'Why Choose Zaimah Technologies?',
+    title: 'Why Choose Zamil Technologies?',
     action: {
       label: 'More About Us',
       href: '/about',
@@ -314,7 +314,7 @@ export function createLandingPageDocument(): LandingPageDocument {
 }
 
 export function landingApiEndpoint(sectionId: SectionId) {
-  return `https://api.zaimahtech.com/v1/pages/landing/${sectionId}`;
+  return `https://api.zamiltech.com/v1/pages/landing/${sectionId}`;
 }
 
 export function landingApiCurl(sectionId: SectionId) {

@@ -13,7 +13,7 @@ export function WhyChoose() {
     <section className='py-16 md:py-20'>
       <Container>
         <SectionHeader
-          title='Why Choose Zaimah Technologies?'
+          title='Why Choose Zamil Technologies?'
           accent
           action={{ label: 'More About Us', href: '/about' }}
         />

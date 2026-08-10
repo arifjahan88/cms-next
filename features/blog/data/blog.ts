@@ -5,7 +5,7 @@ export const blogHero = {
   title: 'Insights. Ideas.',
   highlight: 'Impact.',
   description:
-    'Practical perspectives on software, product strategy, and digital transformation from the Zaimah team.',
+    'Practical perspectives on software, product strategy, and digital transformation from the Zamil team.',
   searchPlaceholder: 'Search articles...',
   categoryPlaceholder: 'All Categories',
   illustrationLabel: '[Blog Hero Illustration]',

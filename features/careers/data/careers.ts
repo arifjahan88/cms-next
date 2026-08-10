@@ -10,7 +10,7 @@ export const careersHero = {
     'Join a global engineering team shipping products for startups and enterprises. Grow your skills, own outcomes, and work with people who care about craft.',
   actions: {
     primary: { label: 'View Open Positions', href: '#open-positions' },
-    secondary: { label: 'Life at Zaimah', href: '#culture' },
+    secondary: { label: 'Life at Zamil', href: '#culture' },
   },
   overlay: {
     title: 'Great People. Meaningful Work. Limitless Opportunities.',

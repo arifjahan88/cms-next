@@ -4,7 +4,7 @@ import { AdminShell } from '@/features/dashboard/components/admin-shell';
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard',
-  description: 'Zaimah Technologies admin panel',
+  description: 'Zamil Technologies admin panel',
 };
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

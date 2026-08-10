@@ -4,7 +4,7 @@ import { TechnologiesPage } from '@/features/technologies';
 export const metadata: Metadata = {
   title: 'Technologies',
   description:
-    'Frontend, backend, mobile, cloud, AI, and DevOps technologies used by Zaimah Technologies.',
+    'Frontend, backend, mobile, cloud, AI, and DevOps technologies used by Zamil Technologies.',
 };
 
 export default function Page() {

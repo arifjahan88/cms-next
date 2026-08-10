@@ -10,7 +10,7 @@ export function AboutMilestones() {
       <Container>
         <SectionHeader
           title='Our Journey'
-          description='Milestones that shaped Zaimah Technologies from 2000 to today.'
+          description='Milestones that shaped Zamil Technologies from 2000 to today.'
           align='center'
         />
         <FadeIn>

@@ -81,7 +81,7 @@ export const offices = [
     label: 'Development Center',
     address: 'House-21, Road-10, Sector-4, Uttara, Dhaka-1230, Bangladesh',
     phone: '+880 2 987 6543',
-    email: 'bangladesh@zaimahtech.com',
+    email: 'bangladesh@zamiltech.com',
   },
   {
     id: 'malaysia',
@@ -89,7 +89,7 @@ export const offices = [
     label: 'Business Office',
     address: 'Level 16, Menara 1 Sentrum, 201 Jalan Tun Sambanthan, 50470 Kuala Lumpur',
     phone: '+60 3 2123 4567',
-    email: 'malaysia@zaimahtech.com',
+    email: 'malaysia@zamiltech.com',
   },
   {
     id: 'uae',
@@ -97,13 +97,13 @@ export const offices = [
     label: 'Representative Office',
     address: 'Business Bay, Dubai, United Arab Emirates',
     phone: '+971 4 123 4567',
-    email: 'uae@zaimahtech.com',
+    email: 'uae@zamiltech.com',
   },
 ] as const;
 
 export const contactFaqs: (FaqItem & { icon: string })[] = [
   {
-    question: 'What services does Zaimah Technologies offer?',
+    question: 'What services does Zamil Technologies offer?',
     answer:
       'We provide custom software, mobile apps, cloud & DevOps, UI/UX, and dedicated engineering teams.',
     icon: 'code',

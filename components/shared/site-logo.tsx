@@ -23,7 +23,7 @@ export function SiteLogo({ className, light = false }: { className?: string; lig
           light ? 'text-white' : 'text-foreground'
         )}
       >
-        Zaimah
+        Zamil
         <br />
         <span className={cn('font-semibold', light ? 'text-white/80' : 'text-muted-foreground')}>
           Technologies

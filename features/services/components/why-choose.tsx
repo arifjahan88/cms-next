@@ -30,7 +30,7 @@ export function ServicesWhyChoose({ embedded = false }: { embedded?: boolean }) 
   const content = (
     <>
       <SectionHeader
-        title='Why Choose Zaimah?'
+        title='Why Choose Zamil?'
         size={embedded ? 'sm' : 'default'}
         className={embedded ? 'mb-3' : undefined}
       />

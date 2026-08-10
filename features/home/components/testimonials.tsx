@@ -27,9 +27,8 @@ export function Testimonials() {
           <div className='testimonials-swiper relative'>
             <Swiper
               modules={[Autoplay, Pagination]}
-              spaceBetween={20}
-              slidesPerView={1}
               loop
+              speed={800}
               autoplay={{
                 delay: 4000,
                 disableOnInteraction: false,
@@ -45,7 +44,7 @@ export function Testimonials() {
             >
               {testimonials.map((item) => (
                 <SwiperSlide key={item.id} className='h-auto!'>
-                  <Card className='h-full border shadow-sm'>
+                  <Card className='h-full shadow-sm p-0 m-1'>
                     <CardContent className='flex h-full flex-col gap-4 p-6'>
                       <div className='flex gap-0.5 text-amber-500'>
                         {Array.from({ length: item.rating }).map((_, i) => (

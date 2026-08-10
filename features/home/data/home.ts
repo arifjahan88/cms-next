@@ -5,7 +5,7 @@ export const homeHero = {
   title: 'Build Digital Products That Drive',
   highlight: 'Business Growth',
   description:
-    'Zaimah Technologies partners with startups and enterprises worldwide to design, build, and scale secure software products—from MVP to enterprise platforms.',
+    'Zamil Technologies partners with startups and enterprises worldwide to design, build, and scale secure software products—from MVP to enterprise platforms.',
   stats: [
     { value: '250+', label: 'Projects Delivered', icon: 'briefcase' },
     { value: '25+', label: 'Years of Experience', icon: 'award' },
@@ -225,7 +225,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '1',
     quote:
-      'Zaimah delivered our hospital platform ahead of schedule. Communication was clear and the engineering quality exceeded expectations.',
+      'Zamil delivered our hospital platform ahead of schedule. Communication was clear and the engineering quality exceeded expectations.',
     name: 'Sarah Chen',
     role: 'CTO, MediCare Group',
     avatar: '',
@@ -270,7 +270,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '6',
     quote:
-      'We needed a secure education platform fast. Zaimah built it beautifully and trained our staff with care.',
+      'We needed a secure education platform fast. Zamil built it beautifully and trained our staff with care.',
     name: 'Michael Torres',
     role: 'Director of IT, EduLearn',
     avatar: '',
