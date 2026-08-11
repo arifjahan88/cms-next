@@ -6,14 +6,13 @@ import {
 import { apiError, apiSuccess } from '@/lib/api/response';
 import { hashPassword } from '@/lib/auth/password';
 import {
-  requireDashboardSession,
   requireDashboardWrite,
 } from '@/lib/auth/require-admin';
 import { UserRole } from '@/lib/auth/roles';
 import { userCreateSchema } from '@/lib/validations/users';
 
 export async function GET(request: Request) {
-  const auth = await requireDashboardSession(request);
+  const auth = await requireDashboardWrite(request);
   if (!auth.ok) return auth.response;
 
   try {

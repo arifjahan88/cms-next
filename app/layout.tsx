@@ -7,7 +7,7 @@ import { SITE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import './globals.css';
 import { AppToaster } from '@/components/shared/app-toaster';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -43,6 +43,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     >
       <body className='flex min-h-full flex-col'>
         <GoogleAnalytics gaId='G-SWFZ6900YF' />
+        <GoogleTagManager gtmId='G-SWFZ6900YF' />
         <QueryProvider>
           <TooltipProvider>{children}</TooltipProvider>
           <AppToaster />

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { LayoutDashboard } from 'lucide-react';
+import { isAdminRole } from '@/lib/auth/roles';
 
 export type DashboardNavItem = {
   title: string;
@@ -106,6 +107,12 @@ export const dashboardNav: DashboardNavGroup[] = [
     ],
   },
 ];
+
+/** Role 2 (User) does not see Administration pages. */
+export function getDashboardNavForRole(role: number): DashboardNavGroup[] {
+  if (isAdminRole(role)) return dashboardNav;
+  return dashboardNav.filter((group) => group.label !== 'Administration');
+}
 
 export function getDashboardPageTitle(pathname: string): string {
   if (pathname.startsWith('/dashboard/pages')) return 'Pages';

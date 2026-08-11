@@ -33,7 +33,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { SiteLogo } from '@/components/shared/site-logo';
 import { ConfirmAlertDialog } from '@/components/shared/confirm-alert-dialog';
 import { useLogoutMutation } from '@/features/auth/hooks';
-import { dashboardNav, getDashboardPageTitle } from '@/features/dashboard/data/nav';
+import { getDashboardNavForRole, getDashboardPageTitle } from '@/features/dashboard/data/nav';
 import { roleLabel } from '@/lib/auth/roles';
 import { SITE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -48,14 +48,18 @@ function NavList({
   onNavigate,
   pathname,
   search,
+  role,
 }: {
   onNavigate?: () => void;
   pathname: string;
   search: string;
+  role: number;
 }) {
+  const nav = getDashboardNavForRole(role);
+
   return (
     <nav className='flex flex-1 flex-col gap-6 overflow-y-auto px-3 py-4'>
-      {dashboardNav.map((group, gi) => (
+      {nav.map((group, gi) => (
         <div key={group.label ?? `g-${gi}`}>
           {group.label ? (
             <p className='mb-2 px-3 text-[10px] font-semibold tracking-wider text-white/40 uppercase'>
@@ -103,17 +107,19 @@ function SidebarBody({
   onNavigate,
   pathname,
   search,
+  role,
 }: {
   onNavigate?: () => void;
   pathname: string;
   search: string;
+  role: number;
 }) {
   return (
     <div className='flex h-full flex-col'>
       <div className='border-b border-white/10 px-4 py-4'>
         <SiteLogo light />
       </div>
-      <NavList onNavigate={onNavigate} pathname={pathname} search={search} />
+      <NavList onNavigate={onNavigate} pathname={pathname} search={search} role={role} />
       <div className='mt-auto space-y-3 border-t border-white/10 p-4'>
         <Button
           variant='outline'
@@ -160,7 +166,7 @@ export function AdminShell({
     <TooltipProvider>
       <div className='flex min-h-svh bg-surface'>
         <aside className='sticky top-0 hidden h-svh w-64 shrink-0 bg-brand-navy text-brand-navy-foreground lg:flex lg:flex-col'>
-          <SidebarBody pathname={pathname} search={search} />
+          <SidebarBody pathname={pathname} search={search} role={user.role} />
         </aside>
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -174,6 +180,7 @@ export function AdminShell({
             <SidebarBody
               pathname={pathname}
               search={search}
+              role={user.role}
               onNavigate={() => setMobileOpen(false)}
             />
           </SheetContent>

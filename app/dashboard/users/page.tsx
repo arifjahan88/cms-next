@@ -1,9 +1,12 @@
 import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { EntityCmsSkeleton } from '@/features/dashboard/components/entity-cms/entity-cms-skeleton';
 import { UsersCms } from '@/features/dashboard/components/users-cms/users-cms';
 import { listUsers } from '@/db/queries/users';
 import { userKeys } from '@/lib/api/query-keys';
+import { isAdminRole } from '@/lib/auth/roles';
+import { getSession } from '@/lib/auth/session';
 
 async function UsersCmsLoader() {
   const queryClient = new QueryClient();
@@ -20,7 +23,12 @@ async function UsersCmsLoader() {
   );
 }
 
-export default function UsersPage() {
+export default async function UsersPage() {
+  const session = await getSession();
+  if (!session || !isAdminRole(session.role)) {
+    redirect('/dashboard');
+  }
+
   return (
     <Suspense fallback={<EntityCmsSkeleton />}>
       <UsersCmsLoader />

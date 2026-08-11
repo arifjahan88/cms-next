@@ -7,7 +7,6 @@ import {
 import { apiError, apiSuccess } from '@/lib/api/response';
 import { hashPassword } from '@/lib/auth/password';
 import {
-  requireDashboardSession,
   requireDashboardWrite,
 } from '@/lib/auth/require-admin';
 import { UserRole } from '@/lib/auth/roles';
@@ -16,7 +15,7 @@ import { userUpdateSchema } from '@/lib/validations/users';
 type Params = { params: Promise<{ id: string }> };
 
 export async function GET(request: Request, { params }: Params) {
-  const auth = await requireDashboardSession(request);
+  const auth = await requireDashboardWrite(request);
   if (!auth.ok) return auth.response;
 
   try {
