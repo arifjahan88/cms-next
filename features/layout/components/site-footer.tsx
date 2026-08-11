@@ -1,7 +1,4 @@
-'use client';
-
 import Link from 'next/link';
-import { toast } from '@/lib/toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
@@ -83,14 +80,7 @@ export function SiteFooter() {
             <p className='mb-3 text-sm text-white/65'>
               Get insights, product updates, and engineering tips.
             </p>
-            <form
-              className='flex flex-col gap-2 sm:flex-row'
-              onSubmit={(e) => {
-                e.preventDefault();
-                toast.success({ title: 'Thanks for subscribing!' });
-                (e.target as HTMLFormElement).reset();
-              }}
-            >
+            <form className='flex flex-col gap-2 sm:flex-row'>
               <Input
                 type='email'
                 required
@@ -108,7 +98,7 @@ export function SiteFooter() {
 
         <div className='flex flex-col gap-3 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between'>
           <p>
-            © {new Date().getFullYear()} {SITE.name} Co., Ltd. All Rights Reserved.
+            © {SITE.copyrightYear} {SITE.name} Co., Ltd. All Rights Reserved.
           </p>
           <div className='flex flex-wrap gap-x-4 gap-y-2'>
             <Link href='/contact' className='hover:text-white'>

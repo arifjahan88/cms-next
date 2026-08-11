@@ -274,7 +274,7 @@ export function AdminLogin() {
         </div>
 
         <p className='mt-10 text-center text-xs text-muted-foreground'>
-          © {new Date().getFullYear()} {SITE.name} Co., Ltd. All rights reserved.
+          © {SITE.copyrightYear} {SITE.name} Co., Ltd. All rights reserved.
         </p>
       </div>
     </div>

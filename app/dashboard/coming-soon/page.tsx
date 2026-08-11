@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -7,7 +8,19 @@ export const metadata: Metadata = {
   title: 'Coming Soon',
 };
 
-export default async function ComingSoonPage({
+function ComingSoonFallback() {
+  return (
+    <Card className='mx-auto max-w-lg border-border/80 shadow-sm'>
+      <CardContent className='flex flex-col items-center gap-4 p-10 text-center'>
+        <div className='h-7 w-40 animate-pulse rounded bg-muted' />
+        <div className='h-16 w-full max-w-sm animate-pulse rounded bg-muted' />
+        <div className='h-8 w-36 animate-pulse rounded bg-muted' />
+      </CardContent>
+    </Card>
+  );
+}
+
+async function ComingSoonContent({
   searchParams,
 }: {
   searchParams: Promise<{ section?: string }>;
@@ -26,5 +39,17 @@ export default async function ComingSoonPage({
         <Button render={<Link href='/dashboard' />}>Back to Dashboard</Button>
       </CardContent>
     </Card>
+  );
+}
+
+export default function ComingSoonPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ section?: string }>;
+}) {
+  return (
+    <Suspense fallback={<ComingSoonFallback />}>
+      <ComingSoonContent searchParams={searchParams} />
+    </Suspense>
   );
 }

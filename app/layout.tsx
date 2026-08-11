@@ -45,7 +45,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <TooltipProvider>{children}</TooltipProvider>
           <AppToaster />
         </QueryProvider>
-        <Analytics />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   );

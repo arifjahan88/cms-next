@@ -6,6 +6,7 @@ import { WhyChoose } from '@/features/home/components/why-choose';
 import { FeaturedCaseStudies } from '@/features/home/components/featured-case-studies';
 import { Testimonials } from '@/features/home/components/testimonials';
 import { ContactCta } from '@/features/home/components/contact-cta';
+import { Suspense } from 'react';
 
 export function HomePage() {
   return (
@@ -16,7 +17,9 @@ export function HomePage() {
       <IndustriesStrip />
       <WhyChoose />
       <FeaturedCaseStudies />
-      <Testimonials />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Testimonials />
+      </Suspense>
       <ContactCta />
     </>
   );

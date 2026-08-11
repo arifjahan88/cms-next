@@ -125,7 +125,7 @@ function SidebarBody({
           View Website
         </Button>
         <p className='text-[10px] leading-snug text-white/40'>
-          © {new Date().getFullYear()} {SITE.name} Co., Ltd. All rights reserved.
+          © {SITE.copyrightYear} {SITE.name} Co., Ltd. All rights reserved.
         </p>
       </div>
     </div>
