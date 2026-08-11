@@ -82,7 +82,7 @@ export function OverflowNav({ items }: { items: NavItem[] }) {
       {/* Hidden measurer */}
       <div
         ref={measureRef}
-        className='pointer-events-none absolute -left-[9999px] top-0 flex h-0 overflow-hidden opacity-0'
+        className='pointer-events-none absolute left-[-9999px] top-0 flex h-0 overflow-hidden opacity-0'
         aria-hidden
       >
         {items.map((item) => (

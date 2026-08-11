@@ -3,8 +3,9 @@ import { eq } from 'drizzle-orm';
 import { hashPassword } from '@/lib/auth/password';
 import { db } from './index';
 import { UserRole, users } from './schema';
+import { seedNavigation } from './seed-navigation';
 
-async function seed() {
+async function seedAdmin() {
   const email = (process.env.SEED_ADMIN_EMAIL ?? 'admin@zamil.local').toLowerCase();
   const password = process.env.SEED_ADMIN_PASSWORD ?? 'ChangeMe123!';
   const name = process.env.SEED_ADMIN_NAME ?? 'Admin User';
@@ -30,6 +31,11 @@ async function seed() {
   });
 
   console.log(`Seeded admin user: ${email}`);
+}
+
+async function seed() {
+  await seedAdmin();
+  await seedNavigation();
 }
 
 seed()

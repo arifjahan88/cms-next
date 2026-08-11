@@ -16,8 +16,11 @@ export type MenuItem = {
   children?: MenuItem[];
 };
 
+export type NavMenuSlug = 'main' | 'footer' | 'mobile';
+
 export type NavMenu = {
   id: string;
+  slug: NavMenuSlug | string;
   title: string;
   description: string;
   status: MenuItemStatus;
@@ -103,6 +106,7 @@ export function createNavigationDocument(): NavMenu[] {
   return [
     {
       id: 'main',
+      slug: 'main',
       title: 'Main Menu',
       description: 'Primary navigation menu',
       status: 'Published',
@@ -111,6 +115,7 @@ export function createNavigationDocument(): NavMenu[] {
     },
     {
       id: 'footer',
+      slug: 'footer',
       title: 'Footer Menu',
       description: 'Footer navigation menu',
       status: 'Published',
@@ -119,6 +124,7 @@ export function createNavigationDocument(): NavMenu[] {
     },
     {
       id: 'mobile',
+      slug: 'mobile',
       title: 'Mobile Menu',
       description: 'Mobile navigation menu',
       status: 'Published',

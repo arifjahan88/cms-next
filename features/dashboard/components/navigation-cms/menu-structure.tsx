@@ -10,27 +10,29 @@ import type { MenuItem, NavMenu } from '@/features/dashboard/data/navigation-cms
 
 function TreeBranch({
   items,
+  parentId,
   depth,
   activeItemId,
   expanded,
   onToggle,
   onSelect,
-  onReorder,
+  onReorderSiblings,
 }: {
   items: MenuItem[];
+  parentId: string | null;
   depth: number;
   activeItemId: string | null;
   expanded: Record<string, boolean>;
   onToggle: (id: string) => void;
   onSelect: (id: string) => void;
-  onReorder: (next: MenuItem[]) => void;
+  onReorderSiblings: (parentId: string | null, next: MenuItem[]) => void;
 }) {
   return (
     <Reorder.Group
       as='ul'
       axis='y'
       values={items}
-      onReorder={onReorder}
+      onReorder={(next) => onReorderSiblings(parentId, next)}
       className='flex flex-col gap-2'
     >
       {items.map((item) => {
@@ -52,18 +54,13 @@ function TreeBranch({
               <div className='mt-2 w-full'>
                 <TreeBranch
                   items={children}
+                  parentId={item.id}
                   depth={depth + 1}
                   activeItemId={activeItemId}
                   expanded={expanded}
                   onToggle={onToggle}
                   onSelect={onSelect}
-                  onReorder={(nextChildren) => {
-                    onReorder(
-                      items.map((row) =>
-                        row.id === item.id ? { ...row, children: nextChildren } : row
-                      )
-                    );
-                  }}
+                  onReorderSiblings={onReorderSiblings}
                 />
               </div>
             ) : null}
@@ -78,13 +75,13 @@ export function MenuStructure({
   menu,
   activeItemId,
   onSelectItem,
-  onReorderItems,
+  onReorderSiblings,
   onAddItem,
 }: {
   menu: NavMenu;
   activeItemId: string | null;
   onSelectItem: (id: string) => void;
-  onReorderItems: (items: MenuItem[]) => void;
+  onReorderSiblings: (parentId: string | null, items: MenuItem[]) => void;
   onAddItem: () => void;
 }) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
@@ -99,17 +96,22 @@ export function MenuStructure({
     <Card className='border-border/80 shadow-sm'>
       <CardHeader className='pb-3'>
         <CardTitle className='text-base font-bold'>{menu.title}</CardTitle>
-        <p className='text-xs text-muted-foreground'>Last updated: {menu.updatedAt}</p>
+        <p className='text-xs text-muted-foreground'>
+          Last updated: {menu.updatedAt}
+        </p>
       </CardHeader>
       <CardContent>
         <TreeBranch
           items={menu.items}
+          parentId={null}
           depth={0}
           activeItemId={activeItemId}
           expanded={expanded}
-          onToggle={(id) => setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))}
+          onToggle={(id) =>
+            setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))
+          }
           onSelect={onSelectItem}
-          onReorder={onReorderItems}
+          onReorderSiblings={onReorderSiblings}
         />
         <Button
           variant='outline'

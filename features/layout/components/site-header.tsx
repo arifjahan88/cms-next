@@ -8,12 +8,18 @@ import { SiteLogo } from '@/components/shared/site-logo';
 import { TopBar } from '@/features/layout/components/top-bar';
 import { MobileNav } from '@/features/layout/components/mobile-nav';
 import { OverflowNav } from '@/features/layout/components/overflow-nav';
-import { mainNav } from '@/features/layout/data/nav';
 import { useScrolled } from '@/hooks/use-scrolled';
 import { SITE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import type { NavItem } from '@/types';
 
-export function SiteHeader() {
+export function SiteHeader({
+  mainItems,
+  mobileItems,
+}: {
+  mainItems: NavItem[];
+  mobileItems: NavItem[];
+}) {
   const scrolled = useScrolled();
 
   return (
@@ -27,7 +33,7 @@ export function SiteHeader() {
       >
         <Container className='flex h-16 items-center gap-3'>
           <SiteLogo />
-          <OverflowNav items={mainNav} />
+          <OverflowNav items={mainItems} />
           <div className='ml-auto flex shrink-0 items-center gap-2'>
             <Button
               variant='outline'
@@ -49,7 +55,7 @@ export function SiteHeader() {
             <Button className='hidden sm:inline-flex' render={<Link href='/book-consultation' />}>
               Book Free Consultation
             </Button>
-            <MobileNav />
+            <MobileNav items={mobileItems} />
           </div>
         </Container>
       </div>

@@ -4,7 +4,10 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Container } from '@/components/shared/container';
 import { SiteLogo } from '@/components/shared/site-logo';
-import { footerLinks } from '@/features/layout/data/nav';
+import {
+  getFooterColumns,
+  type FooterColumn,
+} from '@/features/layout/lib/get-public-nav';
 import { SITE } from '@/lib/constants';
 
 const socialIcons = [
@@ -15,19 +18,13 @@ const socialIcons = [
   { href: SITE.social.instagram, label: 'Instagram', short: 'ig' },
 ];
 
-function FooterColumn({
-  title,
-  links,
-}: {
-  title: string;
-  links: { title: string; href: string }[];
-}) {
+function FooterColumnBlock({ title, links }: FooterColumn) {
   return (
     <div>
       <h3 className='mb-4 text-sm font-semibold text-white'>{title}</h3>
       <ul className='space-y-2.5'>
         {links.map((link) => (
-          <li key={link.title}>
+          <li key={link.title + link.href}>
             <Link
               href={link.href}
               className='text-sm text-white/65 transition-colors hover:text-white'
@@ -41,7 +38,9 @@ function FooterColumn({
   );
 }
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const columns = await getFooterColumns();
+
   return (
     <footer className='bg-brand-navy text-brand-navy-foreground'>
       <Container className='py-14'>
@@ -68,15 +67,15 @@ export function SiteFooter() {
           </div>
 
           <div className='grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-5 lg:col-span-6'>
-            <FooterColumn title='Services' links={footerLinks.services} />
-            <FooterColumn title='Solutions' links={footerLinks.solutions} />
-            <FooterColumn title='Industries' links={footerLinks.industries} />
-            <FooterColumn title='Company' links={footerLinks.company} />
-            <FooterColumn title='Resources' links={footerLinks.resources} />
+            {columns.map((column) => (
+              <FooterColumnBlock key={column.title} {...column} />
+            ))}
           </div>
 
           <div className='lg:col-span-3'>
-            <h3 className='mb-2 text-sm font-semibold text-white'>Subscribe to Our Newsletter</h3>
+            <h3 className='mb-2 text-sm font-semibold text-white'>
+              Subscribe to Our Newsletter
+            </h3>
             <p className='mb-3 text-sm text-white/65'>
               Get insights, product updates, and engineering tips.
             </p>

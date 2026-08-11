@@ -4,14 +4,20 @@ import Link from 'next/link';
 import { Menu, Phone, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { useActivePath } from '@/hooks/use-active-path';
 import { SITE } from '@/lib/constants';
-import { mainNav } from '@/features/layout/data/nav';
 import { cn } from '@/lib/utils';
+import type { NavItem } from '@/types';
 
-export function MobileNav() {
+export function MobileNav({ items }: { items: NavItem[] }) {
   const [open, setOpen] = useState(false);
   const { isActive } = useActivePath();
 
@@ -19,7 +25,12 @@ export function MobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         render={
-          <Button variant='outline' size='icon' className='lg:hidden' aria-label='Open menu' />
+          <Button
+            variant='outline'
+            size='icon'
+            className='lg:hidden'
+            aria-label='Open menu'
+          />
         }
       >
         <Menu className='size-5' />
@@ -40,7 +51,7 @@ export function MobileNav() {
           </div>
         </SheetHeader>
         <nav className='flex flex-col gap-1 p-4'>
-          {mainNav.map((item) => (
+          {items.map((item) => (
             <Link
               key={item.href + item.title}
               href={item.href}
@@ -55,19 +66,13 @@ export function MobileNav() {
               {item.title}
             </Link>
           ))}
-          <Link
-            href='/contact'
-            onClick={() => setOpen(false)}
-            className={cn(
-              'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-              isActive('/contact') ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-muted'
-            )}
-          >
-            Contact Us
-          </Link>
         </nav>
         <div className='mt-auto space-y-3 border-t p-4'>
-          <Button variant='outline' className='w-full' render={<a href={SITE.phoneHref} />}>
+          <Button
+            variant='outline'
+            className='w-full'
+            render={<a href={SITE.phoneHref} />}
+          >
             <Phone data-icon='inline-start' />
             {SITE.phone}
           </Button>
