@@ -7,6 +7,7 @@ import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 import { CtaFields } from '@/features/dashboard/components/landing-cms/shared/cta-fields';
 import { MediaField } from '@/features/dashboard/components/landing-cms/shared/media-field';
 import { RepeatableList } from '@/features/dashboard/components/landing-cms/shared/repeatable-list';
+import { LucideIconPicker } from '@/features/dashboard/components/navigation-cms/shared/lucide-icon-picker';
 
 type Hero = LandingContent['hero'];
 
@@ -77,8 +78,11 @@ export function HeroEditor({ value, onChange }: { value: Hero; onChange: (next: 
               <Input value={item.label} onChange={(e) => update({ label: e.target.value })} />
             </div>
             <div className='space-y-1.5'>
-              <Label>Icon key</Label>
-              <Input value={item.icon} onChange={(e) => update({ icon: e.target.value })} />
+              <Label>Icon</Label>
+              <LucideIconPicker
+                value={item.icon}
+                onChange={(icon) => update({ icon: icon ?? 'briefcase' })}
+              />
             </div>
           </div>
         )}

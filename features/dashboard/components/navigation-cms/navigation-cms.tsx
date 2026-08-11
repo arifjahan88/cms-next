@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { toast } from '@/lib/toast';
 import { actionToast, runWithActionToast } from '@/lib/toast-action';
-import { ChevronDown, Eye, Save } from 'lucide-react';
+import { ChevronDown, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -256,7 +256,7 @@ export function NavigationCms() {
   if (!menus.length) {
     return (
       <div className='rounded-lg border bg-muted/40 px-4 py-10 text-center text-sm text-muted-foreground'>
-        No menus seeded yet. Run <code className='font-mono'>pnpm db:seed</code> to create Main,
+        No menus seeded yet. Run <code className='font-mono'>yarn db:seed</code> to create Main,
         Footer, and Mobile menus.
       </div>
     );
@@ -272,15 +272,6 @@ export function NavigationCms() {
           </p>
         </div>
         <div className='flex flex-wrap gap-2'>
-          <Button
-            variant='outline'
-            size='sm'
-            className='h-9'
-            onClick={() => toast.info({ title: 'Preview opening…' })}
-          >
-            <Eye data-icon='inline-start' />
-            Preview
-          </Button>
           <Button
             variant='outline'
             size='sm'

@@ -9,3 +9,9 @@ export const navigationKeys = {
   menus: () => ['navigation', 'admin', 'menus'] as const,
   menu: (slug: string) => ['navigation', 'admin', 'menu', slug] as const,
 };
+
+export const landingKeys = {
+  all: ['landing'] as const,
+  admin: ['landing', 'admin'] as const,
+  document: () => ['landing', 'admin', 'document'] as const,
+};

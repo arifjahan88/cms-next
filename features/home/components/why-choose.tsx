@@ -6,23 +6,36 @@ import { SectionHeader } from '@/components/shared/section-header';
 import { Reveal } from '@/components/shared/motion/reveal';
 import { StaggerChildren, StaggerItem } from '@/components/shared/motion/stagger-children';
 import { whyChoose } from '@/features/home/data/home';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 import { getIcon } from '@/lib/icons';
 
-export function WhyChoose() {
+export function WhyChoose({ data }: { data?: LandingContent['whyChoose'] }) {
+  const content = data ?? {
+    title: 'Why Choose Zamil Technologies?',
+    action: { label: 'More About Us', href: '/about', newTab: false },
+    experienceBadge: '25+ Years of Experience',
+    media: {
+      name: 'why-choose.webp',
+      size: '960 × 720',
+      label: '[Team / Office Visual]',
+    },
+    items: whyChoose.map((i) => ({ ...i })),
+  };
+
   return (
     <section className='py-16 md:py-20'>
       <Container>
         <SectionHeader
-          title='Why Choose Zamil Technologies?'
+          title={content.title}
           accent
-          action={{ label: 'More About Us', href: '/about' }}
+          action={{ label: content.action.label, href: content.action.href }}
         />
         <div className='grid items-center gap-10 lg:grid-cols-2'>
           <Reveal direction='left'>
             <div className='relative overflow-hidden rounded-2xl border shadow-lg'>
               <div className='relative aspect-4/3'>
                 <ImagePlaceholder
-                  label='[Company Culture/Office Video Placeholder]'
+                  label={content.media.label}
                   className='absolute inset-0 size-full min-h-0 rounded-none border-0'
                 />
                 <button
@@ -36,13 +49,13 @@ export function WhyChoose() {
                 </button>
               </div>
               <Badge className='absolute bottom-4 left-4 bg-white text-primary shadow'>
-                25+ Years of Experience
+                {content.experienceBadge}
               </Badge>
             </div>
           </Reveal>
           <div>
             <StaggerChildren className='grid gap-4 sm:grid-cols-2'>
-              {whyChoose.map((item) => {
+              {content.items.map((item) => {
                 const Icon = getIcon(item.icon);
                 return (
                   <StaggerItem key={item.title}>

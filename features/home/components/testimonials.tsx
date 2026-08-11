@@ -9,17 +9,24 @@ import { Container } from '@/components/shared/container';
 import { SectionHeader } from '@/components/shared/section-header';
 import { FadeIn } from '@/components/shared/motion/fade-in';
 import { testimonials } from '@/features/home/data/home';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-export function Testimonials() {
+export function Testimonials({ data }: { data?: LandingContent['testimonials'] }) {
+  const content = data ?? {
+    title: 'What Our Clients Say',
+    description: 'Trusted by product leaders and founders across industries.',
+    items: testimonials.map((t) => ({ ...t })),
+  };
+
   return (
     <section className='py-16 md:py-20'>
       <Container>
         <SectionHeader
-          title='What Our Clients Say'
-          description='Trusted by product leaders and founders across industries.'
+          title={content.title}
+          description={content.description}
           align='center'
           accent
         />
@@ -42,7 +49,7 @@ export function Testimonials() {
               }}
               className='pb-10!'
             >
-              {testimonials.map((item) => (
+              {content.items.map((item) => (
                 <SwiperSlide key={item.id} className='h-auto!'>
                   <Card className='h-full shadow-sm p-0 m-1'>
                     <CardContent className='flex h-full flex-col gap-4 p-6'>

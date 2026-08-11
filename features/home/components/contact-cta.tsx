@@ -18,15 +18,10 @@ import { Container } from '@/components/shared/container';
 import { ImagePlaceholder } from '@/components/shared/image-placeholder';
 import { SITE } from '@/lib/constants';
 import { FadeIn } from '@/components/shared/motion/fade-in';
+import { landingContentSeed, type LandingContent } from '@/features/dashboard/data/landing-cms';
 import { cn } from '@/lib/utils';
 
-const benefits = [
-  'Free Consultation',
-  'NDA Protection',
-  'Flexible Engagement Models',
-  'Transparent Pricing',
-  'On-time Delivery',
-];
+const defaultContactCta = landingContentSeed.contactCta;
 
 const contactItems = [
   {
@@ -82,7 +77,7 @@ function FieldLabel({
   );
 }
 
-export function ContactCta() {
+export function ContactCta({ data = defaultContactCta }: { data?: LandingContent['contactCta'] }) {
   const [fileName, setFileName] = useState<string | null>(null);
 
   return (
@@ -93,14 +88,11 @@ export function ContactCta() {
             {/* Left — blue info panel */}
             <div className='flex flex-col bg-primary p-6 text-primary-foreground md:p-8'>
               <h2 className='text-2xl font-bold tracking-tight md:text-[1.75rem] md:leading-snug'>
-                Ready to Build Your Next Digital Product?
+                {data.headline}
               </h2>
-              <p className='mt-3 text-sm leading-relaxed text-white/85'>
-                Let&apos;s discuss your project and turn your ideas into reality with our expert
-                team.
-              </p>
+              <p className='mt-3 text-sm leading-relaxed text-white/85'>{data.description}</p>
               <ul className='mt-6 space-y-3'>
-                {benefits.map((item) => (
+                {data.benefits.map((item) => (
                   <li key={item} className='flex items-center gap-2.5 text-sm'>
                     <span className='flex size-5 shrink-0 items-center justify-center rounded-full bg-white/20'>
                       <Target className='size-3' />
@@ -119,7 +111,7 @@ export function ContactCta() {
             <div className='border-y border-border p-5 md:p-7 lg:border-y-0 lg:border-x'>
               <h3 className='mb-5 flex items-center gap-2.5 text-lg font-bold text-foreground'>
                 <span className='h-5 w-1 shrink-0 rounded-full bg-primary' />
-                Tell Us About Your Project
+                {data.formTitle}
               </h3>
               <form
                 className='space-y-3.5'
@@ -263,7 +255,7 @@ export function ContactCta() {
                 </div>
 
                 <Button type='submit' size='lg' className='mt-2 h-11 w-full'>
-                  Submit Request
+                  {data.submitLabel}
                   <ArrowRight data-icon='inline-end' />
                 </Button>
               </form>
@@ -271,7 +263,7 @@ export function ContactCta() {
 
             {/* Right — get in touch */}
             <div className='flex flex-col bg-[#EEF3FA] p-6 md:p-7'>
-              <h3 className='mb-5 text-lg font-bold text-foreground'>Get In Touch</h3>
+              <h3 className='mb-5 text-lg font-bold text-foreground'>{data.contactPanelTitle}</h3>
               <ul className='space-y-4'>
                 {contactItems.map((item) => {
                   const Icon = item.icon;

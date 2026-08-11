@@ -4,6 +4,7 @@ import { hashPassword } from '@/lib/auth/password';
 import { db } from './index';
 import { UserRole, users } from './schema';
 import { seedNavigation } from './seed-navigation';
+import { seedLanding } from './seed-landing';
 
 async function seedAdmin() {
   const email = (process.env.SEED_ADMIN_EMAIL ?? 'admin@zamil.local').toLowerCase();
@@ -36,6 +37,7 @@ async function seedAdmin() {
 async function seed() {
   await seedAdmin();
   await seedNavigation();
+  await seedLanding();
 }
 
 seed()

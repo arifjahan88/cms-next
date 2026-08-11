@@ -5,6 +5,7 @@ import { Container } from '@/components/shared/container';
 import { SectionHeader } from '@/components/shared/section-header';
 import { StaggerChildren, StaggerItem } from '@/components/shared/motion/stagger-children';
 import { coreServices } from '@/features/home/data/home';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 import { getIcon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
@@ -51,24 +52,30 @@ const cardAccents = [
   },
 ] as const;
 
-export function CoreServices() {
+export function CoreServices({ data }: { data?: LandingContent['services'] }) {
+  const content = data ?? {
+    title: 'Our Core Services',
+    action: { label: 'Explore all services', href: '/services', newTab: false },
+    itemCtaLabel: 'Learn More',
+    items: coreServices.map((s) => ({ ...s })),
+  };
+
   return (
     <section className='py-16 md:py-20'>
       <Container>
         <SectionHeader
-          title='Our Core Services'
-          action={{ label: 'Explore all services', href: '/services' }}
+          title={content.title}
+          action={{ label: content.action.label, href: content.action.href }}
           accent
         />
         <StaggerChildren className='grid gap-5 sm:grid-cols-2 lg:grid-cols-4'>
-          {coreServices.map((service, index) => {
+          {content.items.map((service, index) => {
             const Icon = getIcon(service.icon);
             const accent = cardAccents[index % cardAccents.length];
 
             return (
               <StaggerItem key={service.id} hoverLift={false}>
                 <Card className='group relative h-full overflow-hidden border border-border/80 bg-card p-0 shadow-sm'>
-                  {/* Diagonal bg wipe: bottom-left → top-right */}
                   <span
                     className={cn(
                       'pointer-events-none absolute inset-0 origin-bottom-left scale-0 rounded-xl',
@@ -100,7 +107,7 @@ export function CoreServices() {
                         accent.link
                       )}
                     >
-                      Learn More
+                      {content.itemCtaLabel}
                       <ArrowRight className='size-3.5' />
                     </Link>
                   </CardContent>

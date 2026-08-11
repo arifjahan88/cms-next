@@ -7,6 +7,7 @@ import { SectionHeader } from '@/components/shared/section-header';
 import { TechStackItem } from '@/components/shared/tech-icon';
 import { StaggerChildren, StaggerItem } from '@/components/shared/motion/stagger-children';
 import { featuredCaseStudies } from '@/features/home/data/home';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 import type { LucideIcon } from 'lucide-react';
 
 const categoryIcons: Record<string, LucideIcon> = {
@@ -21,17 +22,31 @@ const categoryColors: Record<string, string> = {
   'Real Estate': 'bg-blue-500',
 };
 
-export function FeaturedCaseStudies() {
+export function FeaturedCaseStudies({ data }: { data?: LandingContent['caseStudies'] }) {
+  const content = data ?? {
+    title: 'Featured Case Studies',
+    action: { label: 'View all case studies', href: '/case-studies', newTab: false },
+    items: featuredCaseStudies.map((c) => ({
+      id: c.id,
+      title: c.title,
+      description: c.description,
+      category: c.category,
+      image: c.image,
+      href: c.href,
+      techStack: [...c.techStack],
+    })),
+  };
+
   return (
     <section className='bg-surface py-16 md:py-20'>
       <Container>
         <SectionHeader
-          title='Featured Case Studies'
-          action={{ label: 'View all case studies', href: '/case-studies' }}
+          title={content.title}
+          action={{ label: content.action.label, href: content.action.href }}
           accent
         />
         <StaggerChildren className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {featuredCaseStudies.map((item) => {
+          {content.items.map((item) => {
             const CategoryIcon = categoryIcons[item.category] ?? HeartPulse;
             const dotColor = categoryColors[item.category] ?? 'bg-primary';
 
@@ -40,7 +55,7 @@ export function FeaturedCaseStudies() {
                 <Card className='h-full overflow-hidden border-0 bg-background p-0 shadow-md transition-shadow hover:shadow-lg'>
                   <div className='relative aspect-16/10 overflow-hidden rounded-t-xl bg-muted'>
                     <ImagePlaceholder
-                      label='[Case Study Image]'
+                      label={item.image || '[Case Study Image]'}
                       className='absolute inset-0 rounded-none border-0'
                     />
                     <span className='absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-foreground shadow-sm'>

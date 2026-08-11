@@ -2,22 +2,23 @@ import { Container } from '@/components/shared/container';
 import { SectionHeader } from '@/components/shared/section-header';
 import { FadeIn } from '@/components/shared/motion/fade-in';
 import { trustedBy } from '@/features/home/data/trusted-by';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 
 const wideLogos = new Set(['AWS', 'Oracle', 'IBM']);
 
-export function TrustedBy() {
+export function TrustedBy({ data }: { data?: LandingContent['trustedBy'] }) {
+  const content = data ?? {
+    title: 'Trusted by Startups & Enterprises Worldwide',
+    brands: trustedBy.map((b) => ({ name: b.name, logo: b.logo })),
+  };
+
   return (
     <section className='border-y bg-white py-12 md:py-14'>
       <Container>
-        <SectionHeader
-          title='Trusted by Startups & Enterprises Worldwide'
-          align='center'
-          className='mb-8'
-          accent
-        />
+        <SectionHeader title={content.title} align='center' className='mb-8' accent />
         <FadeIn>
           <div className='flex flex-wrap items-center justify-center gap-x-8 gap-y-7 md:gap-x-10 lg:justify-between lg:gap-x-4'>
-            {trustedBy.map((brand) => {
+            {content.brands.map((brand) => {
               const isWide = wideLogos.has(brand.name);
               return (
                 <div

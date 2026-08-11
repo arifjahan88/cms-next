@@ -38,8 +38,6 @@ export type LandingSectionMeta = {
   status: SectionStatus;
   icon: string;
   visible: boolean;
-  seoTitle: string;
-  seoDescription: string;
 };
 
 export type LandingContent = {
@@ -134,8 +132,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'layout',
     visible: true,
-    seoTitle: 'Zamil Technologies | Software Development Partner',
-    seoDescription: homeHero.description,
   },
   {
     id: 'trustedBy',
@@ -143,8 +139,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'users',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
   {
     id: 'services',
@@ -152,8 +146,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'briefcase',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
   {
     id: 'industries',
@@ -161,8 +153,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'building',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
   {
     id: 'whyChoose',
@@ -170,8 +160,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'info',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
   {
     id: 'caseStudies',
@@ -179,8 +167,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'folder',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
   {
     id: 'testimonials',
@@ -188,8 +174,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'message',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
   {
     id: 'contactCta',
@@ -197,8 +181,6 @@ export const landingSectionsSeed: LandingSectionMeta[] = [
     status: 'Published',
     icon: 'mail',
     visible: true,
-    seoTitle: '',
-    seoDescription: '',
   },
 ];
 
@@ -314,13 +296,11 @@ export function createLandingPageDocument(): LandingPageDocument {
 }
 
 export function landingApiEndpoint(sectionId: SectionId) {
-  return `https://api.zamiltech.com/v1/pages/landing/${sectionId}`;
+  return `/api/landing/sections/${sectionId}`;
 }
 
 export function landingApiCurl(sectionId: SectionId) {
-  return `curl -X GET \\
-  '${landingApiEndpoint(sectionId)}' \\
-  -H 'Authorization: Bearer YOUR_API_KEY'`;
+  return `curl -X GET '${landingApiEndpoint(sectionId)}'`;
 }
 
 export function landingApiJson(sectionId: SectionId, content: LandingContent): string {

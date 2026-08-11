@@ -7,7 +7,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
 import { CaseStudiesEditor } from '@/features/dashboard/components/landing-cms/editors/case-studies-editor';
 import { ContactCtaEditor } from '@/features/dashboard/components/landing-cms/editors/contact-cta-editor';
 import { HeroEditor } from '@/features/dashboard/components/landing-cms/editors/hero-editor';
@@ -62,7 +61,6 @@ export function SectionEditPanel({
         <Tabs defaultValue='content'>
           <TabsList className='mb-4 w-full justify-start'>
             <TabsTrigger value='content'>Content</TabsTrigger>
-            <TabsTrigger value='seo'>SEO</TabsTrigger>
             <TabsTrigger value='settings'>Settings</TabsTrigger>
             <TabsTrigger value='visibility'>Visibility</TabsTrigger>
           </TabsList>
@@ -115,26 +113,6 @@ export function SectionEditPanel({
             ) : null}
           </TabsContent>
 
-          <TabsContent value='seo' className='space-y-4'>
-            <div className='space-y-1.5'>
-              <Label>SEO Title</Label>
-              <Input
-                value={section.seoTitle}
-                onChange={(e) => onMetaChange({ seoTitle: e.target.value })}
-                placeholder='Optional section SEO title'
-              />
-            </div>
-            <div className='space-y-1.5'>
-              <Label>SEO Description</Label>
-              <Textarea
-                rows={3}
-                value={section.seoDescription}
-                onChange={(e) => onMetaChange({ seoDescription: e.target.value })}
-                placeholder='Optional meta description'
-              />
-            </div>
-          </TabsContent>
-
           <TabsContent value='settings' className='space-y-4'>
             <div className='space-y-1.5'>
               <Label>Section label</Label>
@@ -169,7 +147,7 @@ export function SectionEditPanel({
               Visible on landing page
             </label>
             <p className='text-xs text-muted-foreground'>
-              Hidden sections stay in the CMS list but are marked off for publish (demo only).
+              Hidden sections stay in the CMS but are omitted from the public landing page.
             </p>
           </TabsContent>
         </Tabs>

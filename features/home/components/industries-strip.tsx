@@ -3,19 +3,26 @@ import { Container } from '@/components/shared/container';
 import { SectionHeader } from '@/components/shared/section-header';
 import { StaggerChildren, StaggerItem } from '@/components/shared/motion/stagger-children';
 import { industriesStrip } from '@/features/home/data/home';
+import type { LandingContent } from '@/features/dashboard/data/landing-cms';
 import { getIcon } from '@/lib/icons';
 
-export function IndustriesStrip() {
+export function IndustriesStrip({ data }: { data?: LandingContent['industries'] }) {
+  const content = data ?? {
+    title: 'Industries We Serve',
+    action: { label: 'View all industries', href: '/industries', newTab: false },
+    items: industriesStrip.map((i) => ({ ...i })),
+  };
+
   return (
     <section className='bg-surface py-16 md:py-20'>
       <Container>
         <SectionHeader
-          title='Industries We Serve'
-          action={{ label: 'View all industries', href: '/industries' }}
+          title={content.title}
+          action={{ label: content.action.label, href: content.action.href }}
           accent
         />
         <StaggerChildren className='mb-8 flex flex-wrap justify-center gap-3 md:gap-4'>
-          {industriesStrip.map((item) => {
+          {content.items.map((item) => {
             const Icon = getIcon(item.icon);
             return (
               <StaggerItem key={item.id}>
@@ -27,6 +34,11 @@ export function IndustriesStrip() {
                     <Icon className='size-5' />
                   </span>
                   <span className='text-sm font-medium'>{item.title}</span>
+                  {item.description ? (
+                    <span className='text-xs text-muted-foreground line-clamp-2'>
+                      {item.description}
+                    </span>
+                  ) : null}
                 </Link>
               </StaggerItem>
             );

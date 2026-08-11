@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Reorder, useDragControls } from 'motion/react';
-import { toast } from '@/lib/toast';
 import {
   Briefcase,
   Building2,
@@ -13,14 +12,13 @@ import {
   LayoutTemplate,
   Mail,
   MessageSquare,
-  Plus,
   Users,
   type LucideIcon,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { LandingSectionMeta } from '@/features/dashboard/data/landing-cms';
+import { useReorderOnDrop } from '@/hooks/use-reorder-on-drop';
 import { cn } from '@/lib/utils';
 
 const sectionIcons: Record<string, LucideIcon> = {
@@ -45,10 +43,12 @@ function SectionListItem({
   section,
   isActive,
   onSelect,
+  onDragEnd,
 }: {
   section: LandingSectionMeta;
   isActive: boolean;
   onSelect: () => void;
+  onDragEnd: () => void;
 }) {
   const controls = useDragControls();
   const [dragging, setDragging] = useState(false);
@@ -64,7 +64,10 @@ function SectionListItem({
       dragControls={controls}
       dragElastic={0.08}
       onDragStart={() => setDragging(true)}
-      onDragEnd={() => setDragging(false)}
+      onDragEnd={() => {
+        setDragging(false);
+        onDragEnd();
+      }}
       transition={reorderSpring}
       whileDrag={{
         scale: 1.035,
@@ -135,14 +138,20 @@ function SectionListItem({
 export function SectionsList({
   sections,
   activeId,
-  onReorder,
+  onReorderComplete,
   onSelect,
 }: {
   sections: LandingSectionMeta[];
   activeId: string;
-  onReorder: (next: LandingSectionMeta[]) => void;
+  onReorderComplete: (next: LandingSectionMeta[]) => void;
   onSelect: (id: LandingSectionMeta['id']) => void;
 }) {
+  const { orderedItems, onReorder, onDragEnd } = useReorderOnDrop(
+    sections,
+    onReorderComplete,
+    (section) => section.id
+  );
+
   return (
     <Card className='border-border/80 shadow-sm'>
       <CardHeader className='pb-3'>
@@ -153,28 +162,21 @@ export function SectionsList({
         <Reorder.Group
           as='ul'
           axis='y'
-          values={sections}
+          values={orderedItems}
           onReorder={onReorder}
           layoutScroll
           className='flex flex-col gap-2'
         >
-          {sections.map((section) => (
+          {orderedItems.map((section) => (
             <SectionListItem
               key={section.id}
               section={section}
               isActive={section.id === activeId}
               onSelect={() => onSelect(section.id)}
+              onDragEnd={onDragEnd}
             />
           ))}
         </Reorder.Group>
-        <Button
-          variant='outline'
-          className='mt-3 h-10 w-full border-dashed border-primary/40 text-primary'
-          onClick={() => toast.info({ title: 'Add section coming soon' })}
-        >
-          <Plus data-icon='inline-start' />
-          Add New Section
-        </Button>
       </CardContent>
     </Card>
   );
