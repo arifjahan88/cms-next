@@ -10,10 +10,7 @@ import { navMenus } from '@/db/schema';
 import { apiError, apiSuccess } from '@/lib/api/response';
 import { requireAdmin } from '@/lib/auth/require-admin';
 import { revalidateNavigation } from '@/lib/navigation/revalidate';
-import {
-  navMenuSlugSchema,
-  updateMenuSchema,
-} from '@/lib/validations/navigation';
+import { navMenuSlugSchema, updateMenuSchema } from '@/lib/validations/navigation';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -55,12 +52,8 @@ export async function PATCH(request: Request, { params }: Params) {
       .update(navMenus)
       .set({
         ...(patch.title !== undefined ? { title: patch.title } : {}),
-        ...(patch.description !== undefined
-          ? { description: patch.description }
-          : {}),
-        ...(patch.status !== undefined
-          ? { status: toDbStatus(patch.status) }
-          : {}),
+        ...(patch.description !== undefined ? { description: patch.description } : {}),
+        ...(patch.status !== undefined ? { status: toDbStatus(patch.status) } : {}),
         updatedAt: new Date(),
       })
       .where(eq(navMenus.id, menu.id))

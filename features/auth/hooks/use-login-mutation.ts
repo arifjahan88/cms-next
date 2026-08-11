@@ -23,9 +23,7 @@ export function useLoginMutation() {
     },
     onError: (error) => {
       const message =
-        error instanceof ApiError
-          ? error.message
-          : 'Unable to sign in. Please try again.';
+        error instanceof ApiError ? error.message : 'Unable to sign in. Please try again.';
       toast.error({ title: message });
     },
   });

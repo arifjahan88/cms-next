@@ -1,9 +1,5 @@
 import { Suspense } from 'react';
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { NavigationCms } from '@/features/dashboard/components/navigation-cms/navigation-cms';
 import { NavigationCmsSkeleton } from '@/features/dashboard/components/navigation-cms/navigation-cms-skeleton';
 import { getAdminMenus } from '@/db/queries/navigation';

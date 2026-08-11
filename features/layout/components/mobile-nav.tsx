@@ -4,13 +4,7 @@ import Link from 'next/link';
 import { Menu, Phone, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SiteLogo } from '@/components/shared/site-logo';
 import { useActivePath } from '@/hooks/use-active-path';
 import { SITE } from '@/lib/constants';
@@ -25,12 +19,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         render={
-          <Button
-            variant='outline'
-            size='icon'
-            className='lg:hidden'
-            aria-label='Open menu'
-          />
+          <Button variant='outline' size='icon' className='lg:hidden' aria-label='Open menu' />
         }
       >
         <Menu className='size-5' />
@@ -68,11 +57,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
           ))}
         </nav>
         <div className='mt-auto space-y-3 border-t p-4'>
-          <Button
-            variant='outline'
-            className='w-full'
-            render={<a href={SITE.phoneHref} />}
-          >
+          <Button variant='outline' className='w-full' render={<a href={SITE.phoneHref} />}>
             <Phone data-icon='inline-start' />
             {SITE.phone}
           </Button>

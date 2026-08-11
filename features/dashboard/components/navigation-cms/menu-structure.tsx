@@ -104,9 +104,7 @@ export function MenuStructure({
     <Card className='border-border/80 shadow-sm'>
       <CardHeader className='pb-3'>
         <CardTitle className='text-base font-bold'>{menu.title}</CardTitle>
-        <p className='text-xs text-muted-foreground'>
-          Last updated: {menu.updatedAt}
-        </p>
+        <p className='text-xs text-muted-foreground'>Last updated: {menu.updatedAt}</p>
       </CardHeader>
       <CardContent>
         <TreeBranch
@@ -115,9 +113,7 @@ export function MenuStructure({
           depth={0}
           activeItemId={activeItemId}
           expanded={expanded}
-          onToggle={(id) =>
-            setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))
-          }
+          onToggle={(id) => setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))}
           onSelect={onSelectItem}
           onReorderComplete={onReorderComplete}
         />

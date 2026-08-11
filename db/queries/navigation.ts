@@ -1,17 +1,8 @@
 import { and, asc, eq, isNull, max, sql } from 'drizzle-orm';
 import { unstable_cache } from 'next/cache';
 import { db } from '@/db';
-import {
-  navMenuItems,
-  navMenus,
-  type NavMenuItemRow,
-  type NavMenuRow,
-} from '@/db/schema';
-import type {
-  MenuItem,
-  MenuItemStatus,
-  NavMenu,
-} from '@/features/dashboard/data/navigation-cms';
+import { navMenuItems, navMenus, type NavMenuItemRow, type NavMenuRow } from '@/db/schema';
+import type { MenuItem, MenuItemStatus, NavMenu } from '@/features/dashboard/data/navigation-cms';
 
 export const NAVIGATION_CACHE_TAG = 'navigation';
 
@@ -39,10 +30,7 @@ function formatUpdatedAt(date: Date): string {
   return date.toLocaleDateString();
 }
 
-function resolveRel(
-  openIn: string,
-  rel: string | null | undefined
-): string | undefined {
+function resolveRel(openIn: string, rel: string | null | undefined): string | undefined {
   if (rel) return rel;
   if (openIn === 'new') return 'noopener noreferrer';
   return undefined;
@@ -65,15 +53,9 @@ export function serializeMenuItem(row: NavMenuItemRow): MenuItem {
   };
 }
 
-export function buildItemTree(
-  rows: NavMenuItemRow[],
-  opts?: { publicOnly?: boolean }
-): MenuItem[] {
+export function buildItemTree(rows: NavMenuItemRow[], opts?: { publicOnly?: boolean }): MenuItem[] {
   const filtered = opts?.publicOnly
-    ? rows.filter(
-        (row) =>
-          row.status.toLowerCase() === 'published' && row.visible === true
-      )
+    ? rows.filter((row) => row.status.toLowerCase() === 'published' && row.visible === true)
     : rows;
 
   const byParent = new Map<string | null, NavMenuItemRow[]>();
@@ -119,11 +101,7 @@ export function serializeMenu(
 }
 
 export async function fetchMenuBySlug(slug: string) {
-  const [menu] = await db
-    .select()
-    .from(navMenus)
-    .where(eq(navMenus.slug, slug))
-    .limit(1);
+  const [menu] = await db.select().from(navMenus).where(eq(navMenus.slug, slug)).limit(1);
   return menu ?? null;
 }
 
@@ -158,13 +136,9 @@ async function loadPublicMenu(slug: string): Promise<NavMenu | null> {
 }
 
 export function getPublicMenu(slug: string) {
-  return unstable_cache(
-    () => loadPublicMenu(slug),
-    [`public-nav-menu-${slug}`],
-    {
-      tags: [NAVIGATION_CACHE_TAG, navigationSlugTag(slug)],
-    }
-  )();
+  return unstable_cache(() => loadPublicMenu(slug), [`public-nav-menu-${slug}`], {
+    tags: [NAVIGATION_CACHE_TAG, navigationSlugTag(slug)],
+  })();
 }
 
 export async function getPublicMenus(slug?: string): Promise<NavMenu[]> {
@@ -182,15 +156,10 @@ export async function getPublicMenus(slug?: string): Promise<NavMenu[]> {
   return result;
 }
 
-export async function getNextSortOrder(
-  menuId: string,
-  parentId: string | null
-) {
+export async function getNextSortOrder(menuId: string, parentId: string | null) {
   const conditions = [
     eq(navMenuItems.menuId, menuId),
-    parentId === null
-      ? isNull(navMenuItems.parentId)
-      : eq(navMenuItems.parentId, parentId),
+    parentId === null ? isNull(navMenuItems.parentId) : eq(navMenuItems.parentId, parentId),
   ];
 
   const [row] = await db
@@ -204,10 +173,7 @@ export async function getNextSortOrder(
 export { toDbStatus, toUiStatus };
 
 export async function touchMenu(menuId: string) {
-  await db
-    .update(navMenus)
-    .set({ updatedAt: new Date() })
-    .where(eq(navMenus.id, menuId));
+  await db.update(navMenus).set({ updatedAt: new Date() }).where(eq(navMenus.id, menuId));
 }
 
 export async function reorderSiblingItems(
@@ -225,30 +191,20 @@ export async function reorderSiblingItems(
           and(
             eq(navMenuItems.id, id),
             eq(navMenuItems.menuId, menuId),
-            parentId === null
-              ? isNull(navMenuItems.parentId)
-              : eq(navMenuItems.parentId, parentId)
+            parentId === null ? isNull(navMenuItems.parentId) : eq(navMenuItems.parentId, parentId)
           )
         );
     }
-    await tx
-      .update(navMenus)
-      .set({ updatedAt: new Date() })
-      .where(eq(navMenus.id, menuId));
+    await tx.update(navMenus).set({ updatedAt: new Date() }).where(eq(navMenus.id, menuId));
   });
 }
 
 /** Returns true if parentId is a root item in the menu (depth allows children). */
-export async function assertParentIsRoot(
-  menuId: string,
-  parentId: string
-): Promise<boolean> {
+export async function assertParentIsRoot(menuId: string, parentId: string): Promise<boolean> {
   const [parent] = await db
     .select()
     .from(navMenuItems)
-    .where(
-      and(eq(navMenuItems.id, parentId), eq(navMenuItems.menuId, menuId))
-    )
+    .where(and(eq(navMenuItems.id, parentId), eq(navMenuItems.menuId, menuId)))
     .limit(1);
 
   if (!parent) return false;
@@ -256,8 +212,6 @@ export async function assertParentIsRoot(
 }
 
 export async function countMenus() {
-  const [row] = await db
-    .select({ count: sql<number>`count(*)::int` })
-    .from(navMenus);
+  const [row] = await db.select({ count: sql<number>`count(*)::int` }).from(navMenus);
   return row?.count ?? 0;
 }

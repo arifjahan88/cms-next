@@ -23,10 +23,7 @@ export function NavigationCmsSkeleton() {
             </CardHeader>
             <CardContent className='space-y-2'>
               {Array.from({ length: 4 }).map((__, j) => (
-                <div
-                  key={j}
-                  className='h-14 animate-pulse rounded-xl bg-muted/70'
-                />
+                <div key={j} className='h-14 animate-pulse rounded-xl bg-muted/70' />
               ))}
             </CardContent>
           </Card>

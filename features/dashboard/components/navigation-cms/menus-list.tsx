@@ -2,12 +2,7 @@
 
 import { createElement } from 'react';
 import { toast } from '@/lib/toast';
-import {
-  Menu,
-  MoreHorizontal,
-  Smartphone,
-  type LucideIcon,
-} from 'lucide-react';
+import { Menu, MoreHorizontal, Smartphone, type LucideIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { NavMenu } from '@/features/dashboard/data/navigation-cms';
@@ -36,11 +31,7 @@ function MenuCard({
       )}
     >
       <div className='flex items-start gap-2'>
-        <button
-          type='button'
-          onClick={onSelect}
-          className='flex min-w-0 flex-1 gap-2.5 text-left'
-        >
+        <button type='button' onClick={onSelect} className='flex min-w-0 flex-1 gap-2.5 text-left'>
           <span
             className={cn(
               'flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground',
@@ -64,9 +55,7 @@ function MenuCard({
                 {menu.status}
               </Badge>
             </span>
-            <span className='mt-0.5 block text-xs text-muted-foreground'>
-              {menu.description}
-            </span>
+            <span className='mt-0.5 block text-xs text-muted-foreground'>{menu.description}</span>
           </span>
         </button>
         <button
@@ -101,8 +90,7 @@ export function MenusList({
       <CardHeader className='pb-3'>
         <CardTitle className='text-base font-bold'>Menus</CardTitle>
         <p className='text-xs text-muted-foreground'>
-          System menus (Main, Footer, Mobile). Item editing is available on the
-          right.
+          System menus (Main, Footer, Mobile). Item editing is available on the right.
         </p>
       </CardHeader>
       <CardContent>

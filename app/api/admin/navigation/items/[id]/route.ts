@@ -31,11 +31,7 @@ export async function PATCH(request: Request, { params }: Params) {
       });
     }
 
-    const [existing] = await db
-      .select()
-      .from(navMenuItems)
-      .where(eq(navMenuItems.id, id))
-      .limit(1);
+    const [existing] = await db.select().from(navMenuItems).where(eq(navMenuItems.id, id)).limit(1);
 
     if (!existing) {
       return apiError(request, {
@@ -46,8 +42,7 @@ export async function PATCH(request: Request, { params }: Params) {
 
     const data = parsed.data;
     const openIn = data.openIn ?? existing.openIn;
-    let rel =
-      data.rel !== undefined ? data.rel : existing.rel;
+    let rel = data.rel !== undefined ? data.rel : existing.rel;
 
     if (openIn === 'new' && !rel) {
       rel = 'noopener noreferrer';
@@ -59,18 +54,12 @@ export async function PATCH(request: Request, { params }: Params) {
         ...(data.label !== undefined ? { label: data.label } : {}),
         ...(data.href !== undefined ? { href: data.href } : {}),
         ...(data.icon !== undefined ? { icon: data.icon } : {}),
-        ...(data.status !== undefined
-          ? { status: toDbStatus(data.status) }
-          : {}),
+        ...(data.status !== undefined ? { status: toDbStatus(data.status) } : {}),
         ...(data.openIn !== undefined ? { openIn: data.openIn } : {}),
         ...(data.visible !== undefined ? { visible: data.visible } : {}),
         ...(data.cssClass !== undefined ? { cssClass: data.cssClass } : {}),
-        ...(data.rel !== undefined || (openIn === 'new' && !existing.rel)
-          ? { rel }
-          : {}),
-        ...(data.description !== undefined
-          ? { description: data.description }
-          : {}),
+        ...(data.rel !== undefined || (openIn === 'new' && !existing.rel) ? { rel } : {}),
+        ...(data.description !== undefined ? { description: data.description } : {}),
         updatedAt: new Date(),
       })
       .where(eq(navMenuItems.id, id))
@@ -116,11 +105,7 @@ export async function DELETE(request: Request, { params }: Params) {
   try {
     const { id } = await params;
 
-    const [existing] = await db
-      .select()
-      .from(navMenuItems)
-      .where(eq(navMenuItems.id, id))
-      .limit(1);
+    const [existing] = await db.select().from(navMenuItems).where(eq(navMenuItems.id, id)).limit(1);
 
     if (!existing) {
       return apiError(request, {

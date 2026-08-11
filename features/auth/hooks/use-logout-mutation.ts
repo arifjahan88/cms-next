@@ -17,8 +17,7 @@ export function useLogoutMutation() {
       router.refresh();
     },
     onError: (error) => {
-      const message =
-        error instanceof ApiError ? error.message : 'Unable to sign out';
+      const message = error instanceof ApiError ? error.message : 'Unable to sign out';
       toast.error({ title: message });
     },
   });

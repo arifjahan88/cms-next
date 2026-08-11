@@ -47,21 +47,16 @@ function itemPayload(item: MenuItem, status?: MenuItem['status']) {
 
 export function NavigationCms() {
   const { data: remoteMenus } = useNavigationMenusSuspenseQuery();
-  const serverKey = remoteMenus
-    .map((m) => `${m.id}:${m.updatedAt}:${m.items.length}`)
-    .join('|');
+  const serverKey = remoteMenus.map((m) => `${m.id}:${m.updatedAt}:${m.items.length}`).join('|');
 
   const [draft, setDraft] = useState<{
     serverKey: string;
     menus: NavMenu[];
   } | null>(null);
 
-  const menus =
-    draft?.serverKey === serverKey ? draft.menus : remoteMenus;
+  const menus = draft?.serverKey === serverKey ? draft.menus : remoteMenus;
 
-  const [activeMenuId, setActiveMenuId] = useState(
-    () => remoteMenus[0]?.id ?? ''
-  );
+  const [activeMenuId, setActiveMenuId] = useState(() => remoteMenus[0]?.id ?? '');
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
 
   const createItem = useCreateMenuItemMutation();
@@ -70,8 +65,7 @@ export function NavigationCms() {
   const reorderItems = useReorderMenuItemsMutation();
   const updateMenu = useUpdateMenuMutation();
 
-  const activeMenu =
-    menus.find((m) => m.id === activeMenuId) ?? menus[0] ?? null;
+  const activeMenu = menus.find((m) => m.id === activeMenuId) ?? menus[0] ?? null;
 
   const activeItem = useMemo(() => {
     if (!activeMenu || !activeItemId) return null;
@@ -79,9 +73,7 @@ export function NavigationCms() {
   }, [activeMenu, activeItemId]);
 
   function editableMenus(): NavMenu[] {
-    return draft?.serverKey === serverKey
-      ? draft.menus
-      : structuredClone(remoteMenus);
+    return draft?.serverKey === serverKey ? draft.menus : structuredClone(remoteMenus);
   }
 
   function patchActiveMenu(updater: (menu: NavMenu) => NavMenu) {
@@ -134,16 +126,10 @@ export function NavigationCms() {
       items: removeMenuItemFromTree(menu.items, id),
       updatedAt: 'Just now',
     }));
-    await runWithActionToast(
-      () => deleteItem.mutateAsync(id),
-      actionToast.deleting('menu item')
-    );
+    await runWithActionToast(() => deleteItem.mutateAsync(id), actionToast.deleting('menu item'));
   }
 
-  async function handleReorderComplete(
-    parentId: string | null,
-    siblings: MenuItem[]
-  ) {
+  async function handleReorderComplete(parentId: string | null, siblings: MenuItem[]) {
     if (!activeMenu) return;
 
     if (parentId === null) {
@@ -270,8 +256,8 @@ export function NavigationCms() {
   if (!menus.length) {
     return (
       <div className='rounded-lg border bg-muted/40 px-4 py-10 text-center text-sm text-muted-foreground'>
-        No menus seeded yet. Run <code className='font-mono'>pnpm db:seed</code>{' '}
-        to create Main, Footer, and Mobile menus.
+        No menus seeded yet. Run <code className='font-mono'>pnpm db:seed</code> to create Main,
+        Footer, and Mobile menus.
       </div>
     );
   }
@@ -280,12 +266,9 @@ export function NavigationCms() {
     <div className='space-y-6'>
       <div className='flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between'>
         <div>
-          <h2 className='text-xl font-bold tracking-tight md:text-2xl'>
-            Navigation
-          </h2>
+          <h2 className='text-xl font-bold tracking-tight md:text-2xl'>Navigation</h2>
           <p className='mt-1 text-sm text-muted-foreground'>
-            Manage your website&apos;s navigation menus. Changes are saved as
-            drafts.
+            Manage your website&apos;s navigation menus. Changes are saved as drafts.
           </p>
         </div>
         <div className='flex flex-wrap gap-2'>
@@ -330,9 +313,7 @@ export function NavigationCms() {
                 <ChevronDown className='size-3.5' />
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
-                <DropdownMenuItem onClick={handlePublishAll}>
-                  Publish all menus
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handlePublishAll}>Publish all menus</DropdownMenuItem>
                 <DropdownMenuItem onClick={handlePublishMenu}>
                   Publish selected menu
                 </DropdownMenuItem>
@@ -343,11 +324,7 @@ export function NavigationCms() {
       </div>
 
       <div className='grid gap-4 xl:grid-cols-[0.9fr_1.15fr_1.1fr]'>
-        <MenusList
-          menus={menus}
-          activeMenuId={activeMenu?.id ?? ''}
-          onSelect={handleSelectMenu}
-        />
+        <MenusList menus={menus} activeMenuId={activeMenu?.id ?? ''} onSelect={handleSelectMenu} />
         {activeMenu ? (
           <MenuStructure
             key={activeMenu.id}
@@ -363,9 +340,7 @@ export function NavigationCms() {
           onChange={handleItemChange}
           onDelete={handleDeleteItem}
           onSelectChild={setActiveItemId}
-          onReorderComplete={(children) =>
-            handleReorderComplete(activeItemId, children)
-          }
+          onReorderComplete={(children) => handleReorderComplete(activeItemId, children)}
           onAddChild={handleAddChild}
           onSaveDraft={handleSaveItemDraft}
           onUpdate={handleUpdateItem}
@@ -374,8 +349,8 @@ export function NavigationCms() {
 
       <div className='rounded-lg border bg-muted/40 px-4 py-3 text-center text-sm text-muted-foreground'>
         Changes are saved as drafts. Click{' '}
-        <span className='font-semibold text-foreground'>Publish</span> to make
-        them live on your website.
+        <span className='font-semibold text-foreground'>Publish</span> to make them live on your
+        website.
       </div>
     </div>
   );

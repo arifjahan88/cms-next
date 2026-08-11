@@ -1,14 +1,8 @@
-import {
-  fetchMenuBySlug,
-  reorderSiblingItems,
-} from '@/db/queries/navigation';
+import { fetchMenuBySlug, reorderSiblingItems } from '@/db/queries/navigation';
 import { apiError, apiSuccess } from '@/lib/api/response';
 import { requireAdmin } from '@/lib/auth/require-admin';
 import { revalidateNavigation } from '@/lib/navigation/revalidate';
-import {
-  navMenuSlugSchema,
-  reorderMenuItemsSchema,
-} from '@/lib/validations/navigation';
+import { navMenuSlugSchema, reorderMenuItemsSchema } from '@/lib/validations/navigation';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -49,11 +43,7 @@ export async function PUT(request: Request, { params }: Params) {
     await reorderSiblingItems(menu.id, parentId, orderedIds);
     revalidateNavigation(slugParsed.data);
 
-    return apiSuccess(
-      request,
-      { orderedIds },
-      { message: 'Menu items reordered' }
-    );
+    return apiSuccess(request, { orderedIds }, { message: 'Menu items reordered' });
   } catch (error) {
     return apiError(request, {
       message: 'Failed to reorder menu items',

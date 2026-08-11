@@ -1,9 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose';
 import type { UserRole } from '@/db/schema';
-import {
-  SESSION_MAX_AGE_SECONDS,
-  SESSION_REMEMBER_MAX_AGE_SECONDS,
-} from '@/lib/auth/constants';
+import { SESSION_MAX_AGE_SECONDS, SESSION_REMEMBER_MAX_AGE_SECONDS } from '@/lib/auth/constants';
 
 export type SessionPayload = {
   sub: string;
@@ -21,9 +18,7 @@ function getAuthSecret(): Uint8Array {
 }
 
 export function maxAgeSeconds(remember?: boolean): number {
-  return remember
-    ? SESSION_REMEMBER_MAX_AGE_SECONDS
-    : SESSION_MAX_AGE_SECONDS;
+  return remember ? SESSION_REMEMBER_MAX_AGE_SECONDS : SESSION_MAX_AGE_SECONDS;
 }
 
 export async function createSessionToken(
@@ -42,16 +37,13 @@ export async function createSessionToken(
     .sign(getAuthSecret());
 }
 
-export async function verifySessionToken(
-  token: string
-): Promise<SessionPayload | null> {
+export async function verifySessionToken(token: string): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(token, getAuthSecret());
     const sub = typeof payload.sub === 'string' ? payload.sub : null;
     const email = typeof payload.email === 'string' ? payload.email : null;
     const name = typeof payload.name === 'string' ? payload.name : null;
-    const role =
-      typeof payload.role === 'number' ? (payload.role as UserRole) : null;
+    const role = typeof payload.role === 'number' ? (payload.role as UserRole) : null;
 
     if (!sub || !email || !name || role == null) {
       return null;

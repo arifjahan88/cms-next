@@ -21,10 +21,7 @@ function cookieOptions(remember = false) {
   };
 }
 
-export async function setSessionCookie(
-  token: string,
-  remember = false
-): Promise<void> {
+export async function setSessionCookie(token: string, remember = false): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE_NAME, token, cookieOptions(remember));
 }
@@ -37,11 +34,7 @@ export async function clearSessionCookie(): Promise<void> {
   });
 }
 
-export function applySessionCookie(
-  response: NextResponse,
-  token: string,
-  remember = false
-): void {
+export function applySessionCookie(response: NextResponse, token: string, remember = false): void {
   response.cookies.set(SESSION_COOKIE_NAME, token, cookieOptions(remember));
 }
 
@@ -59,9 +52,7 @@ export async function getSession(): Promise<SessionPayload | null> {
   return verifySessionToken(token);
 }
 
-export async function getSessionFromRequest(
-  request: NextRequest
-): Promise<SessionPayload | null> {
+export async function getSessionFromRequest(request: NextRequest): Promise<SessionPayload | null> {
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
   if (!token) return null;
   return verifySessionToken(token);

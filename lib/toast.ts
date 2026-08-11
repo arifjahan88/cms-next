@@ -77,8 +77,7 @@ export const toast = {
         type: 'loading',
         timeout: 0,
       },
-      success: (result) =>
-        resolvePromisePayload(options.success, result, 'success'),
+      success: (result) => resolvePromisePayload(options.success, result, 'success'),
       error: (error) => resolvePromisePayload(options.error, error, 'error'),
     });
   },

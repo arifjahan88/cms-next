@@ -27,8 +27,7 @@ export async function runWithActionToast<T>(
   return toast.promise(action(), {
     loading: toPayload(copy.loading),
     success: toPayload(copy.success),
-    error: (error) =>
-      toPayload(resolveErrorMessage(error, errorFallback)),
+    error: (error) => toPayload(resolveErrorMessage(error, errorFallback)),
   });
 }
 

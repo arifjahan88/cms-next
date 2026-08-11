@@ -11,10 +11,7 @@ export function getAdminNavigationMenus(): Promise<NavMenu[]> {
   return apiFetch<NavMenu[]>('/api/admin/navigation');
 }
 
-export function updateNavigationMenu(
-  slug: string,
-  payload: UpdateMenuValues
-): Promise<NavMenu> {
+export function updateNavigationMenu(slug: string, payload: UpdateMenuValues): Promise<NavMenu> {
   return apiFetch<NavMenu>(`/api/admin/navigation/${slug}`, {
     method: 'PATCH',
     body: JSON.stringify(payload),
@@ -51,11 +48,8 @@ export function reorderNavigationMenuItems(
   slug: string,
   payload: ReorderMenuItemsValues
 ): Promise<{ orderedIds: string[] }> {
-  return apiFetch<{ orderedIds: string[] }>(
-    `/api/admin/navigation/${slug}/items/reorder`,
-    {
-      method: 'PUT',
-      body: JSON.stringify(payload),
-    }
-  );
+  return apiFetch<{ orderedIds: string[] }>(`/api/admin/navigation/${slug}/items/reorder`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
 }

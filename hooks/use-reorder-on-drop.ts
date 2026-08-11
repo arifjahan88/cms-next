@@ -9,8 +9,7 @@ function orderKey<T>(items: T[], getId: (item: T) => string) {
 export function useReorderOnDrop<T>(
   items: T[],
   onCommit: (next: T[]) => void,
-  getId: (item: T) => string = (item) =>
-    String((item as { id: string }).id)
+  getId: (item: T) => string = (item) => String((item as { id: string }).id)
 ) {
   const itemsKey = orderKey(items, getId);
   const committedKeyRef = useRef(itemsKey);
@@ -21,8 +20,7 @@ export function useReorderOnDrop<T>(
     items: T[];
   } | null>(null);
 
-  const orderedItems =
-    override?.key === itemsKey ? override.items : items;
+  const orderedItems = override?.key === itemsKey ? override.items : items;
 
   useEffect(() => {
     orderedRef.current = items;

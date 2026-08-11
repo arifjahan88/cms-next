@@ -4,10 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Container } from '@/components/shared/container';
 import { SiteLogo } from '@/components/shared/site-logo';
-import {
-  getFooterColumns,
-  type FooterColumn,
-} from '@/features/layout/lib/get-public-nav';
+import { getFooterColumns, type FooterColumn } from '@/features/layout/lib/get-public-nav';
 import { SITE } from '@/lib/constants';
 
 const socialIcons = [
@@ -73,9 +70,7 @@ export async function SiteFooter() {
           </div>
 
           <div className='lg:col-span-3'>
-            <h3 className='mb-2 text-sm font-semibold text-white'>
-              Subscribe to Our Newsletter
-            </h3>
+            <h3 className='mb-2 text-sm font-semibold text-white'>Subscribe to Our Newsletter</h3>
             <p className='mb-3 text-sm text-white/65'>
               Get insights, product updates, and engineering tips.
             </p>

@@ -23,9 +23,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isLogin && session && isAdminRole(session.role)) {
-    const redirectTo = resolveAuthRedirect(
-      request.nextUrl.searchParams.get('from')
-    );
+    const redirectTo = resolveAuthRedirect(request.nextUrl.searchParams.get('from'));
     return NextResponse.redirect(new URL(redirectTo, request.url));
   }
 

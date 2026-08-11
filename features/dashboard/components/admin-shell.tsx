@@ -287,18 +287,14 @@ export function AdminShell({
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className='cursor-pointer'
-                    render={
-                      <Link href='/dashboard/coming-soon?section=Profile' />
-                    }
+                    render={<Link href='/dashboard/coming-soon?section=Profile' />}
                   >
                     <UserRound />
                     Profile
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className='cursor-pointer'
-                    render={
-                      <Link href='/dashboard/coming-soon?section=Account%20Settings' />
-                    }
+                    render={<Link href='/dashboard/coming-soon?section=Account%20Settings' />}
                   >
                     <Settings />
                     Account settings

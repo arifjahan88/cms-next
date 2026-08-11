@@ -1,17 +1,8 @@
 import { apiFetch } from '@/lib/api/client';
 import type { AdminLoginValues } from '@/lib/validations/forms';
-import type {
-  LoginResponse,
-  LogoutResponse,
-  MeResponse,
-} from '@/types/auth';
+import type { LoginResponse, LogoutResponse, MeResponse } from '@/types/auth';
 
-export type {
-  AuthUser,
-  LoginResponse,
-  LogoutResponse,
-  MeResponse,
-} from '@/types/auth';
+export type { AuthUser, LoginResponse, LogoutResponse, MeResponse } from '@/types/auth';
 
 export function login(payload: AdminLoginValues): Promise<LoginResponse> {
   return apiFetch<LoginResponse>('/api/auth/login', {

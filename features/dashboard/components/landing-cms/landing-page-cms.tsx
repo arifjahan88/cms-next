@@ -77,7 +77,11 @@ export function LandingPageCms() {
             <Save data-icon='inline-start' />
             Save Draft
           </Button>
-          <Button size='sm' className='h-9' onClick={() => toast.success({ title: 'Published successfully' })}>
+          <Button
+            size='sm'
+            className='h-9'
+            onClick={() => toast.success({ title: 'Published successfully' })}
+          >
             Publish
           </Button>
         </div>

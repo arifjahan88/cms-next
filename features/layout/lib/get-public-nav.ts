@@ -20,11 +20,7 @@ function fallbackMainNav(): NavItem[] {
 }
 
 function fallbackMobileNav(): NavItem[] {
-  return [
-    { title: 'Home', href: '/' },
-    ...mainNav,
-    { title: 'Contact Us', href: '/contact' },
-  ];
+  return [{ title: 'Home', href: '/' }, ...mainNav, { title: 'Contact Us', href: '/contact' }];
 }
 
 export type FooterColumn = {

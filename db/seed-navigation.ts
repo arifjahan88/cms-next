@@ -45,17 +45,17 @@ function buildMainSeedItems(): SeedItem[] {
 }
 
 function buildFooterSeedItems(): SeedItem[] {
-  return (
-    Object.entries(footerLinks) as [string, { title: string; href: string }[]][]
-  ).map(([column, links]) => ({
-    label: column.charAt(0).toUpperCase() + column.slice(1),
-    href: '#',
-    icon: 'layers',
-    children: links.map((l) => ({
-      label: l.title,
-      href: l.href,
-    })),
-  }));
+  return (Object.entries(footerLinks) as [string, { title: string; href: string }[]][]).map(
+    ([column, links]) => ({
+      label: column.charAt(0).toUpperCase() + column.slice(1),
+      href: '#',
+      icon: 'layers',
+      children: links.map((l) => ({
+        label: l.title,
+        href: l.href,
+      })),
+    })
+  );
 }
 
 const SYSTEM_MENUS = [
@@ -82,11 +82,7 @@ const SYSTEM_MENUS = [
   },
 ];
 
-async function insertItemTree(
-  menuId: string,
-  items: SeedItem[],
-  parentId: string | null = null
-) {
+async function insertItemTree(menuId: string, items: SeedItem[], parentId: string | null = null) {
   for (let i = 0; i < items.length; i++) {
     const item = items[i]!;
     const values: NewNavMenuItem = {
@@ -111,11 +107,7 @@ async function insertItemTree(
 
 export async function seedNavigation() {
   for (const def of SYSTEM_MENUS) {
-    const [existing] = await db
-      .select()
-      .from(navMenus)
-      .where(eq(navMenus.slug, def.slug))
-      .limit(1);
+    const [existing] = await db.select().from(navMenus).where(eq(navMenus.slug, def.slug)).limit(1);
 
     let menuId = existing?.id;
 

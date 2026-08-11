@@ -18,21 +18,15 @@ import type {
 
 function useInvalidateMenus() {
   const queryClient = useQueryClient();
-  return () =>
-    queryClient.invalidateQueries({ queryKey: navigationKeys.admin });
+  return () => queryClient.invalidateQueries({ queryKey: navigationKeys.admin });
 }
 
 export function useUpdateMenuMutation() {
   const invalidate = useInvalidateMenus();
 
   return useMutation({
-    mutationFn: ({
-      slug,
-      payload,
-    }: {
-      slug: string;
-      payload: UpdateMenuValues;
-    }) => updateNavigationMenu(slug, payload),
+    mutationFn: ({ slug, payload }: { slug: string; payload: UpdateMenuValues }) =>
+      updateNavigationMenu(slug, payload),
     onSuccess: async () => {
       await invalidate();
     },
@@ -43,13 +37,8 @@ export function useCreateMenuItemMutation() {
   const invalidate = useInvalidateMenus();
 
   return useMutation({
-    mutationFn: ({
-      slug,
-      payload,
-    }: {
-      slug: string;
-      payload: CreateMenuItemValues;
-    }) => createNavigationMenuItem(slug, payload),
+    mutationFn: ({ slug, payload }: { slug: string; payload: CreateMenuItemValues }) =>
+      createNavigationMenuItem(slug, payload),
     onSuccess: async () => {
       await invalidate();
     },
@@ -60,13 +49,8 @@ export function useUpdateMenuItemMutation() {
   const invalidate = useInvalidateMenus();
 
   return useMutation({
-    mutationFn: ({
-      id,
-      payload,
-    }: {
-      id: string;
-      payload: UpdateMenuItemValues;
-    }) => updateNavigationMenuItem(id, payload),
+    mutationFn: ({ id, payload }: { id: string; payload: UpdateMenuItemValues }) =>
+      updateNavigationMenuItem(id, payload),
     onSuccess: async () => {
       await invalidate();
     },
@@ -88,13 +72,8 @@ export function useReorderMenuItemsMutation() {
   const invalidate = useInvalidateMenus();
 
   return useMutation({
-    mutationFn: ({
-      slug,
-      payload,
-    }: {
-      slug: string;
-      payload: ReorderMenuItemsValues;
-    }) => reorderNavigationMenuItems(slug, payload),
+    mutationFn: ({ slug, payload }: { slug: string; payload: ReorderMenuItemsValues }) =>
+      reorderNavigationMenuItems(slug, payload),
     onSuccess: async () => {
       await invalidate();
     },
