@@ -1,21 +1,16 @@
-import type { LucideIcon } from 'lucide-react';
 import {
   Briefcase,
-  Building2,
-  Cpu,
+  FileText,
   FolderKanban,
-  FormInput,
-  Image,
-  LayoutDashboard,
+  Globe,
+  Inbox,
   LayoutTemplate,
   Menu,
-  Newspaper,
   Search,
   Users,
-  UserRound,
-  MessageSquareQuote,
-  Layers,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { LayoutDashboard } from 'lucide-react';
 
 export type DashboardNavItem = {
   title: string;
@@ -29,10 +24,6 @@ export type DashboardNavGroup = {
   items: DashboardNavItem[];
 };
 
-function soon(section: string) {
-  return `/dashboard/coming-soon?section=${encodeURIComponent(section)}`;
-}
-
 export const dashboardNav: DashboardNavGroup[] = [
   {
     items: [
@@ -44,121 +35,79 @@ export const dashboardNav: DashboardNavGroup[] = [
     ],
   },
   {
-    label: 'Manage Content',
+    label: 'Page Content',
     items: [
       {
-        title: 'Landing Page',
-        href: '/dashboard/landing-page',
+        title: 'Pages',
+        href: '/dashboard/pages',
         icon: LayoutTemplate,
-        chevron: true,
       },
       {
         title: 'Navigation',
         href: '/dashboard/navigation',
         icon: Menu,
-        chevron: true,
-      },
-      {
-        title: 'Sections',
-        href: soon('Sections'),
-        icon: Layers,
-      },
-      {
-        title: 'Media Library',
-        href: soon('Media Library'),
-        icon: Image,
-      },
-      {
-        title: 'Forms',
-        href: soon('Forms'),
-        icon: FormInput,
       },
       {
         title: 'SEO Settings',
-        href: soon('SEO Settings'),
+        href: '/dashboard/seo-settings',
         icon: Search,
       },
     ],
   },
   {
-    label: 'Collections',
+    label: 'Content',
     items: [
       {
-        title: 'Services',
-        href: soon('Services'),
-        icon: Briefcase,
-      },
-      {
-        title: 'Industries',
-        href: soon('Industries'),
-        icon: Building2,
-      },
-      {
-        title: 'Technologies',
-        href: soon('Technologies'),
-        icon: Cpu,
+        title: 'Blog',
+        href: '/dashboard/blog',
+        icon: FileText,
       },
       {
         title: 'Case Studies',
-        href: soon('Case Studies'),
-        icon: FolderKanban,
+        href: '/dashboard/case-studies',
+        icon: Briefcase,
       },
       {
-        title: 'Blogs',
-        href: soon('Blogs'),
-        icon: Newspaper,
-      },
-      {
-        title: 'Careers',
-        href: soon('Careers'),
-        icon: UserRound,
-      },
-      {
-        title: 'Team Members',
-        href: soon('Team Members'),
+        title: 'Job Openings',
+        href: '/dashboard/jobs',
         icon: Users,
       },
       {
-        title: 'Testimonials',
-        href: soon('Testimonials'),
-        icon: MessageSquareQuote,
+        title: 'Portfolio',
+        href: '/dashboard/portfolio',
+        icon: FolderKanban,
       },
     ],
   },
-  // {
-  //   label: 'Settings',
-  //   items: [
-  //     {
-  //       title: 'Site Settings',
-  //       href: soon('Site Settings'),
-  //       icon: Settings,
-  //     },
-  //     {
-  //       title: 'API & Integrations',
-  //       href: soon('API'),
-  //       icon: Plug,
-  //     },
-  //     {
-  //       title: 'Redirects',
-  //       href: soon('Redirects'),
-  //       icon: ArrowLeftRight,
-  //     },
-  //   ],
-  // },
+  {
+    label: 'Inbox',
+    items: [
+      {
+        title: 'Contact Messages',
+        href: '/dashboard/contact-messages',
+        icon: Inbox,
+      },
+      {
+        title: 'Consultation Bookings',
+        href: '/dashboard/consultations',
+        icon: Globe,
+      },
+    ],
+  },
 ];
 
 export function getDashboardPageTitle(pathname: string): string {
-  if (pathname.startsWith('/dashboard/landing-page')) {
-    return 'Landing Page';
-  }
-  if (pathname.startsWith('/dashboard/navigation')) {
-    return 'Navigation';
-  }
-  if (pathname.startsWith('/dashboard/coming-soon')) {
-    return 'Coming Soon';
-  }
-  if (pathname === '/dashboard' || pathname === '/dashboard/') {
-    return 'Dashboard';
-  }
+  if (pathname.startsWith('/dashboard/pages')) return 'Pages';
+  if (pathname.startsWith('/dashboard/landing-page')) return 'Landing Page';
+  if (pathname.startsWith('/dashboard/navigation')) return 'Navigation';
+  if (pathname.startsWith('/dashboard/seo-settings')) return 'SEO Settings';
+  if (pathname.startsWith('/dashboard/blog')) return 'Blog';
+  if (pathname.startsWith('/dashboard/case-studies')) return 'Case Studies';
+  if (pathname.startsWith('/dashboard/jobs')) return 'Job Openings';
+  if (pathname.startsWith('/dashboard/portfolio')) return 'Portfolio';
+  if (pathname.startsWith('/dashboard/contact-messages')) return 'Contact Messages';
+  if (pathname.startsWith('/dashboard/consultations')) return 'Consultation Bookings';
+  if (pathname.startsWith('/dashboard/coming-soon')) return 'Coming Soon';
+  if (pathname === '/dashboard' || pathname === '/dashboard/') return 'Dashboard';
   return 'Dashboard';
 }

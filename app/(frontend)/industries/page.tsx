@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/metadata';
 import { IndustriesPage } from '@/features/industries';
 
-export const metadata: Metadata = {
-  title: 'Industries',
-  description:
-    'Industry-focused software solutions for healthcare, fintech, real estate, e-commerce, and more.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('industries');
+}
 
 export default function Page() {
   return <IndustriesPage />;

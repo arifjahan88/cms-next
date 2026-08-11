@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/metadata';
 import { CaseStudiesPage } from '@/features/case-studies';
 
-export const metadata: Metadata = {
-  title: 'Case Studies',
-  description:
-    'Real challenges and proven results from Zamil Technologies client engagements across industries.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('case-studies');
+}
 
 export default function Page() {
   return <CaseStudiesPage />;

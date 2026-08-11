@@ -1,14 +1,14 @@
 import { apiError, apiSuccess } from '@/lib/api/response';
 import { getPublicLandingSection } from '@/db/queries/landing';
 import type { SectionId } from '@/features/dashboard/data/landing-cms';
-import { landingSectionIdSchema } from '@/lib/validations/landing';
+import { homeSectionIdSchema } from '@/lib/validations/landing';
 
 type Params = { params: Promise<{ sectionId: string }> };
 
 export async function GET(request: Request, { params }: Params) {
   try {
     const { sectionId } = await params;
-    const parsed = landingSectionIdSchema.safeParse(sectionId);
+    const parsed = homeSectionIdSchema.safeParse(sectionId);
     if (!parsed.success) {
       return apiError(request, {
         message: 'Invalid section id',

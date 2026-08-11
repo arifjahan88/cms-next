@@ -16,10 +16,10 @@ import { ImagePlaceholder } from '@/components/shared/image-placeholder';
 import { TechStackItem } from '@/components/shared/tech-icon';
 import { FadeIn } from '@/components/shared/motion/fade-in';
 import {
-  caseStudies,
   caseStudyFilters,
   caseStudySortOptions,
 } from '@/features/case-studies/data/case-studies';
+import type { CaseStudyItem } from '@/types';
 import { cn } from '@/lib/utils';
 
 type SortValue = (typeof caseStudySortOptions)[number]['value'];
@@ -31,7 +31,11 @@ const badgeColors: Record<string, string> = {
   'E-commerce': 'bg-violet-500 text-white',
 };
 
-export function CaseStudiesList() {
+export function CaseStudiesList({
+  items: caseStudies,
+}: {
+  items: (CaseStudyItem & { date?: string })[];
+}) {
   const [category, setCategory] = useState<string>('All Case Studies');
   const [sort, setSort] = useState<SortValue>('latest');
 
@@ -44,11 +48,11 @@ export function CaseStudiesList() {
     return [...filtered].sort((a, b) => {
       if (sort === 'az') return a.title.localeCompare(b.title);
       if (sort === 'oldest') {
-        return new Date(a.date).getTime() - new Date(b.date).getTime();
+        return new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime();
       }
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
+      return new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime();
     });
-  }, [category, sort]);
+  }, [category, sort, caseStudies]);
 
   return (
     <section className='py-12 md:py-16'>

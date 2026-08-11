@@ -8,12 +8,13 @@ import { WhyChoose } from '@/features/home/components/why-choose';
 import { FeaturedCaseStudies } from '@/features/home/components/featured-case-studies';
 import { Testimonials } from '@/features/home/components/testimonials';
 import { ContactCta } from '@/features/home/components/contact-cta';
-import type { LandingContent, SectionId } from '@/features/dashboard/data/landing-cms';
 import {
   LANDING_CACHE_TAG,
   landingPageTag,
   loadPublicLandingSections,
 } from '@/db/queries/landing';
+import { loadFeaturedCaseStudyItems } from '@/lib/public-entities';
+import type { LandingContent, SectionId } from '@/features/dashboard/data/landing-cms';
 
 const SECTION_RENDERERS: Record<
   SectionId,
@@ -35,12 +36,31 @@ export async function HomePage() {
   'use cache';
   cacheTag(LANDING_CACHE_TAG, landingPageTag('home'));
 
-  const sections = await loadPublicLandingSections('home');
+  const [sections, featuredItems] = await Promise.all([
+    loadPublicLandingSections('home'),
+    loadFeaturedCaseStudyItems(),
+  ]);
+
+  const enriched = sections.map((section) => {
+    if (section.sectionId !== 'caseStudies') return section;
+    const content = section.content as LandingContent['caseStudies'];
+    return {
+      ...section,
+      content: {
+        ...content,
+        items: featuredItems,
+      },
+    };
+  });
 
   return (
     <>
-      {sections.map((section) => (
-        <div key={section.sectionId}>{SECTION_RENDERERS[section.sectionId](section.content)}</div>
+      {enriched.map((section) => (
+        <div key={section.sectionId}>
+          {SECTION_RENDERERS[section.sectionId as SectionId](
+            section.content as LandingContent[SectionId]
+          )}
+        </div>
       ))}
     </>
   );

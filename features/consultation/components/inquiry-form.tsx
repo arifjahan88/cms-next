@@ -49,6 +49,7 @@ export function InquiryForm({
   onSlotChange,
 }: InquiryFormProps) {
   const [consent, setConsent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [service, setService] = useState('');
   const [budget, setBudget] = useState('');
   const [referral, setReferral] = useState('');
@@ -57,7 +58,7 @@ export function InquiryForm({
   return (
     <form
       className='rounded-2xl border bg-background p-5 shadow-sm md:p-6'
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         const form = e.currentTarget;
         const fd = new FormData(form);
@@ -95,19 +96,45 @@ export function InquiryForm({
           .filter(Boolean)
           .join(' · ');
 
-        toast.success({
-          title: when
-            ? `Consultation requested for ${when}. We'll confirm shortly.`
-            : "Consultation request received! We'll confirm shortly.",
-        });
-        form.reset();
-        setConsent(false);
-        setService('');
-        setBudget('');
-        setReferral('');
-        setProjectType('new');
+        setSubmitting(true);
+        try {
+          const res = await fetch('/api/consultation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...parsed.data,
+              preferredDate: selectedDate
+                ? toDateInputValue(selectedDate)
+                : String(fd.get('preferredDate') ?? ''),
+              preferredTime: selectedSlot || String(fd.get('preferredTime') ?? ''),
+              website: String(fd.get('website') ?? ''),
+            }),
+          });
+          const json = (await res.json()) as { status?: boolean; message?: string };
+          if (!res.ok || !json.status) {
+            throw new Error(json.message ?? 'Failed to submit request');
+          }
+          toast.success({
+            title: when
+              ? `Consultation requested for ${when}. We'll confirm shortly.`
+              : "Consultation request received! We'll confirm shortly.",
+          });
+          form.reset();
+          setConsent(false);
+          setService('');
+          setBudget('');
+          setReferral('');
+          setProjectType('new');
+        } catch (error) {
+          toast.error({
+            title: error instanceof Error ? error.message : 'Failed to submit request',
+          });
+        } finally {
+          setSubmitting(false);
+        }
       }}
     >
+      <input type='text' name='website' className='hidden' tabIndex={-1} autoComplete='off' />
       <h3 className='text-lg font-semibold'>{inquiryFormCopy.title}</h3>
       <p className='mt-1 text-sm text-muted-foreground'>{inquiryFormCopy.description}</p>
 
@@ -276,8 +303,8 @@ export function InquiryForm({
         <span>{inquiryFormCopy.privacy}</span>
       </label>
 
-      <Button type='submit' className='mt-5 h-11 w-full'>
-        {inquiryFormCopy.submit}
+      <Button type='submit' className='mt-5 h-11 w-full' disabled={submitting}>
+        {submitting ? 'Submitting…' : inquiryFormCopy.submit}
       </Button>
 
       <p className='mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground'>

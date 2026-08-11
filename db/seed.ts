@@ -5,6 +5,14 @@ import { db } from './index';
 import { UserRole, users } from './schema';
 import { seedNavigation } from './seed-navigation';
 import { seedLanding } from './seed-landing';
+import { seedPageSeo } from './seed-page-seo';
+import { seedAllPageSections } from './seed-pages';
+import {
+  seedBlogPosts,
+  seedCaseStudies,
+  seedJobOpenings,
+  seedPortfolioProjects,
+} from './seed-entities';
 
 async function seedAdmin() {
   const email = (process.env.SEED_ADMIN_EMAIL ?? 'admin@zamil.local').toLowerCase();
@@ -37,7 +45,12 @@ async function seedAdmin() {
 async function seed() {
   await seedAdmin();
   await seedNavigation();
-  await seedLanding();
+  await seedPageSeo();
+  await seedAllPageSections();
+  await seedBlogPosts();
+  await seedCaseStudies();
+  await seedJobOpenings();
+  await seedPortfolioProjects();
 }
 
 seed()

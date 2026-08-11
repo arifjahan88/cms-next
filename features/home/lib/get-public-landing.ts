@@ -15,7 +15,12 @@ export function getSectionFallback(sectionId: SectionId): LandingContent[Section
 /** @deprecated Prefer loadPublicLandingSections inside a `'use cache'` scope. */
 export async function getPublicLandingPageSections(): Promise<ResolvedLandingSection[]> {
   try {
-    return await getPublicLandingSections('home');
+    const sections = await getPublicLandingSections('home');
+    return sections.map((section) => ({
+      sectionId: section.sectionId as SectionId,
+      content: section.content as LandingContent[SectionId],
+      sortOrder: section.sortOrder,
+    }));
   } catch {
     const fallback = Object.keys(landingContentSeed) as SectionId[];
     return fallback.map((sectionId, index) => ({

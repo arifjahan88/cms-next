@@ -10,6 +10,13 @@ import {
   type LandingSectionMeta,
   type SectionId,
 } from '@/features/dashboard/data/landing-cms';
+import {
+  getPageSeedContent,
+  getPageSeedDocument,
+} from '@/features/dashboard/data/page-configs';
+import type { PageDocument, PageSectionMeta } from '@/features/dashboard/data/page-seeds';
+import type { PageSlug } from '@/features/dashboard/data/public-pages';
+import { safeDbQuery } from '@/lib/db-safe';
 
 export const LANDING_CACHE_TAG = 'landing';
 
@@ -18,17 +25,27 @@ export function landingPageTag(pageSlug: string) {
 }
 
 export type PublicLandingSection = {
-  sectionId: SectionId;
-  content: LandingContent[SectionId];
+  sectionId: string;
+  content: unknown;
   sortOrder: number;
 };
 
-function toUiStatus(status: string): LandingSectionMeta['status'] {
+function toUiStatus(status: string): 'Published' | 'Draft' {
   return status.toLowerCase() === 'published' ? 'Published' : 'Draft';
 }
 
-function toDbStatus(status: LandingSectionMeta['status'] | string): 'published' | 'draft' {
+function toDbStatus(status: 'Published' | 'Draft' | string): 'published' | 'draft' {
   return status.toLowerCase() === 'published' ? 'published' : 'draft';
+}
+
+export function serializePageSectionMeta(row: LandingSectionRow): PageSectionMeta {
+  return {
+    id: row.sectionId,
+    title: row.title,
+    status: toUiStatus(row.status),
+    icon: row.icon,
+    visible: row.visible,
+  };
 }
 
 export function serializeLandingSectionMeta(row: LandingSectionRow): LandingSectionMeta {
@@ -41,16 +58,24 @@ export function serializeLandingSectionMeta(row: LandingSectionRow): LandingSect
   };
 }
 
-export function serializeLandingDocument(rows: LandingSectionRow[]): LandingPageDocument {
+export function serializePageDocument(rows: LandingSectionRow[]): PageDocument {
   const ordered = [...rows].sort((a, b) => a.sortOrder - b.sortOrder);
-  const sections = ordered.map(serializeLandingSectionMeta);
+  const sections = ordered.map(serializePageSectionMeta);
   const content: Record<string, unknown> = {};
 
   for (const row of ordered) {
     content[row.sectionId] = row.content;
   }
 
-  return { sections, content: content as LandingContent };
+  return { sections, content };
+}
+
+export function serializeLandingDocument(rows: LandingSectionRow[]): LandingPageDocument {
+  const doc = serializePageDocument(rows);
+  return {
+    sections: doc.sections as LandingSectionMeta[],
+    content: doc.content as LandingContent,
+  };
 }
 
 export async function fetchLandingSections(pageSlug: string) {
@@ -61,7 +86,7 @@ export async function fetchLandingSections(pageSlug: string) {
     .orderBy(asc(landingSections.sortOrder));
 }
 
-export async function fetchLandingSection(pageSlug: string, sectionId: SectionId) {
+export async function fetchLandingSection(pageSlug: string, sectionId: string) {
   const [row] = await db
     .select()
     .from(landingSections)
@@ -72,23 +97,37 @@ export async function fetchLandingSection(pageSlug: string, sectionId: SectionId
   return row ?? null;
 }
 
+export async function getAdminPage(pageSlug: PageSlug): Promise<PageDocument> {
+  const rows = await safeDbQuery(() => fetchLandingSections(pageSlug), []);
+  if (!rows.length) return getPageSeedDocument(pageSlug);
+  return serializePageDocument(rows);
+}
+
 export async function getAdminLanding(pageSlug = 'home'): Promise<LandingPageDocument> {
-  const rows = await fetchLandingSections(pageSlug);
+  const rows = await safeDbQuery(() => fetchLandingSections(pageSlug), []);
+  if (!rows.length) return createLandingPageDocument();
   return serializeLandingDocument(rows);
 }
 
-export async function loadPublicLandingSections(pageSlug: string): Promise<PublicLandingSection[]> {
-  const rows = await fetchLandingSections(pageSlug);
+function getSeedPublicLandingSections(pageSlug: PageSlug): PublicLandingSection[] {
+  const seedDoc = getPageSeedDocument(pageSlug);
+  return seedDoc.sections
+    .filter((section) => section.visible)
+    .map((section, index) => ({
+      sectionId: section.id,
+      content: seedDoc.content[section.id],
+      sortOrder: index,
+    }));
+}
+
+export async function loadPublicLandingSections(
+  pageSlug: PageSlug
+): Promise<PublicLandingSection[]> {
+  const rows = await safeDbQuery(() => fetchLandingSections(pageSlug), []);
+  const seedDoc = getPageSeedDocument(pageSlug);
 
   if (!rows.length) {
-    const doc = createLandingPageDocument();
-    return doc.sections
-      .filter((section) => section.visible)
-      .map((section, index) => ({
-        sectionId: section.id,
-        content: doc.content[section.id],
-        sortOrder: index,
-      }));
+    return getSeedPublicLandingSections(pageSlug);
   }
 
   const result: PublicLandingSection[] = [];
@@ -96,14 +135,13 @@ export async function loadPublicLandingSections(pageSlug: string): Promise<Publi
   for (const row of rows) {
     if (!row.visible) continue;
 
-    const sectionId = row.sectionId as SectionId;
     const isPublished = row.status.toLowerCase() === 'published';
     const content = isPublished
-      ? (row.content as LandingContent[typeof sectionId])
-      : landingContentSeed[sectionId];
+      ? row.content
+      : (getPageSeedContent(pageSlug, row.sectionId) ?? seedDoc.content[row.sectionId]);
 
     result.push({
-      sectionId,
+      sectionId: row.sectionId,
       content,
       sortOrder: row.sortOrder,
     });
@@ -112,29 +150,32 @@ export async function loadPublicLandingSections(pageSlug: string): Promise<Publi
   return result;
 }
 
-export function getPublicLandingSections(pageSlug = 'home') {
+export function getPublicLandingSections(pageSlug: PageSlug = 'home') {
   return unstable_cache(() => loadPublicLandingSections(pageSlug), [`public-landing-${pageSlug}`], {
     tags: [LANDING_CACHE_TAG, landingPageTag(pageSlug)],
   })();
 }
 
 async function loadPublicLandingSection(
-  pageSlug: string,
-  sectionId: SectionId
+  pageSlug: PageSlug,
+  sectionId: string
 ): Promise<PublicLandingSection | null> {
-  const row = await fetchLandingSection(pageSlug, sectionId);
+  const row = await safeDbQuery(
+    () => fetchLandingSection(pageSlug, sectionId),
+    null
+  );
   if (!row || !row.visible || row.status.toLowerCase() !== 'published') {
     return null;
   }
 
   return {
-    sectionId,
-    content: row.content as LandingContent[typeof sectionId],
+    sectionId: row.sectionId,
+    content: row.content,
     sortOrder: row.sortOrder,
   };
 }
 
-export function getPublicLandingSection(pageSlug: string, sectionId: SectionId) {
+export function getPublicLandingSection(pageSlug: PageSlug, sectionId: string) {
   return unstable_cache(
     () => loadPublicLandingSection(pageSlug, sectionId),
     [`public-landing-section-${pageSlug}-${sectionId}`],
@@ -146,13 +187,13 @@ export function getPublicLandingSection(pageSlug: string, sectionId: SectionId) 
 
 export async function updateLandingSectionRow(
   pageSlug: string,
-  sectionId: SectionId,
+  sectionId: string,
   patch: {
     title?: string;
-    status?: LandingSectionMeta['status'] | string;
+    status?: 'Published' | 'Draft' | string;
     icon?: string;
     visible?: boolean;
-    content?: LandingContent[SectionId];
+    content?: unknown;
   }
 ) {
   const [updated] = await db
@@ -173,10 +214,7 @@ export async function updateLandingSectionRow(
   return updated ?? null;
 }
 
-export async function reorderLandingSections(
-  pageSlug: string,
-  orderedSectionIds: SectionId[]
-) {
+export async function reorderLandingSections(pageSlug: string, orderedSectionIds: string[]) {
   await db.transaction(async (tx) => {
     for (let i = 0; i < orderedSectionIds.length; i++) {
       const sectionId = orderedSectionIds[i]!;

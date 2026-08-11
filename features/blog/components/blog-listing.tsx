@@ -22,7 +22,8 @@ import { SectionHeader } from '@/components/shared/section-header';
 import { FadeIn } from '@/components/shared/motion/fade-in';
 import { StaggerChildren, StaggerItem } from '@/components/shared/motion/stagger-children';
 import { BlogSidebar } from '@/features/blog/components/blog-sidebar';
-import { blogCategories, blogHero, blogPosts, latestSection } from '@/features/blog/data/blog';
+import { blogHero, blogCategories, latestSection } from '@/features/blog/data/blog';
+import type { BlogPost } from '@/types';
 import { getIcon } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
@@ -36,7 +37,7 @@ function authorInitials(name?: string) {
     .toUpperCase();
 }
 
-export function BlogListing() {
+export function BlogListing({ posts }: { posts: BlogPost[] }) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string>('All Topics');
   const [selectCategory, setSelectCategory] = useState<string>('all');
@@ -45,7 +46,7 @@ export function BlogListing() {
     const activeCategory =
       selectCategory !== 'all' ? selectCategory : category === 'All Topics' ? 'all' : category;
 
-    return blogPosts.filter((post) => {
+    return posts.filter((post) => {
       const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
       const q = query.trim().toLowerCase();
       const matchesQuery =

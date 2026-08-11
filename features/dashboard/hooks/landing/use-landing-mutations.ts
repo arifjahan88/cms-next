@@ -3,39 +3,37 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { reorderLandingSections, updateLandingSection } from '@/lib/api/landing';
 import { landingKeys } from '@/lib/api/query-keys';
-import type { SectionId } from '@/features/dashboard/data/landing-cms';
-import type {
-  ReorderLandingSectionsValues,
-  UpdateLandingSectionValues,
-} from '@/lib/validations/landing';
+import type { PageSlug } from '@/features/dashboard/data/public-pages';
+import type { UpdateLandingSectionValues } from '@/lib/validations/landing';
 
-function useInvalidateLanding() {
+function useInvalidateLanding(page: PageSlug) {
   const queryClient = useQueryClient();
-  return () => queryClient.invalidateQueries({ queryKey: landingKeys.admin });
+  return () => queryClient.invalidateQueries({ queryKey: landingKeys.document(page) });
 }
 
-export function useUpdateLandingSectionMutation() {
-  const invalidate = useInvalidateLanding();
+export function useUpdateLandingSectionMutation(page: PageSlug = 'home') {
+  const invalidate = useInvalidateLanding(page);
 
   return useMutation({
     mutationFn: ({
       sectionId,
       payload,
     }: {
-      sectionId: SectionId;
+      sectionId: string;
       payload: UpdateLandingSectionValues;
-    }) => updateLandingSection(sectionId, payload),
+    }) => updateLandingSection(sectionId, payload, page),
     onSuccess: async () => {
       await invalidate();
     },
   });
 }
 
-export function useReorderLandingSectionsMutation() {
-  const invalidate = useInvalidateLanding();
+export function useReorderLandingSectionsMutation(page: PageSlug = 'home') {
+  const invalidate = useInvalidateLanding(page);
 
   return useMutation({
-    mutationFn: (payload: ReorderLandingSectionsValues) => reorderLandingSections(payload),
+    mutationFn: (orderedSectionIds: string[]) =>
+      reorderLandingSections(orderedSectionIds, page),
     onSuccess: async () => {
       await invalidate();
     },

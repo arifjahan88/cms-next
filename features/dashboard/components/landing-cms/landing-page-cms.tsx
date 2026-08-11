@@ -43,7 +43,8 @@ function sectionPayload(
 }
 
 export function LandingPageCms() {
-  const { data: remoteDoc } = useLandingDocumentSuspenseQuery();
+  const { data: remoteDocRaw } = useLandingDocumentSuspenseQuery('home');
+  const remoteDoc = remoteDocRaw as LandingPageDocument;
   const serverKey =
     remoteDoc.sections.map((s) => `${s.id}:${s.status}:${s.visible}:${s.title}`).join('|') +
     JSON.stringify(remoteDoc.content);
@@ -57,8 +58,8 @@ export function LandingPageCms() {
 
   const [activeId, setActiveId] = useState<SectionId>(() => remoteDoc.sections[0]?.id ?? 'hero');
 
-  const updateSection = useUpdateLandingSectionMutation();
-  const reorderSections = useReorderLandingSectionsMutation();
+  const updateSection = useUpdateLandingSectionMutation('home');
+  const reorderSections = useReorderLandingSectionsMutation('home');
 
   const active = doc.sections.find((s) => s.id === activeId) ?? doc.sections[0]!;
   const pagePublished = doc.sections.every((s) => s.status === 'Published');
@@ -146,9 +147,7 @@ export function LandingPageCms() {
     patchDoc((prev) => ({ ...prev, sections: next }));
     await runWithActionToast(
       () =>
-        reorderSections.mutateAsync({
-          orderedSectionIds: next.map((section) => section.id),
-        }),
+        reorderSections.mutateAsync(next.map((section) => section.id)),
       actionToast.reordering('sections')
     );
   }

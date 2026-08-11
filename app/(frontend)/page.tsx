@@ -1,12 +1,8 @@
 import type { Metadata } from 'next';
-import { HomePage } from '@/features/home';
-import { SITE } from '@/lib/constants';
+import { buildPageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: `${SITE.name} | Software Development Partner`,
-  description: SITE.description,
-};
-
-export default function Page() {
-  return <HomePage />;
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('home');
 }
+
+export { HomePage as default } from '@/features/home';

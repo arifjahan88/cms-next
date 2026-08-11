@@ -17,9 +17,9 @@ import { ImagePlaceholder } from '@/components/shared/image-placeholder';
 import { StaggerChildren, StaggerItem } from '@/components/shared/motion/stagger-children';
 import {
   portfolioFilters,
-  portfolioProjects,
   portfolioSortOptions,
 } from '@/features/portfolio/data/portfolio';
+import type { PortfolioItem } from '@/types';
 import { cn } from '@/lib/utils';
 
 type SortValue = (typeof portfolioSortOptions)[number]['value'];
@@ -34,15 +34,15 @@ const badgeColors: Record<string, string> = {
   Manufacturing: 'bg-indigo-500 text-white',
 };
 
-export function PortfolioGrid() {
+export function PortfolioGrid({ projects: initialProjects }: { projects: PortfolioItem[] }) {
   const [category, setCategory] = useState<string>('All Projects');
   const [sort, setSort] = useState<SortValue>('latest');
 
   const projects = useMemo(() => {
     const filtered =
       category === 'All Projects'
-        ? portfolioProjects
-        : portfolioProjects.filter((item) => item.category === category);
+        ? initialProjects
+        : initialProjects.filter((item) => item.category === category);
 
     return [...filtered].sort((a, b) => {
       if (sort === 'az') return a.title.localeCompare(b.title);
@@ -51,7 +51,7 @@ export function PortfolioGrid() {
       }
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
-  }, [category, sort]);
+  }, [category, sort, initialProjects]);
 
   return (
     <section className='py-12 md:py-16'>

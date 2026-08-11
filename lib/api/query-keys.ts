@@ -13,5 +13,40 @@ export const navigationKeys = {
 export const landingKeys = {
   all: ['landing'] as const,
   admin: ['landing', 'admin'] as const,
-  document: () => ['landing', 'admin', 'document'] as const,
+  document: (page = 'home') => ['landing', 'admin', 'document', page] as const,
+};
+
+export const seoKeys = {
+  all: ['seo'] as const,
+  settings: () => ['seo', 'settings'] as const,
+};
+
+export const blogKeys = {
+  all: ['blog'] as const,
+  admin: () => ['blog', 'admin'] as const,
+};
+
+export const caseStudyKeys = {
+  all: ['case-studies'] as const,
+  admin: () => ['case-studies', 'admin'] as const,
+};
+
+export const jobKeys = {
+  all: ['jobs'] as const,
+  admin: () => ['jobs', 'admin'] as const,
+};
+
+export const portfolioKeys = {
+  all: ['portfolio'] as const,
+  admin: () => ['portfolio', 'admin'] as const,
+};
+
+export const contactMessageKeys = {
+  all: ['contact-messages'] as const,
+  admin: () => ['contact-messages', 'admin'] as const,
+};
+
+export const consultationKeys = {
+  all: ['consultations'] as const,
+  admin: () => ['consultations', 'admin'] as const,
 };

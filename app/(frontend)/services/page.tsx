@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/metadata';
 import { ServicesPage } from '@/features/services';
 
-export const metadata: Metadata = {
-  title: 'Services',
-  description:
-    'Custom software, mobile, cloud, AI, and product engineering services from Zamil Technologies.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('services');
+}
 
 export default function Page() {
   return <ServicesPage />;

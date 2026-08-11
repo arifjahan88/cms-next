@@ -5,12 +5,15 @@ export const newsletterSchema = z.object({
 });
 
 export const contactSchema = z.object({
-  fullName: z.string().min(2, 'Name is required'),
-  email: z.email('Enter a valid email'),
-  company: z.string().optional(),
-  phone: z.string().optional(),
-  subject: z.string().min(2, 'Subject is required'),
-  message: z.string().min(10, 'Please provide more details'),
+  fullName: z.string().trim().min(2, 'Name is required'),
+  email: z.string().trim().pipe(z.email('Enter a valid email')),
+  company: z.string().trim().optional(),
+  phone: z.string().trim().optional(),
+  subject: z.string().trim().min(2, 'Subject is required'),
+  message: z
+    .string()
+    .trim()
+    .min(10, 'Message must be at least 10 characters'),
   consent: z.boolean().refine((v) => v, 'You must agree to continue'),
 });
 

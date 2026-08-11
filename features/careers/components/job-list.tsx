@@ -15,17 +15,17 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Container } from '@/components/shared/container';
 import { SectionHeader } from '@/components/shared/section-header';
+import type { JobOpening } from '@/types';
 import {
   jobDepartments,
   jobLocations,
-  jobs,
   openPositionsIntro,
 } from '@/features/careers/data/careers';
 
 const DEFAULT_DEPT = 'All Departments';
 const DEFAULT_LOC = 'All Locations';
 
-export function JobList() {
+export function JobList({ jobs }: { jobs: JobOpening[] }) {
   const [query, setQuery] = useState('');
   const [department, setDepartment] = useState<string>(DEFAULT_DEPT);
   const [location, setLocation] = useState<string>(DEFAULT_LOC);
