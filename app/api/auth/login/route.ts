@@ -3,7 +3,7 @@ import { db } from '@/db';
 import { UserRole, users } from '@/db/schema';
 import { apiError, apiSuccess } from '@/lib/api/response';
 import { verifyPassword } from '@/lib/auth/password';
-import { isAdminRole } from '@/lib/auth/roles';
+import { isDashboardRole } from '@/lib/auth/roles';
 import { createSessionToken, setSessionCookie } from '@/lib/auth/session';
 import { adminLoginSchema } from '@/lib/validations/forms';
 
@@ -43,9 +43,9 @@ export async function POST(request: Request) {
       });
     }
 
-    if (!isAdminRole(user.role)) {
+    if (!isDashboardRole(user.role)) {
       return apiError(request, {
-        message: 'Admin access required',
+        message: 'Dashboard access required',
         statusCode: 403,
       });
     }

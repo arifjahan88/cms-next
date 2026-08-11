@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import type { ContactMessageDto } from '@/db/queries/contact-messages';
+import { ConfirmAlertDialog } from '@/components/shared/confirm-alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
@@ -12,12 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import {
   EntityListCms,
   StatusBadge,
@@ -39,8 +35,7 @@ export function ContactMessagesCms() {
     queryFn: listContactMessages,
   });
 
-  const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: contactMessageKeys.all });
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: contactMessageKeys.all });
 
   const updateStatus = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) =>
@@ -53,6 +48,7 @@ export function ContactMessagesCms() {
   });
 
   const [selected, setSelected] = useState<ContactMessageDto | null>(null);
+  const [sheetDeleteOpen, setSheetDeleteOpen] = useState(false);
 
   async function handleStatusChange(id: string, status: string) {
     await runWithActionToast(
@@ -183,7 +179,7 @@ export function ContactMessagesCms() {
                 </div>
                 <Button
                   variant='destructive'
-                  onClick={() => handleDelete(selected)}
+                  onClick={() => setSheetDeleteOpen(true)}
                   disabled={removeMessage.isPending}
                 >
                   Delete message
@@ -193,6 +189,19 @@ export function ContactMessagesCms() {
           ) : null}
         </SheetContent>
       </Sheet>
+
+      <ConfirmAlertDialog
+        open={sheetDeleteOpen}
+        onOpenChange={setSheetDeleteOpen}
+        title='Delete this message?'
+        description='This contact message will be permanently removed.'
+        confirmLabel='Delete'
+        pending={removeMessage.isPending}
+        onConfirm={async () => {
+          if (!selected) return;
+          await handleDelete(selected);
+        }}
+      />
     </>
   );
 }

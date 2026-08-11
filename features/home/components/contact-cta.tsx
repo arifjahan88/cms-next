@@ -151,7 +151,7 @@ export function ContactCta({ data = defaultContactCta }: { data?: LandingContent
                     <FieldLabel htmlFor='phone' required>
                       Phone / WhatsApp
                     </FieldLabel>
-                    <Input id='phone' name='phone' required placeholder='+66 ...' />
+                    <Input id='phone' name='phone' required placeholder='+1 (555) 010-0000' />
                   </div>
                   <div className='space-y-1.5'>
                     <FieldLabel required>Country</FieldLabel>

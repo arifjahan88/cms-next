@@ -104,10 +104,7 @@ export const jobDepartments = [
 
 export const jobLocations = [
   'All Locations',
-  'Bangkok, Thailand',
-  'Dhaka, Bangladesh',
-  'Kuala Lumpur, Malaysia',
-  'Dubai, UAE',
+  'Demo City, Example Region',
   'Remote',
 ] as const;
 
@@ -117,7 +114,7 @@ export const jobs: JobOpening[] = [
     title: 'Senior Full-Stack Engineer',
     department: 'Engineering',
     type: 'Full-time',
-    location: 'Bangkok, Thailand',
+    location: 'Demo City, Example Region',
     description:
       'Lead feature delivery across React/Next.js and Node services for enterprise clients.',
     href: '/careers#apply',
@@ -127,7 +124,7 @@ export const jobs: JobOpening[] = [
     title: 'Mobile Engineer (Flutter)',
     department: 'Engineering',
     type: 'Full-time',
-    location: 'Dhaka, Bangladesh',
+    location: 'Demo City, Example Region',
     description: 'Build high-quality iOS and Android apps with a focus on performance and polish.',
     href: '/careers#apply',
   },
@@ -145,7 +142,7 @@ export const jobs: JobOpening[] = [
     title: 'QA Automation Engineer',
     department: 'QA',
     type: 'Full-time',
-    location: 'Kuala Lumpur, Malaysia',
+    location: 'Demo City, Example Region',
     description: 'Own test strategy, automation frameworks, and release confidence across squads.',
     href: '/careers#apply',
   },
@@ -154,7 +151,7 @@ export const jobs: JobOpening[] = [
     title: 'DevOps Engineer',
     department: 'DevOps',
     type: 'Full-time',
-    location: 'Dubai, UAE',
+    location: 'Demo City, Example Region',
     description:
       'Improve CI/CD, cloud infrastructure, and observability for multi-tenant products.',
     href: '/careers#apply',
@@ -164,7 +161,7 @@ export const jobs: JobOpening[] = [
     title: 'Product Manager',
     department: 'Product',
     type: 'Full-time',
-    location: 'Bangkok, Thailand',
+    location: 'Demo City, Example Region',
     description: 'Drive roadmaps, discovery, and delivery with engineering and design partners.',
     href: '/careers#apply',
   },

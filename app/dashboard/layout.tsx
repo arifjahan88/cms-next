@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { AdminShell } from '@/features/dashboard/components/admin-shell';
-import { isAdminRole } from '@/lib/auth/roles';
+import { isDashboardRole } from '@/lib/auth/roles';
 import { getSession } from '@/lib/auth/session';
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
 
-  if (!session || !isAdminRole(session.role)) {
+  if (!session || !isDashboardRole(session.role)) {
     redirect('/login');
   }
 

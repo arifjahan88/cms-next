@@ -14,3 +14,11 @@ export function roleLabel(role: number): string {
 export function isAdminRole(role: number): boolean {
   return role === UserRole.Admin;
 }
+
+export function isDashboardRole(role: number): boolean {
+  return role === UserRole.Admin || role === UserRole.User;
+}
+
+export function canWriteDashboard(role: number): boolean {
+  return role === UserRole.Admin;
+}

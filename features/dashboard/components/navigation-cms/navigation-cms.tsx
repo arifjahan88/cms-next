@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { toast } from '@/lib/toast';
 import { actionToast, runWithActionToast } from '@/lib/toast-action';
 import { ChevronDown, Save } from 'lucide-react';
+import { ConfirmAlertDialog } from '@/components/shared/confirm-alert-dialog';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -58,6 +59,7 @@ export function NavigationCms() {
 
   const [activeMenuId, setActiveMenuId] = useState(() => remoteMenus[0]?.id ?? '');
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const createItem = useCreateMenuItemMutation();
   const updateItem = useUpdateMenuItemMutation();
@@ -121,6 +123,7 @@ export function NavigationCms() {
     if (!activeItemId) return;
     const id = activeItemId;
     setActiveItemId(null);
+    setDeleteOpen(false);
     patchActiveMenu((menu) => ({
       ...menu,
       items: removeMenuItemFromTree(menu.items, id),
@@ -329,7 +332,7 @@ export function NavigationCms() {
         <EditMenuItem
           item={activeItem}
           onChange={handleItemChange}
-          onDelete={handleDeleteItem}
+          onDelete={() => setDeleteOpen(true)}
           onSelectChild={setActiveItemId}
           onReorderComplete={(children) => handleReorderComplete(activeItemId, children)}
           onAddChild={handleAddChild}
@@ -337,6 +340,20 @@ export function NavigationCms() {
           onUpdate={handleUpdateItem}
         />
       </div>
+
+      <ConfirmAlertDialog
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+        title='Delete menu item?'
+        description={
+          activeItem
+            ? `“${activeItem.label}” will be permanently removed from this menu.`
+            : 'This menu item will be permanently removed.'
+        }
+        confirmLabel='Delete'
+        pending={deleteItem.isPending}
+        onConfirm={handleDeleteItem}
+      />
 
       <div className='rounded-lg border bg-muted/40 px-4 py-3 text-center text-sm text-muted-foreground'>
         Changes are saved as drafts. Click{' '}

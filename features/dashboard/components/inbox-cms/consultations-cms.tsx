@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import type { ConsultationBookingDto } from '@/db/queries/consultation-bookings';
+import { ConfirmAlertDialog } from '@/components/shared/confirm-alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
@@ -12,12 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import {
   EntityListCms,
   StatusBadge,
@@ -39,8 +35,7 @@ export function ConsultationsCms() {
     queryFn: listConsultationBookings,
   });
 
-  const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: consultationKeys.all });
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: consultationKeys.all });
 
   const updateStatus = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) =>
@@ -53,6 +48,7 @@ export function ConsultationsCms() {
   });
 
   const [selected, setSelected] = useState<ConsultationBookingDto | null>(null);
+  const [sheetDeleteOpen, setSheetDeleteOpen] = useState(false);
 
   async function handleStatusChange(id: string, status: string) {
     await runWithActionToast(
@@ -211,7 +207,7 @@ export function ConsultationsCms() {
                 </div>
                 <Button
                   variant='destructive'
-                  onClick={() => handleDelete(selected)}
+                  onClick={() => setSheetDeleteOpen(true)}
                   disabled={removeBooking.isPending}
                 >
                   Delete consultation
@@ -221,6 +217,19 @@ export function ConsultationsCms() {
           ) : null}
         </SheetContent>
       </Sheet>
+
+      <ConfirmAlertDialog
+        open={sheetDeleteOpen}
+        onOpenChange={setSheetDeleteOpen}
+        title='Delete this consultation?'
+        description='This consultation booking will be permanently removed.'
+        confirmLabel='Delete'
+        pending={removeBooking.isPending}
+        onConfirm={async () => {
+          if (!selected) return;
+          await handleDelete(selected);
+        }}
+      />
     </>
   );
 }

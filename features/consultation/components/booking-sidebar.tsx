@@ -46,7 +46,7 @@ export function BookingSidebar({ date, onDateChange, slot, onSlotChange }: Booki
 
         <div className='mt-5 border-t pt-5'>
           <h4 className='text-sm font-semibold'>Available Time Slots</h4>
-          <p className='mt-0.5 text-xs text-muted-foreground'>ICT (Bangkok time)</p>
+          <p className='mt-0.5 text-xs text-muted-foreground'>UTC (demo timezone)</p>
           <div className='mt-3 grid grid-cols-2 gap-2'>
             {timeSlots.map((time) => (
               <Button

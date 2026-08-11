@@ -3,3 +3,6 @@ AUTH_SECRET=generate-a-long-random-string
 SEED_ADMIN_EMAIL=admin@zamil.local
 SEED_ADMIN_PASSWORD=ChangeMe123!
 SEED_ADMIN_NAME=Admin User
+SEED_VIEWER_EMAIL=viewer@zamil.local
+SEED_VIEWER_PASSWORD=ChangeMe123!
+SEED_VIEWER_NAME=Viewer User

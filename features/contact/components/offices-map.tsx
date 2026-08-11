@@ -6,7 +6,7 @@ export function OfficesMap() {
     <div className='space-y-5'>
       <div className='relative aspect-16/10 overflow-hidden rounded-2xl border bg-muted shadow-sm'>
         <ImagePlaceholder
-          label='[Office Map — Bangkok Location]'
+          label='[Office Map — Demo Location]'
           className='absolute inset-0 rounded-xl'
         />
       </div>

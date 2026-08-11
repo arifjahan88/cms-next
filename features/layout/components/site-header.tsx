@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone } from 'lucide-react';
+import { User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/shared/container';
 import { SiteLogo } from '@/components/shared/site-logo';
@@ -9,7 +9,6 @@ import { TopBar } from '@/features/layout/components/top-bar';
 import { MobileNav } from '@/features/layout/components/mobile-nav';
 import { OverflowNav } from '@/features/layout/components/overflow-nav';
 import { useScrolled } from '@/hooks/use-scrolled';
-import { SITE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { NavItem } from '@/types';
 
@@ -37,16 +36,6 @@ export function SiteHeader({
           <div className='ml-auto flex shrink-0 items-center gap-2'>
             <Button
               variant='outline'
-              size='icon'
-              className='hidden sm:inline-flex'
-              render={<a href={SITE.phoneHref} />}
-              aria-label='Call us'
-            >
-              <Phone className='size-4' />
-            </Button>
-
-            <Button
-              variant='outline'
               className='hidden border-primary text-primary hover:bg-primary/5 md:inline-flex'
               render={<Link href='/contact' />}
             >
@@ -54,6 +43,15 @@ export function SiteHeader({
             </Button>
             <Button className='hidden sm:inline-flex' render={<Link href='/book-consultation' />}>
               Book Free Consultation
+            </Button>
+            <Button
+              variant='outline'
+              size='icon'
+              className='hidden sm:inline-flex'
+              render={<Link href='/login' />}
+              aria-label='Login'
+            >
+              <User className='size-4' />
             </Button>
             <MobileNav items={mobileItems} />
           </div>

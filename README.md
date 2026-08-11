@@ -39,6 +39,9 @@ AUTH_SECRET=generate-a-long-random-string
 SEED_ADMIN_EMAIL=admin@zamil.local
 SEED_ADMIN_PASSWORD=ChangeMe123!
 SEED_ADMIN_NAME=Admin User
+SEED_VIEWER_EMAIL=viewer@zamil.local
+SEED_VIEWER_PASSWORD=ChangeMe123!
+SEED_VIEWER_NAME=Viewer User
 ```
 
 ### Database scripts
@@ -50,7 +53,8 @@ npm run db:seed       # create local admin (if missing)
 npm run db:studio     # Drizzle Studio
 ```
 
-Default seeded admin (local only): `admin@zamil.local` / `ChangeMe123!`
+Default seeded admin (local only): `admin@zamil.local` / `ChangeMe123!`  
+Optional view-only user (role 2): set `SEED_VIEWER_EMAIL` / `SEED_VIEWER_PASSWORD` then run seed — can browse the dashboard; create/edit/delete APIs return 403.
 
 ### Smoke test
 

@@ -1,9 +1,9 @@
 import { apiError, apiSuccess } from '@/lib/api/response';
-import { requireAdmin } from '@/lib/auth/require-admin';
+import { requireDashboardSession } from '@/lib/auth/require-admin';
 import { getAdminMenus } from '@/db/queries/navigation';
 
 export async function GET(request: Request) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardSession(request);
   if (!auth.ok) return auth.response;
 
   try {

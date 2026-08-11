@@ -4,13 +4,16 @@ import {
   updateContactMessage,
 } from '@/db/queries/contact-messages';
 import { apiError, apiSuccess } from '@/lib/api/response';
-import { requireAdmin } from '@/lib/auth/require-admin';
+import {
+  requireDashboardSession,
+  requireDashboardWrite,
+} from '@/lib/auth/require-admin';
 import { inboxStatusSchema } from '@/lib/validations/landing';
 
 type Params = { params: Promise<{ id: string }> };
 
 export async function GET(request: Request, { params }: Params) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardSession(request);
   if (!auth.ok) return auth.response;
 
   try {
@@ -30,7 +33,7 @@ export async function GET(request: Request, { params }: Params) {
 }
 
 export async function PATCH(request: Request, { params }: Params) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardWrite(request);
   if (!auth.ok) return auth.response;
 
   try {
@@ -61,7 +64,7 @@ export async function PATCH(request: Request, { params }: Params) {
 }
 
 export async function DELETE(request: Request, { params }: Params) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardWrite(request);
   if (!auth.ok) return auth.response;
 
   try {

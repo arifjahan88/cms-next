@@ -1,13 +1,13 @@
 import { upsertPageSeo } from '@/db/queries/page-seo';
 import { apiError, apiSuccess } from '@/lib/api/response';
-import { requireAdmin } from '@/lib/auth/require-admin';
+import { requireDashboardWrite } from '@/lib/auth/require-admin';
 import { revalidateSeo } from '@/lib/revalidate';
 import { pageSlugSchema, updatePageSeoSchema } from '@/lib/validations/landing';
 
 type Params = { params: Promise<{ slug: string }> };
 
 export async function PATCH(request: Request, { params }: Params) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardWrite(request);
   if (!auth.ok) return auth.response;
 
   try {

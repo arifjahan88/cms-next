@@ -1,9 +1,9 @@
 import { getAllPageSeo } from '@/db/queries/page-seo';
 import { apiError, apiSuccess } from '@/lib/api/response';
-import { requireAdmin } from '@/lib/auth/require-admin';
+import { requireDashboardSession } from '@/lib/auth/require-admin';
 
 export async function GET(request: Request) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardSession(request);
   if (!auth.ok) return auth.response;
 
   try {

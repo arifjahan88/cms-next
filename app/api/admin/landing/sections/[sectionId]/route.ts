@@ -8,7 +8,7 @@ import {
 import { isValidPageSection } from '@/features/dashboard/data/page-configs';
 import type { PageSlug } from '@/features/dashboard/data/public-pages';
 import { apiError, apiSuccess } from '@/lib/api/response';
-import { requireAdmin } from '@/lib/auth/require-admin';
+import { requireDashboardWrite } from '@/lib/auth/require-admin';
 import { revalidateLanding } from '@/lib/landing/revalidate';
 import {
   pageSlugSchema,
@@ -26,7 +26,7 @@ function resolvePageSlug(body: { page?: string }, request: Request): PageSlug | 
 }
 
 export async function PATCH(request: Request, { params }: Params) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardWrite(request);
   if (!auth.ok) return auth.response;
 
   try {

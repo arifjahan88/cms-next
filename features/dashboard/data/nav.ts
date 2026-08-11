@@ -7,6 +7,7 @@ import {
   LayoutTemplate,
   Menu,
   Search,
+  UserRound,
   Users,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -94,6 +95,16 @@ export const dashboardNav: DashboardNavGroup[] = [
       },
     ],
   },
+  {
+    label: 'Administration',
+    items: [
+      {
+        title: 'Users',
+        href: '/dashboard/users',
+        icon: UserRound,
+      },
+    ],
+  },
 ];
 
 export function getDashboardPageTitle(pathname: string): string {
@@ -107,6 +118,7 @@ export function getDashboardPageTitle(pathname: string): string {
   if (pathname.startsWith('/dashboard/portfolio')) return 'Portfolio';
   if (pathname.startsWith('/dashboard/contact-messages')) return 'Contact Messages';
   if (pathname.startsWith('/dashboard/consultations')) return 'Consultation Bookings';
+  if (pathname.startsWith('/dashboard/users')) return 'Users';
   if (pathname.startsWith('/dashboard/coming-soon')) return 'Coming Soon';
   if (pathname === '/dashboard' || pathname === '/dashboard/') return 'Dashboard';
   return 'Dashboard';

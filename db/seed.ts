@@ -4,7 +4,6 @@ import { hashPassword } from '@/lib/auth/password';
 import { db } from './index';
 import { UserRole, users } from './schema';
 import { seedNavigation } from './seed-navigation';
-import { seedLanding } from './seed-landing';
 import { seedPageSeo } from './seed-page-seo';
 import { seedAllPageSections } from './seed-pages';
 import {
@@ -42,8 +41,39 @@ async function seedAdmin() {
   console.log(`Seeded admin user: ${email}`);
 }
 
+async function seedViewer() {
+  const email = process.env.SEED_VIEWER_EMAIL?.toLowerCase();
+  if (!email) return;
+
+  const password = process.env.SEED_VIEWER_PASSWORD ?? 'ChangeMe123!';
+  const name = process.env.SEED_VIEWER_NAME ?? 'Viewer User';
+
+  const [existing] = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1);
+
+  if (existing) {
+    console.log(`Viewer already exists: ${email}`);
+    return;
+  }
+
+  const passwordHash = await hashPassword(password);
+
+  await db.insert(users).values({
+    email,
+    passwordHash,
+    name,
+    role: UserRole.User,
+  });
+
+  console.log(`Seeded viewer user: ${email}`);
+}
+
 async function seed() {
   await seedAdmin();
+  await seedViewer();
   await seedNavigation();
   await seedPageSeo();
   await seedAllPageSections();

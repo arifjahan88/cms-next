@@ -31,6 +31,7 @@ import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SiteLogo } from '@/components/shared/site-logo';
+import { ConfirmAlertDialog } from '@/components/shared/confirm-alert-dialog';
 import { useLogoutMutation } from '@/features/auth/hooks';
 import { dashboardNav, getDashboardPageTitle } from '@/features/dashboard/data/nav';
 import { roleLabel } from '@/lib/auth/roles';
@@ -150,6 +151,7 @@ export function AdminShell({
   const searchParams = useSearchParams();
   const search = searchParams.toString();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const logoutMutation = useLogoutMutation();
   const title = getDashboardPageTitle(pathname);
   const label = roleLabel(user.role);
@@ -311,7 +313,7 @@ export function AdminShell({
                     variant='destructive'
                     className='cursor-pointer'
                     disabled={logoutMutation.isPending}
-                    onClick={() => logoutMutation.mutate()}
+                    onClick={() => setLogoutOpen(true)}
                   >
                     <LogOut />
                     Sign out
@@ -324,6 +326,18 @@ export function AdminShell({
           <main className='flex-1 p-4 md:p-6'>{children}</main>
         </div>
       </div>
+
+      <ConfirmAlertDialog
+        open={logoutOpen}
+        onOpenChange={setLogoutOpen}
+        title='Sign out?'
+        description='You will need to sign in again to access the dashboard.'
+        confirmLabel='Sign out'
+        pending={logoutMutation.isPending}
+        onConfirm={async () => {
+          await logoutMutation.mutateAsync();
+        }}
+      />
     </TooltipProvider>
   );
 }

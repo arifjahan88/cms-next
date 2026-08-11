@@ -50,3 +50,9 @@ export const consultationKeys = {
   all: ['consultations'] as const,
   admin: () => ['consultations', 'admin'] as const,
 };
+
+export const userKeys = {
+  all: ['users'] as const,
+  admin: () => ['users', 'admin'] as const,
+  detail: (id: string) => ['users', 'admin', id] as const,
+};

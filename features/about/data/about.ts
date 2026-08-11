@@ -151,7 +151,7 @@ export const leadership: TeamMember[] = [
     image: '/images/office-team.svg',
     featured: true,
     linkedin: 'https://linkedin.com',
-    email: 'rashid@zamil.tech',
+    email: 'ceo@example.com',
   },
   {
     id: '2',

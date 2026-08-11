@@ -2,6 +2,7 @@
 
 import { useMemo, useState, type ReactNode } from 'react';
 import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
+import { ConfirmAlertDialog } from '@/components/shared/confirm-alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,9 +29,11 @@ type EntityListCmsProps<T extends { id: string }> = {
   columns: EntityColumn<T>[];
   onCreate?: () => void;
   onEdit?: (item: T) => void;
-  onDelete?: (item: T) => void;
+  onDelete?: (item: T) => void | Promise<void>;
   emptyMessage?: string;
   createLabel?: string;
+  deleteTitle?: string;
+  deleteDescription?: string;
 };
 
 export function statusBadgeVariant(status: string) {
@@ -68,8 +71,11 @@ export function EntityListCms<T extends { id: string }>({
   onDelete,
   emptyMessage = 'No items yet.',
   createLabel = 'Create',
+  deleteTitle = 'Delete this item?',
+  deleteDescription = 'This cannot be undone.',
 }: EntityListCmsProps<T>) {
   const [query, setQuery] = useState('');
+  const [pendingItem, setPendingItem] = useState<T | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -79,12 +85,6 @@ export function EntityListCms<T extends { id: string }>({
       columns.some((col) => col.searchValue?.(item)?.toLowerCase().includes(q))
     );
   }, [columns, items, query]);
-
-  function handleDelete(item: T) {
-    if (!onDelete) return;
-    if (!window.confirm('Delete this item? This cannot be undone.')) return;
-    onDelete(item);
-  }
 
   return (
     <div className='space-y-6'>
@@ -153,7 +153,7 @@ export function EntityListCms<T extends { id: string }>({
                             variant='ghost'
                             size='icon-sm'
                             className='text-destructive hover:text-destructive'
-                            onClick={() => handleDelete(item)}
+                            onClick={() => setPendingItem(item)}
                           >
                             <Trash2 />
                             <span className='sr-only'>Delete</span>
@@ -168,6 +168,20 @@ export function EntityListCms<T extends { id: string }>({
           </TableBody>
         </Table>
       </div>
+
+      <ConfirmAlertDialog
+        open={pendingItem !== null}
+        onOpenChange={(open) => {
+          if (!open) setPendingItem(null);
+        }}
+        title={deleteTitle}
+        description={deleteDescription}
+        confirmLabel='Delete'
+        onConfirm={async () => {
+          if (!pendingItem || !onDelete) return;
+          await onDelete(pendingItem);
+        }}
+      />
     </div>
   );
 }

@@ -178,7 +178,7 @@ export function AdminLogin() {
                   <Input
                     id='email'
                     type='email'
-                    placeholder='admin@zamiltech.com'
+                    placeholder='admin@example.com'
                     className='h-11 pl-9'
                     autoComplete='email'
                     aria-invalid={errors.email ? true : undefined}

@@ -4,21 +4,21 @@ export const SITE = {
   tagline: 'Trusted Software Development Partner',
   description:
     'We help businesses worldwide build secure, scalable digital products that drive growth.',
-  phone: '+66 2 026 3583',
-  phoneHref: 'tel:+6620263583',
-  email: 'hello@zamiltech.com',
-  skype: 'zamil.tech',
-  location: 'Bangkok, Thailand',
-  hours: 'Mon - Fri: 9:00 AM - 6:00 PM (ICT)',
-  whatsapp: '+66 81 234 5678',
+  phone: '+1 (555) 010-1000',
+  phoneHref: 'tel:+15550101000',
+  email: 'hello@example.com',
+  skype: 'demo.company',
+  location: 'Demo City, Example Region',
+  hours: 'Mon - Fri: 9:00 AM - 6:00 PM (UTC)',
+  whatsapp: '+1 (555) 010-1001',
   /** Static copyright year — avoid `new Date()` during prerender. */
   copyrightYear: new Date().getFullYear(),
   social: {
-    linkedin: 'https://linkedin.com',
-    facebook: 'https://facebook.com',
-    twitter: 'https://x.com',
-    youtube: 'https://youtube.com',
-    instagram: 'https://instagram.com',
+    linkedin: 'https://example.com/social/linkedin',
+    facebook: 'https://example.com/social/facebook',
+    twitter: 'https://example.com/social/twitter',
+    youtube: 'https://example.com/social/youtube',
+    instagram: 'https://example.com/social/instagram',
   },
 } as const;
 

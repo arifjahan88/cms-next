@@ -1,6 +1,6 @@
 import { getAdminPage, getAdminLanding } from '@/db/queries/landing';
 import { apiError, apiSuccess } from '@/lib/api/response';
-import { requireAdmin } from '@/lib/auth/require-admin';
+import { requireDashboardSession } from '@/lib/auth/require-admin';
 import { pageSlugSchema } from '@/lib/validations/landing';
 
 function resolvePageSlug(request: Request) {
@@ -12,7 +12,7 @@ function resolvePageSlug(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const auth = await requireAdmin(request);
+  const auth = await requireDashboardSession(request);
   if (!auth.ok) return auth.response;
 
   try {
