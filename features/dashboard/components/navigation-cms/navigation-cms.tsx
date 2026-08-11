@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { toast } from '@/lib/toast';
+import { actionToast, runWithActionToast } from '@/lib/toast-action';
 import { ChevronDown, Eye, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -99,21 +100,20 @@ export function NavigationCms() {
 
   async function handleAddItem() {
     if (!activeMenu) return;
-    try {
-      const item = await createItem.mutateAsync({
-        slug: activeMenu.slug,
-        payload: {
-          label: 'New Menu Item',
-          href: '/',
-          status: 'Draft',
-          icon: 'layers',
-        },
-      });
-      setActiveItemId(item.id);
-      toast.info({ title: 'Menu item added' });
-    } catch {
-      /* toast in mutation */
-    }
+    const item = await runWithActionToast(
+      () =>
+        createItem.mutateAsync({
+          slug: activeMenu.slug,
+          payload: {
+            label: 'New Menu Item',
+            href: '/',
+            status: 'Draft',
+            icon: 'layers',
+          },
+        }),
+      actionToast.adding('menu item')
+    );
+    setActiveItemId(item.id);
   }
 
   function handleItemChange(patch: Partial<MenuItem>) {
@@ -134,10 +134,13 @@ export function NavigationCms() {
       items: removeMenuItemFromTree(menu.items, id),
       updatedAt: 'Just now',
     }));
-    await deleteItem.mutateAsync(id);
+    await runWithActionToast(
+      () => deleteItem.mutateAsync(id),
+      actionToast.deleting('menu item')
+    );
   }
 
-  async function handleReorderSiblings(
+  async function handleReorderComplete(
     parentId: string | null,
     siblings: MenuItem[]
   ) {
@@ -157,13 +160,17 @@ export function NavigationCms() {
       }));
     }
 
-    await reorderItems.mutateAsync({
-      slug: activeMenu.slug,
-      payload: {
-        parentId,
-        orderedIds: siblings.map((c) => c.id),
-      },
-    });
+    await runWithActionToast(
+      () =>
+        reorderItems.mutateAsync({
+          slug: activeMenu.slug,
+          payload: {
+            parentId,
+            orderedIds: siblings.map((c) => c.id),
+          },
+        }),
+      actionToast.reordering('menu items')
+    );
   }
 
   async function handleAddChild() {
@@ -173,73 +180,91 @@ export function NavigationCms() {
       toast.error({ title: 'Cannot nest deeper than one submenu level' });
       return;
     }
-    try {
-      await createItem.mutateAsync({
-        slug: activeMenu.slug,
-        payload: {
-          label: 'New Sub Item',
-          href: '/',
-          status: 'Draft',
-          parentId: activeItemId,
-          icon: 'layers',
-        },
-      });
-      toast.info({ title: 'Sub item added' });
-    } catch {
-      /* toast in mutation */
-    }
+    await runWithActionToast(
+      () =>
+        createItem.mutateAsync({
+          slug: activeMenu.slug,
+          payload: {
+            label: 'New Sub Item',
+            href: '/',
+            status: 'Draft',
+            parentId: activeItemId,
+            icon: 'layers',
+          },
+        }),
+      actionToast.adding('sub item')
+    );
   }
 
   async function handleSaveItemDraft() {
     if (!activeItem) return;
     const next = { ...activeItem, status: 'Draft' as const };
     handleItemChange({ status: 'Draft' });
-    await updateItem.mutateAsync({
-      id: next.id,
-      payload: itemPayload(next, 'Draft'),
-    });
-    toast.success({ title: 'Saved as draft' });
+    await runWithActionToast(
+      () =>
+        updateItem.mutateAsync({
+          id: next.id,
+          payload: itemPayload(next, 'Draft'),
+        }),
+      actionToast.savingDraft('menu item')
+    );
   }
 
   async function handleUpdateItem() {
     if (!activeItem) return;
     const next = { ...activeItem, status: 'Published' as const };
     handleItemChange({ status: 'Published' });
-    await updateItem.mutateAsync({
-      id: next.id,
-      payload: itemPayload(next, 'Published'),
-    });
-    toast.success({ title: 'Menu item updated' });
+    await runWithActionToast(
+      () =>
+        updateItem.mutateAsync({
+          id: next.id,
+          payload: itemPayload(next, 'Published'),
+        }),
+      actionToast.updating('menu item')
+    );
   }
 
   async function handleSaveMenuDraft() {
     if (!activeMenu) return;
-    await updateMenu.mutateAsync({
-      slug: activeMenu.slug,
-      payload: { status: 'Draft' },
-    });
-    toast.success({ title: 'Draft saved' });
+    await runWithActionToast(
+      () =>
+        updateMenu.mutateAsync({
+          slug: activeMenu.slug,
+          payload: { status: 'Draft' },
+        }),
+      actionToast.savingDraft('menu')
+    );
   }
 
   async function handlePublishMenu() {
     if (!activeMenu) return;
-    await updateMenu.mutateAsync({
-      slug: activeMenu.slug,
-      payload: { status: 'Published' },
-    });
-    toast.success({ title: 'Published successfully' });
+    await runWithActionToast(
+      () =>
+        updateMenu.mutateAsync({
+          slug: activeMenu.slug,
+          payload: { status: 'Published' },
+        }),
+      actionToast.publishing('menu')
+    );
   }
 
   async function handlePublishAll() {
-    await Promise.all(
-      menus.map((menu) =>
-        updateMenu.mutateAsync({
-          slug: menu.slug,
-          payload: { status: 'Published' },
-        })
-      )
+    await runWithActionToast(
+      () =>
+        Promise.all(
+          menus.map((menu) =>
+            updateMenu.mutateAsync({
+              slug: menu.slug,
+              payload: { status: 'Published' },
+            })
+          )
+        ),
+      {
+        loading: 'Publishing all menus…',
+        success: 'All menus published',
+        error: 'Failed to publish all menus',
+      }
     );
-    toast.success({ title: 'Published all menus' });
   }
 
   if (!menus.length) {
@@ -329,7 +354,7 @@ export function NavigationCms() {
             menu={activeMenu}
             activeItemId={activeItemId}
             onSelectItem={setActiveItemId}
-            onReorderSiblings={handleReorderSiblings}
+            onReorderComplete={handleReorderComplete}
             onAddItem={handleAddItem}
           />
         ) : null}
@@ -338,8 +363,8 @@ export function NavigationCms() {
           onChange={handleItemChange}
           onDelete={handleDeleteItem}
           onSelectChild={setActiveItemId}
-          onReorderChildren={(children) =>
-            handleReorderSiblings(activeItemId, children)
+          onReorderComplete={(children) =>
+            handleReorderComplete(activeItemId, children)
           }
           onAddChild={handleAddChild}
           onSaveDraft={handleSaveItemDraft}

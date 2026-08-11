@@ -1,6 +1,5 @@
 'use client';
 
-import { toast } from '@/lib/toast';
 import { Link2, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -27,7 +26,7 @@ export function EditMenuItem({
   onChange,
   onDelete,
   onSelectChild,
-  onReorderChildren,
+  onReorderComplete,
   onAddChild,
   onSaveDraft,
   onUpdate,
@@ -36,7 +35,7 @@ export function EditMenuItem({
   onChange: (patch: Partial<MenuItem>) => void;
   onDelete: () => void;
   onSelectChild: (id: string) => void;
-  onReorderChildren: (children: MenuItem[]) => void;
+  onReorderComplete: (children: MenuItem[]) => void;
   onAddChild: () => void;
   onSaveDraft: () => void;
   onUpdate: () => void;
@@ -74,10 +73,7 @@ export function EditMenuItem({
           variant='ghost'
           size='sm'
           className='text-destructive hover:text-destructive'
-          onClick={() => {
-            onDelete();
-            toast.success({ title: 'Menu item deleted' });
-          }}
+          onClick={onDelete}
         >
           <Trash2 data-icon='inline-start' />
           Delete
@@ -131,7 +127,7 @@ export function EditMenuItem({
 
             <SubItemsList
               items={item.children ?? []}
-              onReorder={onReorderChildren}
+              onReorderComplete={onReorderComplete}
               onSelect={onSelectChild}
               onAdd={onAddChild}
             />

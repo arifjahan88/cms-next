@@ -22,6 +22,7 @@ export function MenuItemRow({
   expanded,
   onToggleExpand,
   onSelect,
+  onDragEnd,
   children,
 }: {
   item: MenuItem;
@@ -30,6 +31,7 @@ export function MenuItemRow({
   expanded?: boolean;
   onToggleExpand?: () => void;
   onSelect: () => void;
+  onDragEnd?: () => void;
   children?: ReactNode;
 }) {
   const controls = useDragControls();
@@ -46,7 +48,10 @@ export function MenuItemRow({
       dragControls={controls}
       dragElastic={0.08}
       onDragStart={() => setDragging(true)}
-      onDragEnd={() => setDragging(false)}
+      onDragEnd={() => {
+        setDragging(false);
+        onDragEnd?.();
+      }}
       transition={reorderSpring}
       whileDrag={{
         scale: 1.02,

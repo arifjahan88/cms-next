@@ -6,6 +6,7 @@ import { GripVertical, MoreHorizontal, Plus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { MenuItem } from '@/features/dashboard/data/navigation-cms';
+import { useReorderOnDrop } from '@/hooks/use-reorder-on-drop';
 import { cn } from '@/lib/utils';
 
 const reorderSpring = {
@@ -15,7 +16,15 @@ const reorderSpring = {
   mass: 0.65,
 };
 
-function SubItemRow({ item, onSelect }: { item: MenuItem; onSelect: () => void }) {
+function SubItemRow({
+  item,
+  onSelect,
+  onDragEnd,
+}: {
+  item: MenuItem;
+  onSelect: () => void;
+  onDragEnd: () => void;
+}) {
   const controls = useDragControls();
   const [dragging, setDragging] = useState(false);
 
@@ -28,7 +37,10 @@ function SubItemRow({ item, onSelect }: { item: MenuItem; onSelect: () => void }
       dragListener={false}
       dragControls={controls}
       onDragStart={() => setDragging(true)}
-      onDragEnd={() => setDragging(false)}
+      onDragEnd={() => {
+        setDragging(false);
+        onDragEnd();
+      }}
       transition={reorderSpring}
       whileDrag={{ scale: 1.02, boxShadow: '0 8px 20px rgba(15,23,42,0.12)' }}
       className={cn(
@@ -69,15 +81,21 @@ function SubItemRow({ item, onSelect }: { item: MenuItem; onSelect: () => void }
 
 export function SubItemsList({
   items,
-  onReorder,
+  onReorderComplete,
   onSelect,
   onAdd,
 }: {
   items: MenuItem[];
-  onReorder: (next: MenuItem[]) => void;
+  onReorderComplete: (next: MenuItem[]) => void;
   onSelect: (id: string) => void;
   onAdd: () => void;
 }) {
+  const { orderedItems, onReorder, onDragEnd } = useReorderOnDrop(
+    items,
+    onReorderComplete,
+    (item) => item.id
+  );
+
   return (
     <div className='space-y-3 rounded-lg border p-3'>
       <div className='flex items-center justify-between gap-2'>
@@ -93,18 +111,23 @@ export function SubItemsList({
           Add Sub Item
         </Button>
       </div>
-      {items.length === 0 ? (
+      {orderedItems.length === 0 ? (
         <p className='text-xs text-muted-foreground'>No sub items yet.</p>
       ) : (
         <Reorder.Group
           as='ul'
           axis='y'
-          values={items}
+          values={orderedItems}
           onReorder={onReorder}
           className='flex flex-col gap-2'
         >
-          {items.map((item) => (
-            <SubItemRow key={item.id} item={item} onSelect={() => onSelect(item.id)} />
+          {orderedItems.map((item) => (
+            <SubItemRow
+              key={item.id}
+              item={item}
+              onSelect={() => onSelect(item.id)}
+              onDragEnd={onDragEnd}
+            />
           ))}
         </Reorder.Group>
       )}

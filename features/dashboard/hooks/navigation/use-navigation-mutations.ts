@@ -1,8 +1,6 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from '@/lib/toast';
-import { ApiError } from '@/lib/api/client';
 import {
   createNavigationMenuItem,
   deleteNavigationMenuItem,
@@ -17,10 +15,6 @@ import type {
   UpdateMenuItemValues,
   UpdateMenuValues,
 } from '@/lib/validations/navigation';
-
-function mutationErrorMessage(error: unknown, fallback: string) {
-  return error instanceof ApiError ? error.message : fallback;
-}
 
 function useInvalidateMenus() {
   const queryClient = useQueryClient();
@@ -42,11 +36,6 @@ export function useUpdateMenuMutation() {
     onSuccess: async () => {
       await invalidate();
     },
-    onError: (error) => {
-      toast.error({
-        title: mutationErrorMessage(error, 'Failed to update menu'),
-      });
-    },
   });
 }
 
@@ -63,11 +52,6 @@ export function useCreateMenuItemMutation() {
     }) => createNavigationMenuItem(slug, payload),
     onSuccess: async () => {
       await invalidate();
-    },
-    onError: (error) => {
-      toast.error({
-        title: mutationErrorMessage(error, 'Failed to create menu item'),
-      });
     },
   });
 }
@@ -86,11 +70,6 @@ export function useUpdateMenuItemMutation() {
     onSuccess: async () => {
       await invalidate();
     },
-    onError: (error) => {
-      toast.error({
-        title: mutationErrorMessage(error, 'Failed to update menu item'),
-      });
-    },
   });
 }
 
@@ -101,12 +80,6 @@ export function useDeleteMenuItemMutation() {
     mutationFn: (id: string) => deleteNavigationMenuItem(id),
     onSuccess: async () => {
       await invalidate();
-      toast.success({ title: 'Menu item deleted' });
-    },
-    onError: (error) => {
-      toast.error({
-        title: mutationErrorMessage(error, 'Failed to delete menu item'),
-      });
     },
   });
 }
@@ -124,11 +97,6 @@ export function useReorderMenuItemsMutation() {
     }) => reorderNavigationMenuItems(slug, payload),
     onSuccess: async () => {
       await invalidate();
-    },
-    onError: (error) => {
-      toast.error({
-        title: mutationErrorMessage(error, 'Failed to reorder items'),
-      });
     },
   });
 }
